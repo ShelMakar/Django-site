@@ -6,7 +6,7 @@ source venv/bin/activate
 
 ## установка зависимостей
 ``` bash
-pip install requirements.txt
+pip install -r requirements.txt
 ```
 
 ## запуск
