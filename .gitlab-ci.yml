@@ -5,4 +5,4 @@ flake8:
     stage: linting
     image: registry.gitlab.com/pipeline-components/flake8:latest
     script:
-        - flake8 -- verbose .
+        - flake8 --verbose .
