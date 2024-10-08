@@ -1,24 +1,17 @@
-name: flake8 Lint
+stages:
+  - linting
+  - test
 
-on: [push, pull_request]
+flake8:
+    stage: linting
+    image: registry.gitlab.com/pipeline-components/flake8:latest
+    script:
+        - pip install -r requirements/test.txt
+        - flake8 --verbose .
 
-jobs:
-  build:
-
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out source repository
-        uses: actions/checkout@v3
-      - uses: registry.gitlab.com/black:latest
-      - name: Set up Python environment
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.12"
-      - name: flake8 Lint
-        uses: py-actions/flake8@v2
-        with:
-          max-line-length: "79"
-          plugins:
-            - "flake8-quotes"
-            - "flake8-import-order"
-            - "pep8-naming"
+black-check:
+  stage: test
+  image: registry.gitlab.com/pipeline-components/black:latest
+  script:
+    - source venv/bin/activate
+    - black -- check .
