@@ -13,4 +13,4 @@ black:
     stage: test
     image: registry.gitlab.com/pipeline-components/black:latest
     script:
-        - black --check --verbose -l 79 --skip-string-normalization .
+        - black --check .
