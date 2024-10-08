@@ -10,7 +10,7 @@ flake8:
         - flake8 --verbose .
 
 black:
-    stage: linting
+    stage: test
     image: registry.gitlab.com/pipeline-components/black:latest
     script:
-        - black --check -l 79 .
+        - black --check .
