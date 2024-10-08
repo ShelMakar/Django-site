@@ -9,9 +9,8 @@ flake8:
         - pip install -r requirements/test.txt
         - flake8 --verbose .
 
-black-check:
-  stage: test
-  image: registry.gitlab.com/pipeline-components/black:latest
-  script:
-    - source venv/bin/activate
-    - black -- check .
+black:
+    stage: linting
+    image: registry.gitlab.com/pipeline-components/black:latest
+    script:
+        - black --check -l 79 .
