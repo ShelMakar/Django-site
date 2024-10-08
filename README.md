@@ -1,5 +1,5 @@
 ## статус пайплайна
-![pipeline status](https://gitlab.crja72.ru/django/2024/autumn/course/students/172544-makarshelyag-course-1187/-/blob/main/.gitlab-ci.yml/badge.svg)
+![pipeline status](https://gitlab.crja72.ru/django/2024/autumn/course/students/172544-makarshelyag-course-1187/badges/main/pipeline.svg)
 
 ## ативация виртуального окружения
 ``` bash
