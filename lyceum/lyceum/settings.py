@@ -19,7 +19,9 @@ DEBUG_ENV = os.getenv('DJANGO_DEBUG', 'false').lower()
 DEBUG = DEBUG_ENV in ('true', 'yes', '1', 'y', 't')
 
 
-ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', '127.0.0.1, localhost').split(', ')
+ALLOWED_HOSTS = os.getenv(
+    'DJANGO_ALLOWED_HOSTS', '127.0.0.1, localhost'
+).split(', ')
 
 # Application definition
 
