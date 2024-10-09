@@ -19,4 +19,5 @@ test:
     stage: test
     script:
       - cd lyceum
+      - pip install -r requirements/test.txt
       - python manage.py test

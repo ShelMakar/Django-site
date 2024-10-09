@@ -5,3 +5,4 @@ flake8-import-order==0.18.2
 flake8-quotes==3.4.0
 pep8-naming==0.14.1
 python-dotenv==1.0.1
+django-debug-toolbar==4.2.0
