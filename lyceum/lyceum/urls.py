@@ -22,7 +22,6 @@ from lyceum import settings
 urlpatterns = [
     path('', include('homepage.urls')),
     path('catalog/', include('catalog.urls')),
-    path('catalog/<int:el>', include('catalog.urls')),
     path('about/', include('about.urls')),
 ]
 

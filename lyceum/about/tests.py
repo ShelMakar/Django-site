@@ -1,8 +1,8 @@
-from unittest import TestCase
+from django.test import TestCase, Client
 
 
 class NumbersTest(TestCase):
 
     def test_about(self):
-        response = self.client.get('about/')
+        response = Client().get('/about/')
         self.assertEqual(response.status_code, 200, 'about feels bad')
