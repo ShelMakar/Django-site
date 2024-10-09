@@ -20,8 +20,8 @@ DEBUG = DEBUG_ENV in ('true', 'yes', '1', 'y', 't')
 
 
 ALLOWED_HOSTS = os.getenv(
-    'DJANGO_ALLOWED_HOSTS', '127.0.0.1, localhost'
-).split(', ')
+    'DJANGO_ALLOWED_HOSTS', '127.0.0.1,localhost'
+).split(',')
 
 # Application definition
 
