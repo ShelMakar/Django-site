@@ -24,7 +24,6 @@ ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', '*').split(',')
 # Application definition
 
 INSTALLED_APPS = [
-    'debug_toolbar',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -37,7 +36,6 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -47,9 +45,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-INTERNAL_IPS = [
-    '127.0.0.1',
-]
+if DEBUG:
+    MIDDLEWARE += ("debug_toolbar.middleware.DebugToolbarMiddleware",)
+    INSTALLED_APPS += ("debug_toolbar",)
+    INTERNAL_IPS = [
+        "127.0.0.1",
+    ]
 
 ROOT_URLCONF = 'lyceum.urls'
 
