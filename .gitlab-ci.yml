@@ -18,4 +18,5 @@ black:
 test:
     stage: test
     script:
-        - python manage.py test
+      - cd lyceum
+      - python manage.py test
