@@ -1,5 +1,5 @@
 from django.test import Client, TestCase
-from http import HTTPStatus
+
 
 class NumbersTest(TestCase):
 
