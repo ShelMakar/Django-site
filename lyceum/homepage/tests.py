@@ -1,3 +1,4 @@
+from http import HTTPStatus
 from django.test import Client, TestCase
 
 
@@ -9,5 +10,5 @@ class NumbersTest(TestCase):
 
     def test_tea(self):
         response = Client().get('/coffee/')
-        self.assertEqual(response.status_code, 418)
-        self.assertEqual(response.content.decode(), '<body>Я чайник</body>')
+        self.assertEqual(response.status_code, HTTPStatus.IM_A_TEAPOT)
+        self.assertEqual(response.content.decode(), 'Я чайник')

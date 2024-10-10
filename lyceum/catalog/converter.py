@@ -5,4 +5,4 @@ class OnlyPolozhInt:
         return int(value)
 
     def to_url(self, value):
-        return '%s' % value
+        return str(value)
