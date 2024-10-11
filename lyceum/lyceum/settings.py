@@ -29,7 +29,6 @@ ALLOW_REVERSE = ALLOW_REVERSE_ENV in (
 )
 
 
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
