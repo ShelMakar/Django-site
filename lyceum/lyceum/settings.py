@@ -21,6 +21,18 @@ DEBUG = DEBUG_ENV in ('true', 'yes', '1', 'y', 't')
 
 ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', '*').split(',')
 
+ALLOW_REVERSE_ENV = os.getenv('DJANGO_ALLOW_REVERSE', 'true').lower()
+ALLOW_REVERSE = ALLOW_REVERSE_ENV in (
+    '',
+    'true',
+    'True',
+    'yes',
+    'YES',
+    '1',
+    'y',
+)
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -51,6 +63,9 @@ if DEBUG:
     INTERNAL_IPS = [
         '127.0.0.1',
     ]
+
+if ALLOW_REVERSE:
+    MIDDLEWARE += ('lyceum.middleware.Middleware',)
 
 ROOT_URLCONF = 'lyceum.urls'
 
