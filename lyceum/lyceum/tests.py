@@ -1,4 +1,5 @@
-from django.test import Client, override_settings, TestCase
+from django.test import Client, TestCase
+from django.test import override_settings
 
 
 from lyceum.middleware import Middleware
