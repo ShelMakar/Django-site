@@ -23,4 +23,3 @@ class ReverseWordsMiddlewareTests(TestCase):
         for i in range(15):
             response = client.get('/coffee/')
             self.assertEqual(response.content.decode(), 'Я чайник', 'false')
-

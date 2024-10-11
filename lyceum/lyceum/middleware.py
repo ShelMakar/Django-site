@@ -15,6 +15,7 @@ class Middleware:
 
         if settings.ALLOW_REVERSE:
             if Middleware.cnt % 10 == 0:
+
                 def reverse(words):
                     alphabet = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя'
                     if len(words) != 0:
