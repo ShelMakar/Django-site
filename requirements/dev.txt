@@ -1,2 +1,2 @@
+-r prod.txt
 black==24.8.0
-Django==4.2
