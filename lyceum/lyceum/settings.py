@@ -55,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'lyceum.middleware.Middleware',
 ]
 
 if DEBUG:
@@ -63,9 +64,6 @@ if DEBUG:
     INTERNAL_IPS = [
         '127.0.0.1',
     ]
-
-if ALLOW_REVERSE:
-    MIDDLEWARE += ('lyceum.middleware.Middleware',)
 
 ROOT_URLCONF = 'lyceum.urls'
 
