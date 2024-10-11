@@ -1,4 +1,4 @@
-from . import settings
+from django.conf import settings
 
 
 class Middleware:
@@ -10,6 +10,8 @@ class Middleware:
     def __call__(self, request):
         response = self.get_response(request)
         Middleware.cnt += 1
+        if str(settings.ALLOW_REVERSE).lower() == "false":
+            return response
 
         if settings.ALLOW_REVERSE:
             if Middleware.cnt % 10 == 0:

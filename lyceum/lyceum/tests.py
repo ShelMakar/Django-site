@@ -1,4 +1,5 @@
 from django.test import Client, TestCase, override_settings
+import django.conf
 
 from lyceum.middleware import Middleware
 
@@ -18,7 +19,8 @@ class ReverseWordsMiddlewareTests(TestCase):
     def test_middleware_false(self):
         Middleware.cnt = 0
         client = Client()
+        print(django.conf.settings.ALLOW_REVERSE)
         for i in range(15):
             response = client.get('/coffee/')
-            self.assertEqual(response.content.decode('utf-8'), 'Я чайник', 'false')
+            self.assertEqual(response.content.decode(), 'Я чайник', 'false')
 
