@@ -9,7 +9,7 @@ class ReverseWordsMiddlewareTests(TestCase):
 
     @override_settings(ALLOW_REVERSE=True)
     def test_middleware_none(self):
-        lyceum.middleware.Middleware.cnt = 0
+        lyceum.middleware.Middleware.count = 0
         for i in range(9):
             response = Client().get('/coffee/')
             self.assertEqual(response.content.decode(), 'Я чайник')
@@ -18,7 +18,7 @@ class ReverseWordsMiddlewareTests(TestCase):
 
     @override_settings(ALLOW_REVERSE=False)
     def test_middleware_false(self):
-        lyceum.middleware.Middleware.cnt = 0
+        lyceum.middleware.Middleware.count = 0
         client = Client()
         for i in range(15):
             response = client.get('/coffee/')
