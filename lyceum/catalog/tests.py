@@ -5,7 +5,6 @@ import django.test
 from parametrize import parametrize
 
 
-
 class NumbersTest(django.test.TestCase):
 
     @parametrize('url', ['/catalog/', '/catalog/1/', '/catalog/re/4548878/'])
