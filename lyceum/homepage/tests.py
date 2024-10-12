@@ -1,15 +1,15 @@
 from http import HTTPStatus
 
-from django.test import Client, TestCase
+import django.test
 
 
-class NumbersTest(TestCase):
+class NumbersTest(django.test.TestCase):
 
     def test_homepage(self):
-        response = Client().get('/')
+        response = django.teest.Client().get('/')
         self.assertEqual(response.status_code, 200, 'homepage feels bad')
 
     def test_tea(self):
-        response = Client().get('/coffee/')
+        response = django.test.Client().get('/coffee/')
         self.assertEqual(response.status_code, HTTPStatus.IM_A_TEAPOT)
         self.assertEqual(response.content.decode(), 'Я чайник')

@@ -2,19 +2,19 @@ from django.conf import settings
 
 
 class Middleware:
-    cnt = 0
+    count = 0
 
     def __init__(self, get_response):
         self.get_response = get_response
 
     def __call__(self, request):
         response = self.get_response(request)
-        Middleware.cnt += 1
+        Middleware.count += 1
         if str(settings.ALLOW_REVERSE).lower() == 'false':
             return response
 
         if settings.ALLOW_REVERSE:
-            if Middleware.cnt % 10 == 0:
+            if Middleware.count % 10 == 0:
 
                 def reverse(words):
                     alphabet = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя'

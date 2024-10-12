@@ -1,6 +1,6 @@
 from django.urls import include, path
 
-from lyceum import settings
+import lyceum.settings
 
 urlpatterns = [
     path('', include('homepage.urls')),
@@ -8,7 +8,7 @@ urlpatterns = [
     path('about/', include('about.urls')),
 ]
 
-if settings.DEBUG:
+if lyceum.settings.DEBUG:
     import debug_toolbar
 
     urlpatterns += (path('__debug__/', include(debug_toolbar.urls)),)
