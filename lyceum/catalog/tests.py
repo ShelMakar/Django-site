@@ -1,7 +1,9 @@
 import http
 
-from parametrize import parametrize
 import django.test
+
+from parametrize import parametrize
+
 
 
 class NumbersTest(django.test.TestCase):
