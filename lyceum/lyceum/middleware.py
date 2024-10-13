@@ -10,10 +10,8 @@ class Middleware:
     def __call__(self, request):
         response = self.get_response(request)
         Middleware.count += 1
-        if str(django.conf.settings.ALLOW_REVERSE).lower() == 'false':
-            return response
 
-        if django.conf.settings.ALLOW_REVERSE:
+        if str(django.conf.settings.ALLOW_REVERSE).lower() != 'false':
             if Middleware.count % 10 == 0:
 
                 def reverse(words):
@@ -26,3 +24,4 @@ class Middleware:
                 word = response.content.decode().split(' ')
                 response.content = ' '.join(map(reverse, word))
             return response
+        return response
