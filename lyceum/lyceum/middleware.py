@@ -1,4 +1,4 @@
-from django.conf import settings
+import django.conf
 
 
 class Middleware:
@@ -10,10 +10,10 @@ class Middleware:
     def __call__(self, request):
         response = self.get_response(request)
         Middleware.count += 1
-        if str(settings.ALLOW_REVERSE).lower() == 'false':
+        if str(django.conf.settings.ALLOW_REVERSE).lower() == 'false':
             return response
 
-        if settings.ALLOW_REVERSE:
+        if django.conf.settings.ALLOW_REVERSE:
             if Middleware.count % 10 == 0:
 
                 def reverse(words):
