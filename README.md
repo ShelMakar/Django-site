@@ -28,8 +28,7 @@ pip install -r test.txt
 cp config.env .env
 ```
 ## Ознакомиться с ER диаграммой можете ниже
-<image src="D:\PyCharmProjects\lyceum_Django\lyceum\ER.jpg" alt="ER - диаграмма">
-
+![alt text](https://gitlab.crja72.ru/django/2024/autumn/course/students/172544-makarshelyag-course-1187/badges/main/ER.jpg)
 ## Для тестирования проекта используйте зависимости, установленные ранее и команду
 ```bash
 cd lyceum
