@@ -1,5 +1,5 @@
-import django.urls
 import django.contrib
+import django.urls
 
 import lyceum.settings
 

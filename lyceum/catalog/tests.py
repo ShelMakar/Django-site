@@ -3,9 +3,10 @@ import http
 import django.core.exceptions
 import django.test
 
+import catalog.models
+
 from parametrize import parametrize
 
-import catalog.models
 
 
 class NumbersTest(django.test.TestCase):

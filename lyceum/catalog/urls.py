@@ -1,7 +1,8 @@
-import django.urls
-
 import catalog.converter
 import catalog.views
+
+import django.urls
+
 
 
 django.urls.register_converter(catalog.converter.OnlyPolozhInt, 'polozh_int')

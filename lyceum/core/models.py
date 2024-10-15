@@ -1,5 +1,5 @@
-import django.db
 import django.core.validators
+import django.db
 
 
 class AbstractModel(django.db.models.Model):
@@ -8,12 +8,12 @@ class AbstractModel(django.db.models.Model):
     )
     is_published = django.db.models.BooleanField(
         default=True,
-        verbose_name='Опубликовано',
+        verbose_name='опубликовано',
         help_text='статус `опубликовано`',
     )
     name = django.db.models.CharField(
         max_length=150,
-        verbose_name='Название',
+        verbose_name='название',
         help_text='напишите сюда название',
     )
 

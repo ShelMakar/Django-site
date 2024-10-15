@@ -1,22 +1,13 @@
+import catalog.validators
+
 import django.core.exceptions
 import django.core.validators
 import django.db
-
-import catalog.validators
 
 import core.models
 
 
 alphanumeric = django.core.validators.RegexValidator(r'^[a-zA-Z0-9_-]*$')
-
-import django.core.exceptions
-
-
-def custom_validator(value):
-    if 'превосходно' not in value and 'роскошно' not in value:
-        raise django.core.exceptions.ValidationError(
-            'в слове нет необходимых слов'
-        )
 
 
 class Tag(core.models.AbstractModel):
@@ -24,13 +15,13 @@ class Tag(core.models.AbstractModel):
         unique=True,
         max_length=200,
         validators=[alphanumeric],
-        verbose_name='Слаг',
+        verbose_name='слаг',
         help_text='напишите слаг',
     )
 
     class Meta:
-        verbose_name = 'Тег'
-        verbose_name_plural = 'Теги'
+        verbose_name = 'тег'
+        verbose_name_plural = 'теги'
 
     def __str__(self):
         return self.name[:15]
@@ -41,7 +32,7 @@ class Category(core.models.AbstractModel):
         unique=True,
         max_length=200,
         validators=[alphanumeric],
-        verbose_name='Слаг',
+        verbose_name='слаг',
         help_text='напишите слаг',
     )
     weight = django.db.models.IntegerField(
@@ -50,13 +41,13 @@ class Category(core.models.AbstractModel):
             django.core.validators.MaxValueValidator(32767),
             django.core.validators.MinValueValidator(1),
         ],
-        verbose_name='Вес',
+        verbose_name='вес',
         help_text='выбирите вес',
     )
 
     class Meta:
-        verbose_name = 'Категория'
-        verbose_name_plural = 'Категории'
+        verbose_name = 'категория'
+        verbose_name_plural = 'категории'
 
     def __str__(self):
         return self.name[:15]
@@ -64,20 +55,20 @@ class Category(core.models.AbstractModel):
 
 class Item(core.models.AbstractModel):
     category = django.db.models.OneToOneField(
-        Category, on_delete=django.db.models.CASCADE, verbose_name='Категория'
+        Category, on_delete=django.db.models.CASCADE, verbose_name='категория'
     )
     text = django.db.models.TextField(
         validators=[
             catalog.validators.CustomValidator('превосходно', 'роскошно')
         ],
-        verbose_name='Текст',
+        verbose_name='текст',
         help_text='напишите необходимый текст',
     )
-    tags = django.db.models.ManyToManyField(Tag, verbose_name='Теги')
+    tags = django.db.models.ManyToManyField(Tag, verbose_name='теги')
 
     class Meta:
-        verbose_name = 'Товар'
-        verbose_name_plural = 'Товары'
+        verbose_name = 'товар'
+        verbose_name_plural = 'товары'
 
     def __str__(self):
         return self.name[:15]
