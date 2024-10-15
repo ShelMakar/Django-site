@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'about.apps.AboutConfig',
     'catalog.apps.CatalogConfig',
+    'core.apps.CoreConfig',
     'homepage.apps.HomepageConfig',
 ]
 
@@ -115,7 +116,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'UTC'
 

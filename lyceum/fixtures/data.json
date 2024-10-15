@@ -1,0 +1,162 @@
+[
+{
+  "model": "catalog.tag",
+  "pk": 2,
+  "fields": {
+    "is_published": true,
+    "name": "Test",
+    "slug": "test_text"
+  }
+},
+{
+  "model": "catalog.tag",
+  "pk": 3,
+  "fields": {
+    "is_published": true,
+    "name": "Макар",
+    "slug": "test-text"
+  }
+},
+{
+  "model": "catalog.tag",
+  "pk": 4,
+  "fields": {
+    "is_published": true,
+    "name": "тег 4",
+    "slug": "tag-test4"
+  }
+},
+{
+  "model": "catalog.tag",
+  "pk": 5,
+  "fields": {
+    "is_published": true,
+    "name": "тест 3",
+    "slug": "tag-test-not3"
+  }
+},
+{
+  "model": "catalog.tag",
+  "pk": 6,
+  "fields": {
+    "is_published": true,
+    "name": "3 это 4, а 4 это 3",
+    "slug": "3443"
+  }
+},
+{
+  "model": "catalog.category",
+  "pk": 2,
+  "fields": {
+    "is_published": true,
+    "name": "тест",
+    "slug": "test_text",
+    "weight": 100
+  }
+},
+{
+  "model": "catalog.category",
+  "pk": 3,
+  "fields": {
+    "is_published": true,
+    "name": "Еще один тест",
+    "slug": "test-text",
+    "weight": 100
+  }
+},
+{
+  "model": "catalog.category",
+  "pk": 4,
+  "fields": {
+    "is_published": true,
+    "name": "лалала",
+    "slug": "tag-test-not3",
+    "weight": 100
+  }
+},
+{
+  "model": "catalog.category",
+  "pk": 5,
+  "fields": {
+    "is_published": true,
+    "name": "почему так",
+    "slug": "tag-test4",
+    "weight": 100
+  }
+},
+{
+  "model": "catalog.category",
+  "pk": 6,
+  "fields": {
+    "is_published": true,
+    "name": "ну ладно",
+    "slug": "3443",
+    "weight": 100
+  }
+},
+{
+  "model": "catalog.item",
+  "pk": 1,
+  "fields": {
+    "is_published": true,
+    "name": "лалала",
+    "category": 2,
+    "text": "вопрос превосходно!",
+    "tags": [
+      2
+    ]
+  }
+},
+{
+  "model": "catalog.item",
+  "pk": 2,
+  "fields": {
+    "is_published": true,
+    "name": "товары для тестов",
+    "category": 3,
+    "text": "можно играть со словом РОСКОШНО",
+    "tags": [
+      3
+    ]
+  }
+},
+{
+  "model": "catalog.item",
+  "pk": 3,
+  "fields": {
+    "is_published": true,
+    "name": "товар 3",
+    "category": 4,
+    "text": "Роскошно?",
+    "tags": [
+      6
+    ]
+  }
+},
+{
+  "model": "catalog.item",
+  "pk": 4,
+  "fields": {
+    "is_published": true,
+    "name": "лалала2",
+    "category": 5,
+    "text": "!превосходно",
+    "tags": [
+      5
+    ]
+  }
+},
+{
+  "model": "catalog.item",
+  "pk": 5,
+  "fields": {
+    "is_published": true,
+    "name": "контрольный",
+    "category": 6,
+    "text": "и тут все превосходно проходит, приятно",
+    "tags": [
+      3
+    ]
+  }
+}
+]

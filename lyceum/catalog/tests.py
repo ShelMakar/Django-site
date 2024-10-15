@@ -1,8 +1,11 @@
 import http
 
+import django.core.exceptions
 import django.test
 
 from parametrize import parametrize
+
+import catalog.models
 
 
 class NumbersTest(django.test.TestCase):
@@ -31,3 +34,50 @@ class NumbersTest(django.test.TestCase):
             http.HTTPStatus.NOT_FOUND,
             'ошибка в тесте на ответ 404',
         )
+
+
+class ModelsTest(django.test.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+
+        cls.category = catalog.models.Category.objects.create(
+            is_published=True,
+            name='тест категория',
+            slug='test-category',
+            weight=100
+        )
+
+        cls.tag = catalog.models.Tag.objects.create(
+            is_published=True,
+            name='тест таг',
+            slug='test-tag'
+        )
+
+    def test_not_correct_word(self):
+        item_count = catalog.models.Item.objects.count()
+        with self.assertRaises(django.core.exceptions.ValidationError):
+            self.item = catalog.models.Item(
+                name='Тестовый товар',
+                category=self.category,
+                text='нет нужного слова'
+            )
+            self.item.full_clean()
+            self.item.save()
+        self.assertEqual(
+            catalog.models.Item.objects.count(),
+            item_count)
+
+    def test_correct_word(self):
+        item_count = catalog.models.Item.objects.count()
+
+        self.item = catalog.models.Item(
+            name='Тестовый товар',
+            category=self.category,
+            text='роскошно'
+        )
+        self.item.full_clean()
+        self.item.save()
+        self.assertEqual(
+            catalog.models.Item.objects.count(),
+            item_count + 1)

@@ -1,0 +1,21 @@
+import django.db
+import django.core.validators
+
+
+class AbstractModel(django.db.models.Model):
+    id = django.db.models.BigAutoField(
+        auto_created=True,
+        primary_key=True,
+        serialize=False,
+        verbose_name='id')
+    is_published = django.db.models.BooleanField(
+        default=True,
+        verbose_name='Опубликовано',
+        help_text='статус `опубликовано`')
+    name = django.db.models.CharField(
+        max_length=150,
+        verbose_name='Название',
+        help_text='напишите сюда название')
+
+    class Meta:
+        abstract = True
