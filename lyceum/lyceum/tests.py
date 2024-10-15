@@ -1,6 +1,5 @@
 import django.test
 
-
 import lyceum.middleware
 
 

@@ -13,7 +13,7 @@
   "pk": 3,
   "fields": {
     "is_published": true,
-    "name": "Макар",
+    "name": "РњР°РєР°СЂ",
     "slug": "test-text"
   }
 },
@@ -22,7 +22,7 @@
   "pk": 4,
   "fields": {
     "is_published": true,
-    "name": "тег 4",
+    "name": "С‚РµРі 4",
     "slug": "tag-test4"
   }
 },
@@ -31,7 +31,7 @@
   "pk": 5,
   "fields": {
     "is_published": true,
-    "name": "тест 3",
+    "name": "С‚РµСЃС‚ 3",
     "slug": "tag-test-not3"
   }
 },
@@ -40,7 +40,7 @@
   "pk": 6,
   "fields": {
     "is_published": true,
-    "name": "3 это 4, а 4 это 3",
+    "name": "3 СЌС‚Рѕ 4, Р° 4 СЌС‚Рѕ 3",
     "slug": "3443"
   }
 },
@@ -49,7 +49,7 @@
   "pk": 2,
   "fields": {
     "is_published": true,
-    "name": "тест",
+    "name": "С‚РµСЃС‚",
     "slug": "test_text",
     "weight": 100
   }
@@ -59,7 +59,7 @@
   "pk": 3,
   "fields": {
     "is_published": true,
-    "name": "Еще один тест",
+    "name": "Р•С‰Рµ РѕРґРёРЅ С‚РµСЃС‚",
     "slug": "test-text",
     "weight": 100
   }
@@ -69,7 +69,7 @@
   "pk": 4,
   "fields": {
     "is_published": true,
-    "name": "лалала",
+    "name": "Р»Р°Р»Р°Р»Р°",
     "slug": "tag-test-not3",
     "weight": 100
   }
@@ -79,7 +79,7 @@
   "pk": 5,
   "fields": {
     "is_published": true,
-    "name": "почему так",
+    "name": "РїРѕС‡РµРјСѓ С‚Р°Рє",
     "slug": "tag-test4",
     "weight": 100
   }
@@ -89,7 +89,7 @@
   "pk": 6,
   "fields": {
     "is_published": true,
-    "name": "ну ладно",
+    "name": "РЅСѓ Р»Р°РґРЅРѕ",
     "slug": "3443",
     "weight": 100
   }
@@ -99,9 +99,9 @@
   "pk": 1,
   "fields": {
     "is_published": true,
-    "name": "лалала",
+    "name": "Р»Р°Р»Р°Р»Р°",
     "category": 2,
-    "text": "вопрос превосходно!",
+    "text": "РІРѕРїСЂРѕСЃ РїСЂРµРІРѕСЃС…РѕРґРЅРѕ!",
     "tags": [
       2
     ]
@@ -112,9 +112,9 @@
   "pk": 2,
   "fields": {
     "is_published": true,
-    "name": "товары для тестов",
+    "name": "С‚РѕРІР°СЂС‹ РґР»СЏ С‚РµСЃС‚РѕРІ",
     "category": 3,
-    "text": "можно играть со словом РОСКОШНО",
+    "text": "РјРѕР¶РЅРѕ РёРіСЂР°С‚СЊ СЃРѕ СЃР»РѕРІРѕРј Р РћРЎРљРћРЁРќРћ",
     "tags": [
       3
     ]
@@ -125,9 +125,9 @@
   "pk": 3,
   "fields": {
     "is_published": true,
-    "name": "товар 3",
+    "name": "С‚РѕРІР°СЂ 3",
     "category": 4,
-    "text": "Роскошно?",
+    "text": "Р РѕСЃРєРѕС€РЅРѕ?",
     "tags": [
       6
     ]
@@ -138,9 +138,9 @@
   "pk": 4,
   "fields": {
     "is_published": true,
-    "name": "лалала2",
+    "name": "Р»Р°Р»Р°Р»Р°2",
     "category": 5,
-    "text": "!превосходно",
+    "text": "!РїСЂРµРІРѕСЃС…РѕРґРЅРѕ",
     "tags": [
       5
     ]
@@ -151,9 +151,9 @@
   "pk": 5,
   "fields": {
     "is_published": true,
-    "name": "контрольный",
+    "name": "РєРѕРЅС‚СЂРѕР»СЊРЅС‹Р№",
     "category": 6,
-    "text": "и тут все превосходно проходит, приятно",
+    "text": "Рё С‚СѓС‚ РІСЃРµ РїСЂРµРІРѕСЃС…РѕРґРЅРѕ РїСЂРѕС…РѕРґРёС‚, РїСЂРёСЏС‚РЅРѕ",
     "tags": [
       3
     ]

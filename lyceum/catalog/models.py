@@ -53,12 +53,14 @@ class Category(core.models.AbstractModel):
 
 
 class Item(core.models.AbstractModel):
-    category = django.db.models.OneToOneField(
-        Category, on_delete=django.db.models.CASCADE, verbose_name='категория',
+    category = django.db.models.ForeignKey(
+        'category',
+        on_delete=django.db.models.CASCADE,
+        related_name='category_items',
     )
     text = django.db.models.TextField(
         validators=[
-            catalog.validators.CustomValidator('превосходно', 'роскошно')
+            catalog.validators.CustomValidator('превосходно', 'роскошно'),
         ],
         verbose_name='текст',
         help_text='напишите необходимый текст',
