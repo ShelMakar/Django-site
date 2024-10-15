@@ -45,13 +45,11 @@ class ModelsTest(django.test.TestCase):
             is_published=True,
             name='тест категория',
             slug='test-category',
-            weight=100
+            weight=100,
         )
 
         cls.tag = catalog.models.Tag.objects.create(
-            is_published=True,
-            name='тест таг',
-            slug='test-tag'
+            is_published=True, name='тест таг', slug='test-tag'
         )
 
     def test_not_correct_word(self):
@@ -60,24 +58,18 @@ class ModelsTest(django.test.TestCase):
             self.item = catalog.models.Item(
                 name='Тестовый товар',
                 category=self.category,
-                text='нет нужного слова'
+                text='нет нужного слова',
             )
             self.item.full_clean()
             self.item.save()
-        self.assertEqual(
-            catalog.models.Item.objects.count(),
-            item_count)
+        self.assertEqual(catalog.models.Item.objects.count(), item_count)
 
     def test_correct_word(self):
         item_count = catalog.models.Item.objects.count()
 
         self.item = catalog.models.Item(
-            name='Тестовый товар',
-            category=self.category,
-            text='роскошно'
+            name='Тестовый товар', category=self.category, text='роскошно'
         )
         self.item.full_clean()
         self.item.save()
-        self.assertEqual(
-            catalog.models.Item.objects.count(),
-            item_count + 1)
+        self.assertEqual(catalog.models.Item.objects.count(), item_count + 1)

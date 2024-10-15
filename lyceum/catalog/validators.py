@@ -14,4 +14,6 @@ class CustomValidator:
                 pat = re.compile(r'\b' + corr_word + r'\b')
                 if re.search(pat, word):
                     return
-        raise django.core.validators.ValidationError(f'{value} не содержит слов `роскошно` или `превосходно`')
+        raise django.core.validators.ValidationError(
+            f'{value} не содержит слов `роскошно` или `превосходно`'
+        )

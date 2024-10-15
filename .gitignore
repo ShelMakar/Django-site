@@ -107,3 +107,8 @@ dmypy.json
 .pytype/
 
 cython_debug/
+/lyceum/catalog/migrations/0001_initial.py
+/lyceum/catalog/migrations/0002_remove_item_is_published.py
+/lyceum/catalog/migrations/0003_category_tag_alter_item_options_item_is_published_and_more.py
+/lyceum/catalog/migrations/0004_item_category_item_tags.py
+/lyceum/catalog/migrations/0005_alter_category_is_published_alter_category_name_and_more.py
