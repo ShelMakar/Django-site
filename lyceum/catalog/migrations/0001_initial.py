@@ -156,7 +156,8 @@ class Migration(migrations.Migration):
                         help_text='напишите необходимый текст',
                         validators=[
                             catalog.validators.CustomValidator(
-                                'превосходно', 'роскошно',
+                                'превосходно',
+                                'роскошно',
                             ),
                         ],
                         verbose_name='текст',
@@ -173,7 +174,8 @@ class Migration(migrations.Migration):
                 (
                     'tags',
                     models.ManyToManyField(
-                        to='catalog.tag', verbose_name='теги',
+                        to='catalog.tag',
+                        verbose_name='теги',
                     ),
                 ),
             ],

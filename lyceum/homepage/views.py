@@ -9,5 +9,6 @@ def home(request):
 
 def tea(request):
     return django.http.HttpResponse(
-        'Я чайник', status=http.HTTPStatus.IM_A_TEAPOT,
+        'Я чайник',
+        status=http.HTTPStatus.IM_A_TEAPOT,
     )
