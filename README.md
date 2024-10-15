@@ -29,7 +29,7 @@ cp config.env .env
 ```
 
 ## Ознакомиться с ER диаграммой можете ниже
-![IMAGE_DESCRIPTION](https://gitlab.crja72.ru/django/2024/autumn/course/students/172544-makarshelyag-course-1187/blob/main/lyceum/ER.jpg)
+![IMAGE_DESCRIPTION](https://gitlab.crja72.ru/django/2024/autumn/course/students/172544-makarshelyag-course-1187/blob/main/ER.jpg)
 ```
 ER.jpg
 ```
