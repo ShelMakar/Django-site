@@ -1,11 +1,10 @@
 import http
 
-import catalog.models
-
 import django.core.exceptions
 import django.test
-
 from parametrize import parametrize
+
+import catalog.models
 
 
 class NumbersTest(django.test.TestCase):
@@ -49,7 +48,7 @@ class ModelsTest(django.test.TestCase):
         )
 
         cls.tag = catalog.models.Tag.objects.create(
-            is_published=True, name='тест таг', slug='test-tag'
+            is_published=True, name='тест таг', slug='test-tag',
         )
 
     def test_not_correct_word(self):
@@ -68,7 +67,7 @@ class ModelsTest(django.test.TestCase):
         item_count = catalog.models.Item.objects.count()
 
         self.item = catalog.models.Item(
-            name='Тестовый товар', category=self.category, text='роскошно'
+            name='Тестовый товар', category=self.category, text='роскошно',
         )
         self.item.full_clean()
         self.item.save()

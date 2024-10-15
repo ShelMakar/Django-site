@@ -1,10 +1,9 @@
-import catalog.validators
-
-import core.models
-
 import django.core.exceptions
 import django.core.validators
 import django.db
+
+import catalog.validators
+import core.models
 
 
 alphanumeric = django.core.validators.RegexValidator(r'^[a-zA-Z0-9_-]*$')
@@ -55,7 +54,7 @@ class Category(core.models.AbstractModel):
 
 class Item(core.models.AbstractModel):
     category = django.db.models.OneToOneField(
-        Category, on_delete=django.db.models.CASCADE, verbose_name='категория'
+        Category, on_delete=django.db.models.CASCADE, verbose_name='категория',
     )
     text = django.db.models.TextField(
         validators=[

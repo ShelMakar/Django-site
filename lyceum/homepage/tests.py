@@ -8,7 +8,7 @@ class NumbersTest(django.test.TestCase):
     def test_homepage(self):
         response = django.test.Client().get('/')
         self.assertEqual(
-            response.status_code, http.HTTPStatus.OK, 'homepage feels bad'
+            response.status_code, http.HTTPStatus.OK, 'homepage feels bad',
         )
 
     def test_tea(self):

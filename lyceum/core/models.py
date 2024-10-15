@@ -4,7 +4,7 @@ import django.db
 
 class AbstractModel(django.db.models.Model):
     id = django.db.models.BigAutoField(
-        auto_created=True, primary_key=True, serialize=False, verbose_name='id'
+        auto_created=True, primary_key=True, serialize=False, verbose_name='id',
     )
     is_published = django.db.models.BooleanField(
         default=True,

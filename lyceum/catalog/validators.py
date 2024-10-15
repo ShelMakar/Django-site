@@ -1,11 +1,16 @@
 import re
 
 import django.core.validators
+from django.utils.deconstruct import deconstructible
 
 
+@deconstructible
 class CustomValidator:
     def __init__(self, *args):
         self.args = args
+
+    def __eq__(self, other):
+        return self.args == other.args
 
     def __call__(self, value):
         words = value.lower().split()
@@ -15,5 +20,5 @@ class CustomValidator:
                 if re.search(pat, word):
                     return
         raise django.core.validators.ValidationError(
-            f'{value} не содержит слов `роскошно` или `превосходно`'
+            f'{value} не содержит слов `роскошно` или `превосходно`',
         )
