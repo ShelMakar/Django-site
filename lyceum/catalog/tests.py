@@ -1,12 +1,11 @@
 import http
 
+import catalog.models
+
 import django.core.exceptions
 import django.test
 
-import catalog.models
-
 from parametrize import parametrize
-
 
 
 class NumbersTest(django.test.TestCase):
