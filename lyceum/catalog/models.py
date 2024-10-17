@@ -1,3 +1,5 @@
+import re
+
 import django.core.exceptions
 import django.core.validators
 import django.db
@@ -9,7 +11,18 @@ import core.models
 alphanumeric = django.core.validators.RegexValidator(r'^[a-zA-Z0-9_-]*$')
 
 
-class Tag(core.models.AbstractModel):
+def corr_name(value):
+    value = re.sub(r'[^\w]', '', value).lower()
+    target = 'abekmhopctyx'
+    replacer = 'авекмнорстух'
+    for i in range(len(value)):
+        if value[i] in target:
+            j = target.find(value[i])
+            value = value.replace(target[j], replacer[j])
+    return value
+
+
+class Tag(core.models.NormName):
     slug = django.db.models.CharField(
         unique=True,
         max_length=200,
@@ -26,7 +39,7 @@ class Tag(core.models.AbstractModel):
         return self.name[:15]
 
 
-class Category(core.models.AbstractModel):
+class Category(core.models.NormName):
     slug = django.db.models.CharField(
         unique=True,
         max_length=200,

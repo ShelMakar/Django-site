@@ -23,6 +23,7 @@ class CategoryAdmin(django.contrib.admin.ModelAdmin):
         catalog.models.Category.is_published.field.name,
         catalog.models.Category.slug.field.name,
         catalog.models.Category.weight.field.name,
+        catalog.models.Category.normalized_name.field.name,
     )
 
 
@@ -33,4 +34,5 @@ class TagAdmin(django.contrib.admin.ModelAdmin):
         catalog.models.Tag.name.field.name,
         catalog.models.Tag.is_published.field.name,
         catalog.models.Tag.slug.field.name,
+        catalog.models.Tag.normalized_name.field.name,
     )

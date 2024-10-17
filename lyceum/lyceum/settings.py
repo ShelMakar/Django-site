@@ -3,7 +3,7 @@ import pathlib
 
 import dotenv
 
-dotenv.load_dotenv()
+dotenv.load_dotenv(dotenv.find_dotenv())
 
 BASE_DIR = pathlib.Path(__file__).resolve().parent.parent
 
@@ -59,6 +59,7 @@ if DEBUG:
     INTERNAL_IPS = [
         '127.0.0.1',
     ]
+
 
 ROOT_URLCONF = 'lyceum.urls'
 

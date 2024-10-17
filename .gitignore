@@ -81,7 +81,7 @@ celerybeat.pid
 
 *.sage.py
 
-.env
+lyceum/.env
 .venv
 env/
 venv/

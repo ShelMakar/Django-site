@@ -3,5 +3,6 @@ line-length = 79
 skip-string-normalization = true
 
 [tool.flake8]
+exclude=['*/migrations/']
 application-import-names='about,catalog,core,homepage,lyceum'
 import-order-style='google'
