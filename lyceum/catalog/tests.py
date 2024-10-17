@@ -102,7 +102,8 @@ class NormalTest(django.test.TestCase):
         category_count = self.category_count
         self.assertRaises(django.core.exceptions.ValidationError)
         self.assertEqual(
-            catalog.models.Category.objects.count(), category_count,
+            catalog.models.Category.objects.count(),
+            category_count,
         )
 
     def test_not_norm_tag(self):
@@ -121,7 +122,8 @@ class NormalTest(django.test.TestCase):
         self.category.full_clean()
         self.category.save()
         self.assertEqual(
-            catalog.models.Category.objects.count(), category_count + 1,
+            catalog.models.Category.objects.count(),
+            category_count + 1,
         )
 
     def test_norm_tag(self):

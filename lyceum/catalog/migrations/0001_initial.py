@@ -10,19 +10,72 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
             name='Category',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='id')),
-                ('is_published', models.BooleanField(default=True, help_text='статус `опубликовано`', verbose_name='опубликовано')),
-                ('name', models.CharField(help_text='напишите сюда название', max_length=150, unique=True, verbose_name='название')),
-                ('normalized_name', models.CharField(default='', max_length=150, verbose_name='нормализованное имя')),
-                ('slug', models.CharField(help_text='напишите слаг', max_length=200, unique=True, validators=[django.core.validators.RegexValidator('^[a-zA-Z0-9_-]*$')], verbose_name='слаг')),
-                ('weight', models.IntegerField(default=100, help_text='выбирите вес', validators=[django.core.validators.MaxValueValidator(32767), django.core.validators.MinValueValidator(1)], verbose_name='вес')),
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='id',
+                    ),
+                ),
+                (
+                    'is_published',
+                    models.BooleanField(
+                        default=True,
+                        help_text='статус `опубликовано`',
+                        verbose_name='опубликовано',
+                    ),
+                ),
+                (
+                    'name',
+                    models.CharField(
+                        help_text='напишите сюда название',
+                        max_length=150,
+                        unique=True,
+                        verbose_name='название',
+                    ),
+                ),
+                (
+                    'normalized_name',
+                    models.CharField(
+                        default='',
+                        max_length=150,
+                        verbose_name='нормализованное имя',
+                    ),
+                ),
+                (
+                    'slug',
+                    models.CharField(
+                        help_text='напишите слаг',
+                        max_length=200,
+                        unique=True,
+                        validators=[
+                            django.core.validators.RegexValidator(
+                                '^[a-zA-Z0-9_-]*$'
+                            )
+                        ],
+                        verbose_name='слаг',
+                    ),
+                ),
+                (
+                    'weight',
+                    models.IntegerField(
+                        default=100,
+                        help_text='выбирите вес',
+                        validators=[
+                            django.core.validators.MaxValueValidator(32767),
+                            django.core.validators.MinValueValidator(1),
+                        ],
+                        verbose_name='вес',
+                    ),
+                ),
             ],
             options={
                 'verbose_name': 'категория',
@@ -32,11 +85,54 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Tag',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='id')),
-                ('is_published', models.BooleanField(default=True, help_text='статус `опубликовано`', verbose_name='опубликовано')),
-                ('name', models.CharField(help_text='напишите сюда название', max_length=150, unique=True, verbose_name='название')),
-                ('normalized_name', models.CharField(default='', max_length=150, verbose_name='нормализованное имя')),
-                ('slug', models.CharField(help_text='напишите слаг', max_length=200, unique=True, validators=[django.core.validators.RegexValidator('^[a-zA-Z0-9_-]*$')], verbose_name='слаг')),
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='id',
+                    ),
+                ),
+                (
+                    'is_published',
+                    models.BooleanField(
+                        default=True,
+                        help_text='статус `опубликовано`',
+                        verbose_name='опубликовано',
+                    ),
+                ),
+                (
+                    'name',
+                    models.CharField(
+                        help_text='напишите сюда название',
+                        max_length=150,
+                        unique=True,
+                        verbose_name='название',
+                    ),
+                ),
+                (
+                    'normalized_name',
+                    models.CharField(
+                        default='',
+                        max_length=150,
+                        verbose_name='нормализованное имя',
+                    ),
+                ),
+                (
+                    'slug',
+                    models.CharField(
+                        help_text='напишите слаг',
+                        max_length=200,
+                        unique=True,
+                        validators=[
+                            django.core.validators.RegexValidator(
+                                '^[a-zA-Z0-9_-]*$'
+                            )
+                        ],
+                        verbose_name='слаг',
+                    ),
+                ),
             ],
             options={
                 'verbose_name': 'тег',
@@ -46,12 +142,58 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Item',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='id')),
-                ('is_published', models.BooleanField(default=True, help_text='статус `опубликовано`', verbose_name='опубликовано')),
-                ('name', models.CharField(help_text='напишите сюда название', max_length=150, unique=True, verbose_name='название')),
-                ('text', models.TextField(help_text='напишите необходимый текст', validators=[catalog.validators.CustomValidator('превосходно', 'роскошно')], verbose_name='текст')),
-                ('category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='category_items', to='catalog.category')),
-                ('tags', models.ManyToManyField(to='catalog.tag', verbose_name='теги')),
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='id',
+                    ),
+                ),
+                (
+                    'is_published',
+                    models.BooleanField(
+                        default=True,
+                        help_text='статус `опубликовано`',
+                        verbose_name='опубликовано',
+                    ),
+                ),
+                (
+                    'name',
+                    models.CharField(
+                        help_text='напишите сюда название',
+                        max_length=150,
+                        unique=True,
+                        verbose_name='название',
+                    ),
+                ),
+                (
+                    'text',
+                    models.TextField(
+                        help_text='напишите необходимый текст',
+                        validators=[
+                            catalog.validators.CustomValidator(
+                                'превосходно', 'роскошно'
+                            )
+                        ],
+                        verbose_name='текст',
+                    ),
+                ),
+                (
+                    'category',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name='category_items',
+                        to='catalog.category',
+                    ),
+                ),
+                (
+                    'tags',
+                    models.ManyToManyField(
+                        to='catalog.tag', verbose_name='теги'
+                    ),
+                ),
             ],
             options={
                 'verbose_name': 'товар',
