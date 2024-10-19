@@ -30,7 +30,8 @@ class Middleware:
         words = WORDS_REGEX.findall(content)
 
         transformed = [
-            word if NOT_RUSSIAN_REGEX.search(word) else word[::-1] for word in words
+            word if NOT_RUSSIAN_REGEX.search(word) else word[::-1]
+            for word in words
         ]
 
         response.content = ''.join(transformed)
