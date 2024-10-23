@@ -18,7 +18,7 @@ class CatalogTest(django.test.TestCase):
             ),
         ],
     )
-    def test_catalog_endpoints(self, url, expected):
+    def test_catalog_endpoints(self, dont_used, url, expected):
         response = django.test.Client().get(url)
         self.assertEqual(
             response.status_code,
