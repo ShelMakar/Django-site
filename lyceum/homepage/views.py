@@ -15,7 +15,10 @@ def tea1(request):
     template = 'homepage/main.html'
     context = {}
     return django.shortcuts.render(
-        request, template, context, status=http.HTTPStatus.IM_A_TEAPOT,
+        request,
+        template,
+        context,
+        status=http.HTTPStatus.IM_A_TEAPOT,
     )
 
 

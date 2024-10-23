@@ -116,7 +116,10 @@ class MainImage(django.db.models.Model):
 
     def get_image_300x300(self):
         return sorl.thumbnail.get_thumbnail(
-            self.main_image, '300', crop='center', quality=51,
+            self.main_image,
+            '300',
+            crop='center',
+            quality=51,
         )
 
     class Meta:
@@ -153,7 +156,10 @@ class SecondImages(django.db.models.Model):
 
     def get_image_300x300(self):
         return sorl.thumbnail.get_thumbnail(
-            self.images, '300', crop='center', quality=51,
+            self.images,
+            '300',
+            crop='center',
+            quality=51,
         )
 
     class Meta:
