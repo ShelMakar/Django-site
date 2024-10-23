@@ -6,7 +6,6 @@ import catalog.converter
 import catalog.views
 
 
-
 app_name = 'catalog'
 
 django.urls.register_converter(catalog.converter.OnlyPolozhInt, 'polozh_int')

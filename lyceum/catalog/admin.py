@@ -28,12 +28,12 @@ class ItemAdmin(django.contrib.admin.ModelAdmin):
         SecondImagesAdminInline,
     ]
 
-    @django.contrib.admin.display(description="превью")
+    @django.contrib.admin.display(description='превью')
     def preview(self, obj):
         main_image_instance = obj.mainimage.first()
         if main_image_instance:
             return main_image_instance.image_tmb()
-        return "Нет изображения"
+        return 'Нет изображения'
 
 
 @django.contrib.admin.register(catalog.models.Category)
@@ -55,8 +55,6 @@ class TagAdmin(django.contrib.admin.ModelAdmin):
         catalog.models.Tag.slug.field.name,
         catalog.models.Tag.normalized_name.field.name,
     )
-
-
 
 
 django.contrib.admin.site.register(catalog.models.MainImage)

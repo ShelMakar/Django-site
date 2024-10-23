@@ -3,8 +3,8 @@ import re
 import django.core.exceptions
 import django.core.validators
 import django.db
-import django.utils.safestring
 import django.templatetags.static
+import django.utils.safestring
 import django_cleanup.cleanup
 import sorl.thumbnail
 

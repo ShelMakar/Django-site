@@ -10,7 +10,7 @@ urlpatterns = [
     django.urls.path('admin/', django.contrib.admin.site.urls),
 ] + django.conf.urls.static.static(
         django.conf.settings.MEDIA_URL,
-        document_root=django.conf.settings.MEDIA_ROOT,)
+        document_root=django.conf.settings.MEDIA_ROOT)
 
 if lyceum.settings.DEBUG:
     import debug_toolbar

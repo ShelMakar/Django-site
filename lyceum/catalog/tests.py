@@ -1,5 +1,3 @@
-import http
-
 import django.core.exceptions
 import django.test
 import django.urls
@@ -13,8 +11,12 @@ class CatalogTest(django.test.TestCase):
     @parameterized.expand(
         [
             ('catalog', django.urls.reverse('catalog:item_list'), 200),
-            ('catalog', django.urls.reverse('catalog:item_detail', args=[1]), 200),
-        ]
+            (
+                'catalog',
+                django.urls.reverse('catalog:item_detail', args=[1]),
+                200,
+            ),
+        ],
     )
     def test_catalog_endpoints(self, url, expected):
         response = django.test.Client().get(url)
