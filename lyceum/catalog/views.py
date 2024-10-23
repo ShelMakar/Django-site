@@ -2,7 +2,6 @@ import django.http
 import django.shortcuts
 
 
-
 def get_int(request, page_number):
     return django.http.HttpResponse(page_number)
 
@@ -24,13 +23,13 @@ def item_list(request):
             {
                 'id': 2,
                 'name': 'Хачапури по-аджарски',
-                'text': 'Блаженство, включающее в себя мясо курицы.',
+                'text': 'Родом из Грузии.',
                 'img': 'Danila.jpg',
             },
             {
                 'id': 3,
                 'name': 'Шашлык из барашка',
-                'text': 'Блаженство, включающее в себя мясо курицы.',
+                'text': 'Нежнейшее мясо.',
                 'img': 'shashlyck_baran.jpg',
             },
         ],
@@ -50,19 +49,29 @@ def item(request, el):
         {
             'id': 2,
             'name': 'Хачапури по-аджарски',
-            'text': 'Блаженство, включающее в себя мясо курицы.',
+            'text':
+            'Шедевр грузинских поваров. '
+            'Сыр, яйико, хрустящее тесто. Что еще нужно для счастья?',
             'img': 'Danila.jpg',
         },
         {
             'id': 3,
             'name': 'Шашлык из барашка',
-            'text': 'Блаженство, включающее в себя мясо курицы.',
+            'text':
+            'Сочный, мощный шашлык из молодого барашка, '
+            'бережно замаринованный и пожаренный прямо на огне!',
             'img': 'shashlyck_baran.jpg',
         },
     ]
+    not_found = {
+        'id': None,
+        'name': 'Товар не найден',
+        'text': '',
+        'img': '',
+    }
     if el <= len(out):
         return django.shortcuts.render(request, template, out[el - 1])
-    return django.http.HttpResponse('<body>Товар не найден</body>')
+    return django.shortcuts.render(request, template, not_found)
 
 
 __all__ = ['item', 'item_list', 'get_int', 'converter']
