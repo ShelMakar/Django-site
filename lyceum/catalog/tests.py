@@ -13,7 +13,7 @@ class CatalogTest(django.test.TestCase):
             ('catalog', django.urls.reverse('catalog:item_list'), 200),
             (
                 'catalog',
-                django.urls.reverse('catalog:item_detail', args=[1]),
+                django.urls.reverse('catalog:item', args=[1]),
                 200,
             ),
         ],
