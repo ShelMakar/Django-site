@@ -19,3 +19,6 @@ class NumbersTest(django.test.TestCase):
 
         self.assertEqual(response.status_code, http.HTTPStatus.IM_A_TEAPOT)
         self.assertEqual(response.content.decode(), 'Я чайник')
+
+
+__all__ = ['NumbersTest']

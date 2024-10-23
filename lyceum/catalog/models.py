@@ -4,12 +4,12 @@ import django.core.exceptions
 import django.core.validators
 import django.db
 import django.utils.safestring
+import django.templatetags.static
 import django_cleanup.cleanup
 import sorl.thumbnail
 
 import catalog.validators
 import core.models
-
 
 alphanumeric = django.core.validators.RegexValidator(r'^[a-zA-Z0-9_-]*$')
 
@@ -94,8 +94,9 @@ class Item(core.models.AbstractModel):
 @django_cleanup.cleanup.select
 class MainImage(django.db.models.Model):
     main_images = django.db.models.ImageField(
+        ('Будет приведено к размеру 300х300'),
         upload_to='uploads/',
-        verbose_name='изображение',
+        help_text='Выберите изображение',
     )
     main_image = django.db.models.ForeignKey(
         Item,
@@ -103,41 +104,41 @@ class MainImage(django.db.models.Model):
         verbose_name='главное изображение',
         null=True,
         blank=True,
-        to_field='id',
         related_name='mainimage',
     )
 
     def image_tmb(self):
-        if self.main_image:
+        if self.main_images:
             return django.utils.safestring.mark_safe(
-                f'<img src="{self.main_image.url}" width="50">',
+                f'<img src="{self.main_images.url}" width="50">',
             )
         return 'image not found'
 
     def get_image_300x300(self):
         return sorl.thumbnail.get_thumbnail(
-            self.main_image,
+            self.main_images,
             '300',
             crop='center',
             quality=51,
         )
 
     class Meta:
-        verbose_name = 'изображение'
+        verbose_name = 'превью'
         verbose_name_plural = 'изображения'
 
     image_tmb.short_description = 'первью'
     image_tmb.allow_tags = True
 
     def __str__(self):
-        return self.main_image.name
+        return self.main_images.name
 
 
 @django_cleanup.cleanup.select
 class SecondImages(django.db.models.Model):
     image = django.db.models.ImageField(
+        ('Будет приведено к размеру 300х300'),
         upload_to='uploads/',
-        verbose_name='изображение',
+        help_text='Выберите изображение',
     )
     images = django.db.models.ForeignKey(
         Item,
@@ -171,3 +172,6 @@ class SecondImages(django.db.models.Model):
 
     def __str__(self):
         return self.images.name
+
+
+__all__ = ['SecondImages', 'Item', 'MainImage', 'Category', 'Tag', 'corr_name']

@@ -21,3 +21,6 @@ class ReverseWordsMiddlewareTests(django.test.TestCase):
         for i in range(15):
             response = self.client.get(django.urls.reverse('homepage:coffee'))
             self.assertEqual(response.content.decode(), 'Я чайник', 'false')
+
+
+__all__ = ['ReverseWordsMiddlewareTests']

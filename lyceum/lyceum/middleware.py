@@ -36,3 +36,6 @@ class Middleware:
 
         response.content = ''.join(transformed)
         return response
+
+
+__all__ = ['Middleware']

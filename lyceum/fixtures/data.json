@@ -204,5 +204,29 @@
     "main_images": "uploads/Real_1WYmI1V.jpg",
     "main_image": null
   }
+},
+{
+  "model": "catalog.mainimage",
+  "pk": 4,
+  "fields": {
+    "main_images": "uploads/Danila_eda.jpg",
+    "main_image": 6
+  }
+},
+{
+  "model": "catalog.mainimage",
+  "pk": 5,
+  "fields": {
+    "main_images": "uploads/Снимок_экрана_2024-10-22_001258.png",
+    "main_image": null
+  }
+},
+{
+  "model": "catalog.mainimage",
+  "pk": 6,
+  "fields": {
+    "main_images": "uploads/Danila_eda_6ztxSAf.jpg",
+    "main_image": 9
+  }
 }
 ]

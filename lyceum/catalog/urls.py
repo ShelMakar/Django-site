@@ -4,7 +4,7 @@ import django.urls
 
 import catalog.converter
 import catalog.views
-import lyceum.settings
+
 
 
 app_name = 'catalog'
@@ -21,8 +21,3 @@ urlpatterns = [
     ),
     django.urls.path('converter/<polozh_int:el>/', catalog.views.converter),
 ]
-if lyceum.settings.DEBUG:
-    urlpatterns += django.conf.urls.static.static(
-        django.conf.settings.MEDIA_URL,
-        document_root=django.conf.settings.MEDIA_ROOT,
-    )

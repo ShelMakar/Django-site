@@ -22,3 +22,6 @@ class CustomValidator:
         raise django.core.validators.ValidationError(
             f'{value} не содержит слов `роскошно` или `превосходно`',
         )
+
+
+__all__ = ['CustomValidator']

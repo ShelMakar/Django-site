@@ -13,3 +13,6 @@ class NumbersTest(django.test.TestCase):
             http.HTTPStatus.OK,
             'about feels bad',
         )
+
+
+__all__ = ['NumbersTest']

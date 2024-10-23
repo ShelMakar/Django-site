@@ -8,7 +8,9 @@ urlpatterns = [
     django.urls.path('catalog/', django.urls.include('catalog.urls')),
     django.urls.path('about/', django.urls.include('about.urls')),
     django.urls.path('admin/', django.contrib.admin.site.urls),
-]
+] + django.conf.urls.static.static(
+        django.conf.settings.MEDIA_URL,
+        document_root=django.conf.settings.MEDIA_ROOT,)
 
 if lyceum.settings.DEBUG:
     import debug_toolbar

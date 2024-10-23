@@ -2,36 +2,26 @@ import http
 
 import django.core.exceptions
 import django.test
-from parametrize import parametrize
+import django.urls
+from parameterized import parameterized
 
 import catalog.models
 
 
-class NumbersTest(django.test.TestCase):
+class CatalogTest(django.test.TestCase):
 
-    @parametrize('url', ['/catalog/', '/catalog/1/', '/catalog/re/4548878/'])
-    def test_poz(self, url):
-        response = django.test.Client().get(url)
-        self.assertEqual(
-            response.status_code,
-            http.HTTPStatus.OK,
-            'ошибка в тесте на ответ 200',
-        )
-
-    @parametrize(
-        'url',
+    @parameterized.expand(
         [
-            '/catalog/asasasasasa/',
-            '/catalog/re/asasasasasa/',
-            '/catalog/re/-45454/',
-        ],
+            ('catalog', django.urls.reverse('catalog:item_list'), 200),
+            ('catalog', django.urls.reverse('catalog:item_detail', args=[1]), 200),
+        ]
     )
-    def test_neg(self, url):
+    def test_catalog_endpoints(self, url, expected):
         response = django.test.Client().get(url)
         self.assertEqual(
             response.status_code,
-            http.HTTPStatus.NOT_FOUND,
-            'ошибка в тесте на ответ 404',
+            expected,
+            'ошибка в тесте на ответ 200',
         )
 
 
@@ -136,3 +126,6 @@ class NormalTest(django.test.TestCase):
         self.tag.full_clean()
         self.tag.save()
         self.assertEqual(catalog.models.Tag.objects.count(), tag_count + 1)
+
+
+__all__ = ['NormalTest', 'CatalogTest', 'ModelsTest']

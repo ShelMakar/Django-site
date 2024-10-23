@@ -47,3 +47,6 @@ def home(request):
         ],
     }
     return django.shortcuts.render(request, template, context)
+
+
+__all__ = ['coffee', 'home']

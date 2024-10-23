@@ -16,12 +16,6 @@ def corr_name(value):
 
 
 class AbstractModel(django.db.models.Model):
-    id = django.db.models.BigAutoField(
-        auto_created=True,
-        primary_key=True,
-        serialize=False,
-        verbose_name='id',
-    )
     is_published = django.db.models.BooleanField(
         default=True,
         verbose_name='опубликовано',
@@ -64,3 +58,6 @@ class NormName(AbstractModel):
     def save(self, *args, **kwargs):
         self.normalized_name = corr_name(self.name)
         return super().save(*args, **kwargs)
+
+
+__all__ = ['NormName', 'AbstractModel', 'corr_name']

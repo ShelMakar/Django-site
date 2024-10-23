@@ -7,3 +7,5 @@ app_name = 'about'
 urlpatterns = [
     django.urls.path('', about.views.description, name='description'),
 ]
+
+__all__ = ['urlpatterns']
