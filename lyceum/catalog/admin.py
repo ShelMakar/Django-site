@@ -1,6 +1,15 @@
 import django.contrib
+import django.contrib.admin
 
 import catalog.models
+
+
+class MainImageAdminInline(django.contrib.admin.TabularInline):
+    model = catalog.models.MainImage
+
+
+class SecondImagesAdminInline(django.contrib.admin.TabularInline):
+    model = catalog.models.SecondImages
 
 
 @django.contrib.admin.register(catalog.models.Item)
@@ -13,6 +22,10 @@ class ItemAdmin(django.contrib.admin.ModelAdmin):
     list_editable = (catalog.models.Item.is_published.field.name,)
     list_display_links = (catalog.models.Item.name.field.name,)
     filter_horizontal = (catalog.models.Item.tags.field.name,)
+    inlines = [
+        MainImageAdminInline,
+        SecondImagesAdminInline,
+    ]
 
 
 @django.contrib.admin.register(catalog.models.Category)
@@ -36,3 +49,6 @@ class TagAdmin(django.contrib.admin.ModelAdmin):
         catalog.models.Tag.slug.field.name,
         catalog.models.Tag.normalized_name.field.name,
     )
+
+
+django.contrib.admin.site.register(catalog.models.MainImage)

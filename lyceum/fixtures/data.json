@@ -188,5 +188,21 @@
       11
     ]
   }
+},
+{
+  "model": "catalog.mainimage",
+  "pk": 2,
+  "fields": {
+    "main_images": "uploads/Real_jDQnGnI.jpg",
+    "main_image": null
+  }
+},
+{
+  "model": "catalog.mainimage",
+  "pk": 3,
+  "fields": {
+    "main_images": "uploads/Real_1WYmI1V.jpg",
+    "main_image": null
+  }
 }
 ]

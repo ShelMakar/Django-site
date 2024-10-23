@@ -3,6 +3,9 @@ import re
 import django.core.exceptions
 import django.core.validators
 import django.db
+import django.utils.safestring
+import django_cleanup.cleanup
+import sorl.thumbnail
 
 import catalog.validators
 import core.models
@@ -86,3 +89,79 @@ class Item(core.models.AbstractModel):
 
     def __str__(self):
         return self.name[:15]
+
+
+@django_cleanup.cleanup.select
+class MainImage(django.db.models.Model):
+    main_images = django.db.models.ImageField(
+        upload_to='uploads/',
+        verbose_name='изображение',
+    )
+    main_image = django.db.models.ForeignKey(
+        Item,
+        on_delete=django.db.models.CASCADE,
+        verbose_name='главное изображение',
+        null=True,
+        blank=True,
+        to_field='id',
+        related_name='mainimage',
+    )
+
+    def image_tmb(self):
+        if self.main_image:
+            return django.utils.safestring.mark_safe(
+                f'<img src="{self.main_image.url}" width="50">',
+            )
+        return 'image not found'
+
+    def get_image_300x300(self):
+        return sorl.thumbnail.get_thumbnail(
+            self.main_image, '300', crop='center', quality=51,
+        )
+
+    class Meta:
+        verbose_name = 'изображение'
+        verbose_name_plural = 'изображения'
+
+    image_tmb.short_description = 'первью'
+    image_tmb.allow_tags = True
+
+    def __str__(self):
+        return self.main_image.name
+
+
+@django_cleanup.cleanup.select
+class SecondImages(django.db.models.Model):
+    image = django.db.models.ImageField(
+        upload_to='uploads/',
+        verbose_name='изображение',
+    )
+    images = django.db.models.ForeignKey(
+        Item,
+        on_delete=django.db.models.CASCADE,
+        verbose_name='изображения',
+        null=True,
+        blank=True,
+    )
+
+    def image_tmb(self):
+        if self.images:
+            return django.utils.safestring.mark_safe(
+                f'<img src="{self.images.url}" width="50">',
+            )
+        return 'image not found'
+
+    def get_image_300x300(self):
+        return sorl.thumbnail.get_thumbnail(
+            self.images, '300', crop='center', quality=51,
+        )
+
+    class Meta:
+        verbose_name = 'изображение'
+        verbose_name_plural = 'изображения'
+
+    image_tmb.short_description = 'первью'
+    image_tmb.allow_tags = True
+
+    def __str__(self):
+        return self.images.name
