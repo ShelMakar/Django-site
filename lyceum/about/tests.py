@@ -7,7 +7,7 @@ import django.urls
 class NumbersTest(django.test.TestCase):
 
     def test_about(self):
-        response = django.urls.reverse('description')
+        response = self.client.get(django.urls.reverse('about:description'))
         self.assertEqual(
             response.status_code,
             http.HTTPStatus.OK,

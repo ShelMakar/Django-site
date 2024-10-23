@@ -7,7 +7,7 @@ import django.urls
 class NumbersTest(django.test.TestCase):
 
     def test_homepage(self):
-        response = django.urls.reverse('home')
+        response = self.client.get(django.urls.reverse('homepage:home'))
         self.assertEqual(
             response.status_code,
             http.HTTPStatus.OK,
@@ -15,6 +15,7 @@ class NumbersTest(django.test.TestCase):
         )
 
     def test_tea(self):
-        response = django.urls.reverse('coffee')
+        response = self.client.get(django.urls.reverse('homepage:coffee'))
+
         self.assertEqual(response.status_code, http.HTTPStatus.IM_A_TEAPOT)
         self.assertEqual(response.content.decode(), 'Я чайник')
