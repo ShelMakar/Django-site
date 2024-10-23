@@ -2,9 +2,6 @@ import django.http
 import django.shortcuts
 
 
-def item_detail(request, el):
-    return django.http.HttpResponse('<body>Подробно элемент</body>')
-
 
 def get_int(request, page_number):
     return django.http.HttpResponse(page_number)
@@ -63,8 +60,9 @@ def item(request, el):
             'img': 'shashlyck_baran.jpg',
         },
     ]
+    if el <= len(out):
+        return django.shortcuts.render(request, template, out[el - 1])
+    return django.http.HttpResponse('<body>Товар не найден</body>')
 
-    return django.shortcuts.render(request, template, out[el - 1])
 
-
-__all__ = ['item', 'item_detail', 'item_list', 'get_int', 'converter']
+__all__ = ['item', 'item_list', 'get_int', 'converter']
