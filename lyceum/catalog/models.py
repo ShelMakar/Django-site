@@ -80,7 +80,8 @@ class Item(core.models.AbstractModel):
             catalog.validators.CustomValidator('превосходно', 'роскошно'),
         ],
         verbose_name='текст',
-        help_text='напишите необходимый текст')
+        help_text='напишите необходимый текст',
+    )
     tags = django.db.models.ManyToManyField(Tag, verbose_name='теги')
 
     class Meta:

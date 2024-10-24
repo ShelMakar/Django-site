@@ -9,7 +9,8 @@ urlpatterns = [
     django.urls.path('about/', django.urls.include('about.urls')),
     django.urls.path('admin/', django.contrib.admin.site.urls),
     django.urls.path(
-        'ckeditor5/', django.urls.include('django_ckeditor_5.urls'),
+        'ckeditor5/',
+        django.urls.include('django_ckeditor_5.urls'),
     ),
 ] + django.conf.urls.static.static(
     django.conf.settings.MEDIA_URL,
