@@ -3,3 +3,4 @@ django-cleanup==9.0.0
 pillow==11.0.0
 python-dotenv==1.0.1
 sorl-thumbnail==12.11.0
+django-ckeditor-5==0.2.15

@@ -5,6 +5,7 @@ import django.core.validators
 import django.db
 import django.templatetags.static
 import django.utils.safestring
+import django_ckeditor_5.fields
 import django_cleanup.cleanup
 import sorl.thumbnail
 
@@ -74,13 +75,12 @@ class Item(core.models.AbstractModel):
         on_delete=django.db.models.CASCADE,
         related_name='category_items',
     )
-    text = django.db.models.TextField(
+    text = django_ckeditor_5.fields.CKEditor5Field(
         validators=[
             catalog.validators.CustomValidator('превосходно', 'роскошно'),
         ],
         verbose_name='текст',
-        help_text='напишите необходимый текст',
-    )
+        help_text='напишите необходимый текст')
     tags = django.db.models.ManyToManyField(Tag, verbose_name='теги')
 
     class Meta:
