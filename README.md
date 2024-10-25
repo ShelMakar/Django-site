@@ -46,7 +46,7 @@ django-admin makemessages -l your_lang
 ```
 ## Чтобы скомпилировать, используйте следующуу команду
 ```bash
-django-adminn compilemessages
+django-admin compilemessages
 ```
 ## Чтобы проверить перевод используйте команду, с кодом языка
 ```python
