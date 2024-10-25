@@ -121,6 +121,7 @@ LANGUAGES = [
     ('ru', django.utils.translation.gettext_lazy('Русский')),
     ('en-us', django.utils.translation.gettext_lazy('Английский')),
 ]
+LOCALE_PATHS = (BASE_DIR / 'locale',)
 
 TIME_ZONE = 'UTC'
 
