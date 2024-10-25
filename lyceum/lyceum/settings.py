@@ -116,7 +116,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LOCALE_PATHS = [BASE_DIR / 'local']
+LOCALE_PATHS = [BASE_DIR / 'locale']
 
 LANGUAGE_CODE = 'en'
 LANGUAGES = [
