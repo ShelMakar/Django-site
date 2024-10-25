@@ -118,7 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LOCALE_PATHS = [BASE_DIR / 'locale']
 
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'ru'
 LANGUAGES = [
     ('ru', django.utils.translation.gettext_lazy('Русский')),
     ('en', django.utils.translation.gettext_lazy('Английский')),
