@@ -120,7 +120,7 @@ LOCALE_PATHS = [BASE_DIR / 'local']
 
 LANGUAGE_CODE = 'en-us'
 LANGUAGES = [
-    ('ru', django.utils.translation.gettext_lazy('Русский')),
+    ('en', django.utils.translation.gettext_lazy('Русский')),
     ('en-us', django.utils.translation.gettext_lazy('Английский')),
 ]
 
