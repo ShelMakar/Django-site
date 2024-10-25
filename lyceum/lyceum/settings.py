@@ -116,12 +116,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+LOCALE_PATHS = [BASE_DIR / 'local']
+
 LANGUAGE_CODE = 'en-us'
 LANGUAGES = [
     ('ru', django.utils.translation.gettext_lazy('Русский')),
     ('en-us', django.utils.translation.gettext_lazy('Английский')),
 ]
-LOCALE_PATHS = (BASE_DIR / 'locale',)
 
 TIME_ZONE = 'UTC'
 
