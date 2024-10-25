@@ -1,6 +1,7 @@
 import os
 import pathlib
 
+import django.utils.translation
 import dotenv
 
 dotenv.load_dotenv(dotenv.find_dotenv())
@@ -51,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'lyceum.middleware.Middleware',
 ]
 
@@ -114,7 +116,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LANGUAGE_CODE = 'ru'
+LANGUAGE_CODE = 'en-us'
+LANGUAGES = [
+    ('ru', django.utils.translation.gettext_lazy('Русский')),
+    ('en-us', django.utils.translation.gettext_lazy('Английский')),
+]
 
 TIME_ZONE = 'UTC'
 
