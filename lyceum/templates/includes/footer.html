@@ -10,8 +10,7 @@
             const formatter = new Intl.DateTimeFormat('ru-RU', {year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit'});
             var timeDiff = (Math.abs(userTime - serverTime)) / 3600000;
 
-            if (timeDiff > 24) {footer.innerHTML = formatter.format(serverTime);}
-            else {footer.innerHTML = formatter.format(userTime);}
+            footer.innerHTML = (timeDiff > 24) ?  formatter.format(serverTime):  formatter.format(userTime);
         </script>
         <noscript>
             <p id="server_time">{% now "Y H\:i" %}</p>
