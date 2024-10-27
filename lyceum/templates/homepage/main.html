@@ -2,25 +2,25 @@
 {% block content %}
 {% load static %}
 {% load i18n %}
-  <h1 class="text-lg-center">
-      {% trans 'Главная' %}
-  </h1>
+<h1 class="text-lg-center">
+	{% trans 'Главная' %}
+</h1>
 <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
 <div class="text-center"><img src="{% static 'img/enot.jpg' %}"></div>
 <div class="row">
-  {% for item in out %}
-  <div class="col">
-    <div class="card h-100" style="width: 18rem;">
-      <div class="ratio ratio-4x3">
-        <img src="{% static 'img/' %}{{ item.img }}" class="card-img-top" alt="...">
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">{{ item.name }}</h5>
-        <p class="card-text">{{ item.text }}</p>
-        <a href="{% url 'catalog:item' item.id %}" class="btn btn-primary">Истечь слюной</a>
-      </div>
-    </div>
-  </div>
-  {% endfor %}
+	{% for item in out %}
+	<div class="col">
+		<div class="card h-100" style="width: 18rem;">
+			<div class="ratio ratio-4x3">
+				<img src="{% static 'img/' %}{{ item.img }}" class="card-img-top" alt="...">
+			</div>
+			<div class="card-body">
+				<h5 class="card-title">{{ item.name }}</h5>
+				<p class="card-text">{{ item.text }}</p>
+				<a href="{% url 'catalog:item' item.id %}" class="btn btn-primary">Истечь слюной</a>
+			</div>
+		</div>
+	</div>
+	{% endfor %}
 </div>
 {% endblock %}

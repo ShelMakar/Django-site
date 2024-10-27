@@ -1,27 +1,31 @@
 <header>
-{% load static %}
-{% load i18n %}
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <a href="{% url 'homepage:home' %}"><img src="{% static 'img/favicon.ico' %}"></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Переключатель навигации">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        {% with request.resolver_match.view_name as view_name %}
-        <li class="nav-item">
-          <a class="nav-link {% if view_name == 'homepage:home' %}active disabled{% endif %}" aria-current="page" href="{% url 'homepage:home' %}">{% trans 'На главную' %}</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link {% if view_name == 'catalog:item_list' %}active disabled{% endif %}" href="{% url 'catalog:item_list' %}">{% trans 'Список товаров' %}</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link {% if view_name == 'about:description' %}active disabled{% endif %}" href="{% url 'about:description' %}">{% trans 'О проекте' %}</a>
-        </li>
-        {% endwith %}
-      </ul>
-    </div>
-  </div>
-</nav>
+	{% load static %}
+	{% load i18n %}
+	<nav class="navbar navbar-expand-lg bg-body-tertiary">
+		<div class="container-fluid">
+			<a href="{% url 'homepage:home' %}"><img src="{% static 'img/favicon.ico' %}"></a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+			        aria-controls="navbarNav" aria-expanded="false" aria-label="Переключатель навигации">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav">
+					{% with request.resolver_match.view_name as view_name %}
+					<li class="nav-item">
+						<a class="nav-link {% if view_name == 'homepage:home' %}active disabled{% endif %}" aria-current="page"
+						   href="{% url 'homepage:home' %}">{% trans 'На главную' %}</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link {% if view_name == 'catalog:item_list' %}active disabled{% endif %}"
+						   href="{% url 'catalog:item_list' %}">{% trans 'Список товаров' %}</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link {% if view_name == 'about:description' %}active disabled{% endif %}"
+						   href="{% url 'about:description' %}">{% trans 'О проекте' %}</a>
+					</li>
+					{% endwith %}
+				</ul>
+			</div>
+		</div>
+	</nav>
 </header>
