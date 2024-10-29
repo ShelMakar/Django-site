@@ -19,7 +19,7 @@ def item_list(request):
              select_related('category').select_related('main_image').
              prefetch_related(django.db.models.Prefetch('tags',
                                                         queryset=catalog.models.Tag.objects.filter(is_published=True))).
-             only('name', 'text', 'category', 'main_image__item').order_by('category__name'))
+             only('name', 'text', 'category', 'main_image').order_by('category__name'))
     context = {'items': items}
     print(context['items'].values_list())
     return django.shortcuts.render(request, template, context)
