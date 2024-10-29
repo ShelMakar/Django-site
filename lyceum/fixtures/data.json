@@ -110,8 +110,9 @@
   "fields": {
     "is_published": true,
     "name": "Макар",
+    "is_on_main": false,
     "category": 8,
-    "text": "роскошно",
+    "text": "<p>роскошно</p>",
     "tags": [
       7,
       8,
@@ -127,8 +128,9 @@
   "fields": {
     "is_published": true,
     "name": "Test",
+    "is_on_main": false,
     "category": 7,
-    "text": "роскошно",
+    "text": "<p>роскошно</p>",
     "tags": [
       7,
       8,
@@ -144,8 +146,9 @@
   "fields": {
     "is_published": true,
     "name": "тест",
+    "is_on_main": false,
     "category": 11,
-    "text": "роскошно",
+    "text": "<p>роскошно</p>",
     "tags": [
       7,
       8,
@@ -161,8 +164,9 @@
   "fields": {
     "is_published": true,
     "name": "лалала",
+    "is_on_main": true,
     "category": 9,
-    "text": "роскошно",
+    "text": "<p>выравниваю слова роскошно<br>проверяю, не дай бог больше 10 слов, а может и нет, проверим</p>",
     "tags": [
       7,
       8,
@@ -178,8 +182,9 @@
   "fields": {
     "is_published": true,
     "name": "тест 3",
+    "is_on_main": true,
     "category": 10,
-    "text": "роскошно",
+    "text": "<p>роскошно</p>",
     "tags": [
       7,
       8,
@@ -193,40 +198,88 @@
   "model": "catalog.mainimage",
   "pk": 2,
   "fields": {
-    "main_images": "uploads/Real_jDQnGnI.jpg",
-    "main_image": null
+    "item": "uploads/Real_jDQnGnI.jpg",
+    "image": null
   }
 },
 {
   "model": "catalog.mainimage",
   "pk": 3,
   "fields": {
-    "main_images": "uploads/Real_1WYmI1V.jpg",
-    "main_image": null
+    "item": "uploads/Real_1WYmI1V.jpg",
+    "image": 10
   }
 },
 {
   "model": "catalog.mainimage",
   "pk": 4,
   "fields": {
-    "main_images": "uploads/Danila_eda.jpg",
-    "main_image": 6
+    "item": "uploads/Danila_eda.jpg",
+    "image": 9
   }
 },
 {
   "model": "catalog.mainimage",
   "pk": 5,
   "fields": {
-    "main_images": "uploads/Снимок_экрана_2024-10-22_001258.png",
-    "main_image": null
+    "item": "uploads/Снимок_экрана_2024-10-22_001258.png",
+    "image": null
   }
 },
 {
   "model": "catalog.mainimage",
   "pk": 6,
   "fields": {
-    "main_images": "uploads/Danila_eda_6ztxSAf.jpg",
-    "main_image": 9
+    "item": "uploads/Danila_eda_6ztxSAf.jpg",
+    "image": null
+  }
+},
+{
+  "model": "catalog.mainimage",
+  "pk": 7,
+  "fields": {
+    "item": "uploads/jaba.jpg",
+    "image": null
+  }
+},
+{
+  "model": "catalog.mainimage",
+  "pk": 8,
+  "fields": {
+    "item": "uploads/photo_2024-10-28_18-43-38.jpg",
+    "image": null
+  }
+},
+{
+  "model": "catalog.mainimage",
+  "pk": 9,
+  "fields": {
+    "item": "uploads/photo_2024-10-28_18-43-59.jpg",
+    "image": null
+  }
+},
+{
+  "model": "catalog.mainimage",
+  "pk": 11,
+  "fields": {
+    "item": "uploads/photo_2024-10-28_18-43-59_M0iZ6Dn.jpg",
+    "image": 6
+  }
+},
+{
+  "model": "catalog.mainimage",
+  "pk": 12,
+  "fields": {
+    "item": "uploads/jaba_U6ktdCF.jpg",
+    "image": 7
+  }
+},
+{
+  "model": "catalog.mainimage",
+  "pk": 13,
+  "fields": {
+    "item": "uploads/Real_1WYmI1V_iv3TYo0.jpg",
+    "image": 8
   }
 }
 ]
