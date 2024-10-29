@@ -69,7 +69,27 @@ class Category(core.models.NormName):
         return self.name[:15]
 
 
+class ItemManager(django.db.models.Manager):
+    def published(self):
+        return (
+            self.get_queryset()
+            .filter(is_published=True, category__is_published=True)
+            .select_related('category')
+            .prefetch_related(
+                django.db.models.Prefetch(
+                    'tags',
+                    queryset=Tag.objects.filter(is_published=True).only(
+                        'name',
+                    ),
+                ),
+            )
+            .only('id', 'name', 'text', 'category__name')
+        )
+
+
 class Item(core.models.AbstractModel):
+    objects = ItemManager()
+
     is_on_main = django.db.models.BooleanField(
         default=False,
         verbose_name='на главной',

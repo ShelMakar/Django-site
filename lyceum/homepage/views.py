@@ -6,6 +6,7 @@ import django.shortcuts
 
 import catalog.models
 
+
 def coffee(request):
     return django.http.HttpResponse(
         'Я чайник',
@@ -32,10 +33,12 @@ def home(request):
         .prefetch_related(
             django.db.models.Prefetch(
                 'tags',
-                queryset=catalog.models.Tag.objects.filter(is_published=True),
+                queryset=catalog.models.Tag.objects.filter(
+                    is_published=True,
+                ).only('name'),
             ),
         )
-        .only('name', 'text', 'id', 'category', 'tags')
+        .only('name', 'text', 'id', 'category__name')
         .order_by('name')
     )
     context = {'items': items}

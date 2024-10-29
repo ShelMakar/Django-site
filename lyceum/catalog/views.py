@@ -1,8 +1,8 @@
+import django.db.models
 import django.http
 import django.shortcuts
 
 import catalog.models
-import django.db.models
 
 
 def get_int(request, page_number):
@@ -15,19 +15,16 @@ def converter(request, el):
 
 def item_list(request):
     template = 'catalog/item_list.html'
-    items = (catalog.models.Item.objects.filter(is_published=True).
-             select_related('category').select_related('main_image').
-             prefetch_related(django.db.models.Prefetch('tags',
-                                                        queryset=catalog.models.Tag.objects.filter(is_published=True))).
-             only('name', 'text', 'category', 'main_image').order_by('category__name'))
+    items = catalog.models.Item.objects.published().order_by('category__name')
     context = {'items': items}
-    print(context['items'].values_list())
     return django.shortcuts.render(request, template, context)
 
 
 def item_detail(request, pk):
     template = 'catalog/item.html'
-    item = django.shortcuts.get_object_or_404(catalog.models.Item, pk=pk)
+    item = django.shortcuts.get_object_or_404(
+        catalog.models.Item.objects.published(), pk=pk,
+    )
     context = {'item': item}
     return django.shortcuts.render(request, template, context)
 

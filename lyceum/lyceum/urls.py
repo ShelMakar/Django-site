@@ -1,3 +1,5 @@
+import django.conf
+import django.conf.urls.static
 import django.contrib.admin
 import django.urls
 

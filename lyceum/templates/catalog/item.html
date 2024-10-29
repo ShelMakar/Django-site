@@ -8,10 +8,14 @@
 </h1>
 <div class="col">
 	<div class="card h-100" style="width: 18rem;">
-		<img src="{{ item.main_image.image.url }}">
+		<img src="{{ item.main_image.item.url }}">
 		<div class="card-body">
-			<h5 class="card-title">{{ name }}</h5>
-			<p class="card-text">{{ text }}</p>
+			<h5 class="card-title">{{ item.name }}</h5>
+			<h6 class="card-title">{{ item.category.name }}</h6>
+			<p class="card-text">{{ item.text|safe }}
+			{% for tag in item.tags.all %}
+				{{ tag.name }}
+			{% endfor %}
 		</div>
 	</div>
 </div>
