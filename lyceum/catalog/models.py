@@ -70,6 +70,10 @@ class Category(core.models.NormName):
 
 
 class Item(core.models.AbstractModel):
+    is_on_main = django.db.models.BooleanField(
+        default=False,
+        verbose_name='на главной',
+    )
     category = django.db.models.ForeignKey(
         'category',
         on_delete=django.db.models.CASCADE,
@@ -94,30 +98,30 @@ class Item(core.models.AbstractModel):
 
 @django_cleanup.cleanup.select
 class MainImage(django.db.models.Model):
-    main_images = django.db.models.ImageField(
+    item = django.db.models.ImageField(
         ('Будет приведено к размеру 300х300'),
         upload_to='uploads/',
         help_text='Выберите изображение',
     )
-    main_image = django.db.models.ForeignKey(
+    image = django.db.models.OneToOneField(
         Item,
         on_delete=django.db.models.CASCADE,
         verbose_name='главное изображение',
         null=True,
         blank=True,
-        related_name='mainimage',
+        related_name='main_image',
     )
 
     def image_tmb(self):
-        if self.main_images:
+        if self.image:
             return django.utils.safestring.mark_safe(
-                f'<img src="{self.main_images.url}" width="50">',
+                f'<img src="{self.image}" width="50">',
             )
         return 'image not found'
 
     def get_image_300x300(self):
         return sorl.thumbnail.get_thumbnail(
-            self.main_images,
+            self.image,
             '300',
             crop='center',
             quality=51,
@@ -131,7 +135,7 @@ class MainImage(django.db.models.Model):
     image_tmb.allow_tags = True
 
     def __str__(self):
-        return self.main_images.name
+        return self.image.name
 
 
 @django_cleanup.cleanup.select

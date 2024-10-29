@@ -1,8 +1,10 @@
 import http
 
+import django.db
 import django.http
 import django.shortcuts
 
+import catalog.models
 
 def coffee(request):
     return django.http.HttpResponse(
@@ -24,28 +26,19 @@ def tea1(request):
 
 def home(request):
     template = 'homepage/main.html'
-    context = {
-        'out': [
-            {
-                'id': 1,
-                'name': 'Куриная шаурма',
-                'text': 'Блаженство, включающее в себя мясо курицы.',
-                'img': 'chiken_shav.jpg',
-            },
-            {
-                'id': 2,
-                'name': 'Хачапури по-аджарски',
-                'text': 'Родом из Грузии.',
-                'img': 'Danila.jpg',
-            },
-            {
-                'id': 3,
-                'name': 'Шашлык из барашка',
-                'text': 'Нежнейшее мясо.',
-                'img': 'shashlyck_baran.jpg',
-            },
-        ],
-    }
+    items = (
+        catalog.models.Item.objects.filter(is_on_main=True)
+        .select_related('category')
+        .prefetch_related(
+            django.db.models.Prefetch(
+                'tags',
+                queryset=catalog.models.Tag.objects.filter(is_published=True),
+            ),
+        )
+        .only('name', 'text', 'id', 'category', 'tags')
+        .order_by('name')
+    )
+    context = {'items': items}
     return django.shortcuts.render(request, template, context)
 
 
