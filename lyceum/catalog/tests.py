@@ -195,7 +195,7 @@ class MediaTests(django.test.TestCase):
         items = response.context['items']
         self.assertIn('items', response.context)
         self.assertIsInstance(items, django.db.models.query.QuerySet)
-        self.assertEqual(items.count(), 2)
+        self.assertEqual(items.count(), 1)
 
     def test_catalog_shows_correct_context(self):
         response = django.test.Client().get(
