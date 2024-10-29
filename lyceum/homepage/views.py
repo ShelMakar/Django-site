@@ -28,10 +28,11 @@ def tea1(request):
 def home(request):
     template = 'homepage/main.html'
     items = (
-        catalog.models.Item.objects.filter(is_on_main=True,
-                                           is_published=True,
-                                           category__is_published=True,
-                                           )
+        catalog.models.Item.objects.filter(
+            is_on_main=True,
+            is_published=True,
+            category__is_published=True,
+        )
         .select_related('category')
         .prefetch_related(
             django.db.models.Prefetch(
