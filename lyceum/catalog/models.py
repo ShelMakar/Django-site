@@ -77,17 +77,17 @@ class ItemManager(django.db.models.Manager):
                 is_published=True,
                 category__is_published=True,
             )
-            .select_related("category", "main_image")
+            .select_related('category', 'main_image')
             .prefetch_related(
                 django.db.models.Prefetch(
-                    "tags",
+                    'tags',
                     queryset=catalog.models.Tag.objects.filter(
                         is_published=True,
-                    ).only("name"),
+                    ).only('name'),
                 ),
             )
-            .only("id", "name", "text", "category__name", "main_image__image")
-            .order_by("category__name", "name")
+            .only('id', 'name', 'text', 'category__name', 'main_image__image')
+            .order_by('category__name', 'name')
         )
 
 
@@ -102,6 +102,7 @@ class Item(core.models.AbstractModel):
         'category',
         on_delete=django.db.models.CASCADE,
         related_name='category_items',
+        related_query_name='category_items',
     )
     text = django_ckeditor_5.fields.CKEditor5Field(
         validators=[
@@ -134,6 +135,7 @@ class MainImage(django.db.models.Model):
         null=True,
         blank=True,
         related_name='main_image',
+        related_query_name='main_image',
     )
 
     def image_tmb(self):
@@ -175,6 +177,8 @@ class SecondImages(django.db.models.Model):
         verbose_name='изображения',
         null=True,
         blank=True,
+        related_name='images',
+        related_query_name='images',
     )
 
     def image_tmb(self):

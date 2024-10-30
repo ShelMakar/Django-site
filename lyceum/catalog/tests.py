@@ -171,8 +171,13 @@ class MediaTests(django.test.TestCase):
         )
         items = response.context['items']
         self.assertIn('items', response.context)
-        self.assertIsInstance(items, django.db.models.query.QuerySet)
-        self.assertEqual(items.count(), 1)
+        self.assertEqual(len(items), 1)
+
+    def test_homepage_shows_len(self):
+        response = django.test.Client().get(
+            django.urls.reverse('homepage:home'),
+        )
+        self.assertIn('items', response.context)
 
     def test_catalog_shows_correct_context(self):
         response = django.test.Client().get(
@@ -180,8 +185,13 @@ class MediaTests(django.test.TestCase):
         )
         items = response.context['items']
         self.assertIn('items', response.context)
-        self.assertIsInstance(items, django.db.models.query.QuerySet)
-        self.assertEqual(items.count(), 1)
+        self.assertEqual(len(items), 1)
+
+    def test_catalog_shows_len(self):
+        response = django.test.Client().get(
+            django.urls.reverse('catalog:item_list'),
+        )
+        self.assertIn('items', response.context)
 
 
 __all__ = ['NormalTest', 'ModelsTest']
