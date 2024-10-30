@@ -170,7 +170,7 @@ class MediaTests(django.test.TestCase):
             django.urls.reverse('homepage:home'),
         )
         items = response.context['items']
-        self.assertIn('items', response.context)
+        self.assertIsInstance(items, django.db.models.query.QuerySet)
         self.assertEqual(len(items), 1)
 
     def test_homepage_shows_len(self):
@@ -184,7 +184,7 @@ class MediaTests(django.test.TestCase):
             django.urls.reverse('catalog:item_list'),
         )
         items = response.context['items']
-        self.assertIn('items', response.context)
+        self.assertIsInstance(items, django.db.models.query.QuerySet)
         self.assertEqual(len(items), 1)
 
     def test_catalog_shows_len(self):
