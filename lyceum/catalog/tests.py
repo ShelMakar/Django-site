@@ -3,30 +3,7 @@ import django.db
 import django.test
 import django.urls
 
-# from parameterized import parameterized
-
 import catalog.models
-
-
-# class CatalogTest(django.test.TestCase):
-#
-#     @parameterized.expand(
-#         [
-#             ('catalog', django.urls.reverse('catalog:item_list'), 200),
-#             (
-#                 'catalog',
-#                 django.urls.reverse('catalog:item_detail', args=[10]),
-#                 200,
-#             ),
-#         ],
-#     )
-#     def test_catalog_endpoints(self, dont_used, url, expected):
-#         response = django.test.Client().get(url)
-#         self.assertEqual(
-#             response.status_code,
-#             expected,
-#             'ошибка в тесте на ответ 200',
-#         )
 
 
 class ModelsTest(django.test.TestCase):

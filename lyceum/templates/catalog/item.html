@@ -16,6 +16,13 @@
 			{% for tag in item.tags.all %}
 				{{ tag.name }}
 			{% endfor %}
+			<div class="list-items">
+			{% for image in item.images.all %}
+			  <div class="gallery-image">
+	        <img src="{{ image.image.url }}" class="item" width="300">
+	      </div>
+			{% endfor %}
+		  </div>
 		</div>
 	</div>
 </div>

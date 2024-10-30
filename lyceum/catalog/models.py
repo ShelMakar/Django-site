@@ -73,17 +73,21 @@ class ItemManager(django.db.models.Manager):
     def published(self):
         return (
             self.get_queryset()
-            .filter(is_published=True, category__is_published=True)
-            .select_related('category')
+            .filter(
+                is_published=True,
+                category__is_published=True,
+            )
+            .select_related("category", "main_image")
             .prefetch_related(
                 django.db.models.Prefetch(
-                    'tags',
-                    queryset=Tag.objects.filter(is_published=True).only(
-                        'name',
-                    ),
+                    "tags",
+                    queryset=catalog.models.Tag.objects.filter(
+                        is_published=True,
+                    ).only("name"),
                 ),
             )
-            .only('id', 'name', 'text', 'category__name')
+            .only("id", "name", "text", "category__name", "main_image__image")
+            .order_by("category__name", "name")
         )
 
 

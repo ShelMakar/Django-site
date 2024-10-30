@@ -35,7 +35,7 @@ class AbstractModel(django.db.models.Model):
 class NormName(AbstractModel):
     normalized_name = django.db.models.CharField(
         max_length=150,
-        unique=True,
+        unique=False,
         editable=False,
         verbose_name='нормализованное имя',
     )
