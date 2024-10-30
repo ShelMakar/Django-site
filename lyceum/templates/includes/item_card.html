@@ -1,19 +1,18 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
 <div class="row">
-	{% for item in items %}
 		<div class="col">
 			<div class="card h-100" style="width: 18rem;">
+				<img src="{{ item.main_image.item.url }}">
 				<div class="card-body">
 					<h5 class="card-title">{{ item.name }}</h5>
 					<h6 class="card-title">{{ item.category.name }}</h6>
 					<p class="card-text">{{ item.text|truncatewords_html:10|safe }}</p>
 					{% for tag in item.tags.all %}
-					  {{ tag.name }}
+					  <span class="badge bg-secondary">{{ tag.name }}</span>
 					{% endfor %}
 					<a href="{% url 'catalog:item_detail' item.id %}" class="btn btn-primary">Подробнее</a>
 				</div>
 			</div>
 		</div>
-	{% endfor %}
 </div>

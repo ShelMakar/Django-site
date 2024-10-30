@@ -110,60 +110,7 @@ class NormalTest(django.test.TestCase):
 
 
 class MediaTests(django.test.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        cls.category_published = catalog.models.Category.objects.create(
-            is_published=True,
-            name='Тестовая опублик категория',
-            slug='category_published',
-            weight=50,
-        )
-        cls.category_unpublished = catalog.models.Category.objects.create(
-            is_published=False,
-            name='Тестовая неопублик категория',
-            slug='category_unpublished',
-            weight=50,
-        )
-        cls.tag_published = catalog.models.Tag.objects.create(
-            is_published=True,
-            name='Тестовая опублик тэг',
-            slug='tag_published',
-        )
-        cls.tag_unpublished = catalog.models.Tag.objects.create(
-            is_published=True,
-            name='Тестовая неопублик тэг',
-            slug='tag_unpublished',
-        )
-        cls.published_item = catalog.models.Item.objects.create(
-            is_on_main=True,
-            name='Тест опублик товар',
-            category=cls.category_published,
-            text='превосходно',
-        )
-        cls.unpublished_item = catalog.models.Item.objects.create(
-            is_on_main=True,
-            name='Тест неопублик товар',
-            category=cls.category_unpublished,
-            text='превосходно',
-        )
-        cls.tag_published.full_clean()
-        cls.tag_published.save()
-        cls.tag_unpublished.full_clean()
-        cls.tag_unpublished.save()
-
-        cls.category_unpublished.full_clean()
-        cls.category_unpublished.save()
-        cls.category_published.full_clean()
-        cls.category_published.save()
-
-        cls.published_item.full_clean()
-        cls.published_item.save()
-        cls.unpublished_item.full_clean()
-        cls.unpublished_item.save()
-
-        cls.published_item.tags.add(cls.tag_published.pk)
-        cls.unpublished_item.tags.add(cls.tag_unpublished.pk)
+    fixtures = ['fixtures/data.json']
 
     def test_homepage_shows_correct_context(self):
         response = django.test.Client().get(
@@ -171,7 +118,7 @@ class MediaTests(django.test.TestCase):
         )
         items = response.context['items']
         self.assertIsInstance(items, django.db.models.query.QuerySet)
-        self.assertEqual(len(items), 1)
+        self.assertEqual(len(items), 2)
 
     def test_homepage_shows_len(self):
         response = django.test.Client().get(
@@ -185,13 +132,44 @@ class MediaTests(django.test.TestCase):
         )
         items = response.context['items']
         self.assertIsInstance(items, django.db.models.query.QuerySet)
-        self.assertEqual(len(items), 1)
+        self.assertEqual(len(items), 5)
 
     def test_catalog_shows_len(self):
         response = django.test.Client().get(
             django.urls.reverse('catalog:item_list'),
         )
         self.assertIn('items', response.context)
+
+    def test_catalog_fields(self):
+        response = django.test.Client().get(
+            django.urls.reverse('catalog:item_list'),
+        )
+        self.assertIn(
+            'tags', response.context['items'][0]._prefetched_objects_cache
+        )
+
+    def test_homepage_fields(self):
+        response = django.test.Client().get(
+            django.urls.reverse('homepage:home'),
+        )
+        self.assertIn(
+            'tags', response.context['items'][0]._prefetched_objects_cache
+        )
+
+    def test_category(self):
+        item = catalog.models.Item.objects.published().first().__dict__
+        self.assertIn('category_id', item)
+        self.assertNotIn('is_published', item)
+        self.assertIn('text', item)
+        self.assertIn('name', item)
+
+    def test_homepage(self):
+        item = catalog.models.Item.objects.on_main().first().__dict__
+        self.assertIn('category_id', item)
+        self.assertNotIn('is_published', item)
+        self.assertIn('text', item)
+        self.assertIn('name', item)
+        self.assertNotIn('is_on_main', item)
 
 
 __all__ = ['NormalTest', 'ModelsTest']

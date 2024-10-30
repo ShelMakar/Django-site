@@ -81,13 +81,34 @@ class ItemManager(django.db.models.Manager):
             .prefetch_related(
                 django.db.models.Prefetch(
                     'tags',
-                    queryset=catalog.models.Tag.objects.filter(
+                    queryset=Tag.objects.filter(
                         is_published=True,
                     ).only('name'),
                 ),
             )
-            .only('id', 'name', 'text', 'category__name', 'main_image__image')
+            .only('id', 'name', 'text', 'category__name', 'main_image__item')
             .order_by('category__name', 'name')
+        )
+
+    def on_main(self):
+        return (
+            self.get_queryset()
+            .filter(
+                is_on_main=True,
+                is_published=True,
+                category__is_published=True,
+            )
+            .select_related('category', 'main_image')
+            .prefetch_related(
+                django.db.models.Prefetch(
+                    'tags',
+                    queryset=Tag.objects.filter(
+                        is_published=True,
+                    ).only('name'),
+                ),
+            )
+            .only('name', 'text', 'id', 'category__name', 'main_image__item')
+            .order_by('name')
         )
 
 
@@ -101,8 +122,8 @@ class Item(core.models.AbstractModel):
     category = django.db.models.ForeignKey(
         'category',
         on_delete=django.db.models.CASCADE,
-        related_name='category_items',
-        related_query_name='category_items',
+        related_name='category',
+        related_query_name='category',
     )
     text = django_ckeditor_5.fields.CKEditor5Field(
         validators=[
