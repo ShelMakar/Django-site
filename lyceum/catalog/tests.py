@@ -145,7 +145,7 @@ class MediaTests(django.test.TestCase):
             django.urls.reverse('catalog:item_list'),
         )
         self.assertIn(
-            'tags', response.context['items'][0]._prefetched_objects_cache
+            'tags', response.context['items'][0]._prefetched_objects_cache,
         )
 
     def test_homepage_fields(self):
@@ -153,7 +153,7 @@ class MediaTests(django.test.TestCase):
             django.urls.reverse('homepage:home'),
         )
         self.assertIn(
-            'tags', response.context['items'][0]._prefetched_objects_cache
+            'tags', response.context['items'][0]._prefetched_objects_cache,
         )
 
     def test_category(self):
