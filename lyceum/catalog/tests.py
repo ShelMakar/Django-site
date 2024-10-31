@@ -1,7 +1,10 @@
+import datetime
+
 import django.core.exceptions
 import django.db
 import django.test
 import django.urls
+import django.utils.timezone
 
 import catalog.models
 
@@ -118,7 +121,7 @@ class MediaTests(django.test.TestCase):
         )
         items = response.context['items']
         self.assertIsInstance(items, django.db.models.query.QuerySet)
-        self.assertEqual(len(items), 2)
+        self.assertEqual(len(items), 3)
 
     def test_homepage_shows_len(self):
         response = django.test.Client().get(
@@ -172,6 +175,60 @@ class MediaTests(django.test.TestCase):
         self.assertIn('text', item)
         self.assertIn('name', item)
         self.assertNotIn('is_on_main', item)
+
+
+class DataTimeTest(django.test.TestCase):
+    def test_view_url_exists_new(self):
+        response = self.client.get(django.urls.reverse('catalog:new'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_view_uses_correct_template_new(self):
+        response = self.client.get(django.urls.reverse('catalog:new'))
+        self.assertTemplateUsed(response, 'catalog/item_list.html')
+
+    def test_view_returns_recent_products_new(self):
+        response = self.client.get(django.urls.reverse('catalog:new'))
+        recent_products = response.context['items']
+
+        one_week_ago = django.utils.timezone.now() - datetime.timedelta(days=7)
+        for product in recent_products:
+            self.assertGreaterEqual(product.created_at, one_week_ago)
+
+    def test_view_returns_maximum_five_products_new(self):
+        response = self.client.get(django.urls.reverse('catalog:new'))
+        self.assertLessEqual(len(response.context['items']), 5)
+
+    def test_view_url_exists_friday(self):
+        response = self.client.get(django.urls.reverse('catalog:friday'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_view_uses_correct_template_friday(self):
+        response = self.client.get(django.urls.reverse('catalog:friday'))
+        self.assertTemplateUsed(response, 'catalog/item_list.html')
+
+    def test_view_returns_only_friday_products_friday(self):
+        response = self.client.get(django.urls.reverse('catalog:friday'))
+        friday_products = response.context['items']
+        for product in friday_products:
+            self.assertEqual(product.updated_at.weekday(), 6)
+
+    def test_view_returns_maximum_five_products_friday(self):
+        response = self.client.get(django.urls.reverse('catalog:friday'))
+        self.assertLessEqual(len(response.context['items']), 5)
+
+    def test_view_url_exists_unverified(self):
+        response = self.client.get(django.urls.reverse('catalog:unverified'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_view_uses_correct_template_unverified(self):
+        response = self.client.get(django.urls.reverse('catalog:unverified'))
+        self.assertTemplateUsed(response, 'catalog/item_list.html')
+
+    def test_view_returns_only_unverified_product_unverified(self):
+        response = self.client.get(django.urls.reverse('catalog:unverified'))
+        unverified_products = response.context['items']
+        for product in unverified_products:
+            self.assertEqual(product.created_at, product.updated_at)
 
 
 __all__ = ['NormalTest', 'ModelsTest']

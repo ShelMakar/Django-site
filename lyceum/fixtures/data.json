@@ -110,9 +110,11 @@
   "fields": {
     "is_published": true,
     "name": "Макар",
-    "is_on_main": false,
+    "is_on_main": true,
     "category": 8,
     "text": "<p>роскошно</p>",
+    "created_at": "2024-10-31T20:23:41.805Z",
+    "updated_at": "2024-10-31T20:23:41.805Z",
     "tags": [
       7,
       8,
@@ -129,8 +131,10 @@
     "is_published": true,
     "name": "Test",
     "is_on_main": false,
-    "category": 7,
+    "category": 9,
     "text": "<p>роскошно</p>",
+    "created_at": "2024-10-31T20:23:41.805Z",
+    "updated_at": "2024-10-31T20:23:41.805Z",
     "tags": [
       7,
       8,
@@ -149,6 +153,8 @@
     "is_on_main": false,
     "category": 11,
     "text": "<p>роскошно</p>",
+    "created_at": "2024-10-31T20:23:41.805Z",
+    "updated_at": "2024-10-31T20:23:41.805Z",
     "tags": [
       7,
       8,
@@ -167,6 +173,8 @@
     "is_on_main": true,
     "category": 9,
     "text": "<p>выравниваю слова роскошно<br>проверяю, не дай бог больше 10 слов, а может и нет, проверим</p>",
+    "created_at": "2024-10-31T20:23:41.805Z",
+    "updated_at": "2024-10-31T20:23:41.805Z",
     "tags": [
       7,
       8,
@@ -185,6 +193,8 @@
     "is_on_main": true,
     "category": 10,
     "text": "<p>роскошно</p>",
+    "created_at": "2024-10-31T20:23:41.805Z",
+    "updated_at": "2024-10-31T20:23:41.805Z",
     "tags": [
       7,
       8,
@@ -280,6 +290,22 @@
   "fields": {
     "item": "uploads/Real_1WYmI1V_iv3TYo0.jpg",
     "image": 8
+  }
+},
+{
+  "model": "catalog.secondimages",
+  "pk": 1,
+  "fields": {
+    "image": "uploads/photo_2024-10-28_18-43-38_IfVDEoC.jpg",
+    "images": 6
+  }
+},
+{
+  "model": "catalog.secondimages",
+  "pk": 2,
+  "fields": {
+    "image": "uploads/jaba_U6ktdCF_aEJWG4E.jpg",
+    "images": 6
   }
 }
 ]

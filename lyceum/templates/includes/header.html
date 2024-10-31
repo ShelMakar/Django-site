@@ -23,6 +23,11 @@
 						<a class="nav-link {% if view_name == 'about:description' %}active disabled{% endif %}"
 						   href="{% url 'about:description' %}">{% trans 'О проекте' %}</a>
 					</li>
+					<li class="nav-item">
+						{% if request.user.is_authenticated %}
+						  <a class="nav-link" href="{% url 'admin:index' %}">Админка</a>
+						{% endif %}
+					</li>
 					{% endwith %}
 				</ul>
 			</div>

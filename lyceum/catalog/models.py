@@ -134,6 +134,9 @@ class Item(core.models.AbstractModel):
     )
     tags = django.db.models.ManyToManyField(Tag, verbose_name='теги')
 
+    created_at = django.db.models.DateTimeField(auto_now_add=True)
+    updated_at = django.db.models.DateTimeField(auto_now=True)
+
     class Meta:
         verbose_name = 'товар'
         verbose_name_plural = 'товары'

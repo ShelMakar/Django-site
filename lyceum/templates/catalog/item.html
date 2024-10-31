@@ -9,6 +9,7 @@
 <div class="col">
 	<div class="card h-100" style="width: 18rem;">
 		<img src="{{ item.main_image.item.url }}">
+		<a href="{% url 'download:download' item.main_image.item %}" class="btn btn-primary">Скачать</a>
 		<div class="card-body">
 			<h5 class="card-title">{{ item.name }}</h5>
 			<h6 class="card-title">{{ item.category.name }}</h6>
@@ -20,6 +21,7 @@
 			{% for image in item.images.all %}
 			  <div class="gallery-image">
 	        <img src="{{ image.image.url }}" class="item" width="300">
+				  <a href="{% url 'download:download' image.image %}" class="btn btn-primary">Скачать</a>
 	      </div>
 			{% endfor %}
 		  </div>
