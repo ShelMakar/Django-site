@@ -3,6 +3,8 @@ import http
 import django.test
 import django.urls
 
+import lyceum.middleware
+
 
 class NumbersTest(django.test.TestCase):
 
@@ -15,6 +17,7 @@ class NumbersTest(django.test.TestCase):
         )
 
     def test_tea(self):
+        lyceum.middleware.Middleware.count = 0
         response = self.client.get(django.urls.reverse('homepage:coffee'))
 
         self.assertEqual(response.status_code, http.HTTPStatus.IM_A_TEAPOT)
