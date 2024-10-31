@@ -231,4 +231,4 @@ class DataTimeTest(django.test.TestCase):
             self.assertEqual(product.created_at, product.updated_at)
 
 
-__all__ = ['NormalTest', 'ModelsTest']
+__all__ = ['NormalTest', 'ModelsTest', 'DataTimeTest']
