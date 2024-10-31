@@ -75,4 +75,12 @@ def new(request):
     return django.shortcuts.render(request, template, context)
 
 
-__all__ = ['item_detail', 'item_list', 'get_int', 'converter', 'new', 'unverified', 'friday']
+__all__ = [
+    'item_detail',
+    'item_list',
+    'get_int',
+    'converter',
+    'new',
+    'unverified',
+    'friday',
+]

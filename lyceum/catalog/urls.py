@@ -24,7 +24,9 @@ urlpatterns = [
     ),
     django.urls.path('converter/<polozh_int:el>/', catalog.views.converter),
     django.urls.path(
-        'unverified', catalog.views.unverified, name='unverified',
+        'unverified',
+        catalog.views.unverified,
+        name='unverified',
     ),
     django.urls.path('friday', catalog.views.friday, name='friday'),
     django.urls.path('new', catalog.views.new, name='new'),
