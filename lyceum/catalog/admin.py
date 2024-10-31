@@ -27,6 +27,10 @@ class ItemAdmin(django.contrib.admin.ModelAdmin):
         MainImageAdminInline,
         SecondImagesAdminInline,
     ]
+    readonly_fields = (
+        catalog.models.Item.created_at.field.name,
+        catalog.models.Item.updated_at.field.name,
+    )
 
     @django.contrib.admin.display(description='превью')
     def preview(self, obj):

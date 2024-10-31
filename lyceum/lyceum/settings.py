@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'about.apps.AboutConfig',
     'catalog.apps.CatalogConfig',
     'core.apps.CoreConfig',
+    'download.apps.DownloadConfig',
     'homepage.apps.HomepageConfig',
     'sorl.thumbnail',
     'django_cleanup.apps.CleanupConfig',

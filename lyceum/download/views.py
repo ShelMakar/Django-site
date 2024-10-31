@@ -7,9 +7,9 @@ import django.http
 def download_image(request, path):
     path = pathlib.Path(django.conf.settings.MEDIA_ROOT) / path
     path.exists()
-    response = django.http.FileResponse(open(path, 'rb'))
-    response['Content-Disposition'] = f'attachment; filename="{path.name}"'
-    return response
+    return django.http.FileResponse(
+        open(path, 'rb'), as_attachment=True, content_type='image',
+    )
 
 
 __all__ = ['download_image']
