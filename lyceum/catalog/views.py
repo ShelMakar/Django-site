@@ -52,7 +52,8 @@ def unverified(request):
     template = 'catalog/unverified.html'
 
     unverified_products = catalog.models.Item.objects.published().filter(
-        created_at__lt=django.db.models.F('updated_at'))
+        created_at__lt=django.db.models.F('updated_at')
+    )
 
     title = django.utils.translation.gettext('Неизменяемые')
     context = {'items': unverified_products, 'title': title}
