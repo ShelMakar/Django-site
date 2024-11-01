@@ -40,7 +40,7 @@ def item_detail(request, pk):
 
 def friday(request):
     template = 'catalog/friday.html'
-    friday_products = catalog.models.Item.objects.filter(
+    friday_products = catalog.models.Item.objects.published().filter(
         updated_at__week_day=6,
     ).order_by('-updated_at')[:5]
     title = django.utils.translation.gettext('Пятница')
@@ -53,7 +53,7 @@ def unverified(request):
 
     one_millisecond = datetime.timedelta(milliseconds=1)
 
-    unverified_products = catalog.models.Item.objects.annotate(
+    unverified_products = catalog.models.Item.objects.published().annotate(
         time_difference=django.db.models.ExpressionWrapper(
             django.db.models.F('updated_at')
             - django.db.models.F('created_at'),
@@ -70,7 +70,7 @@ def new(request):
     one_week_ago = django.utils.timezone.now() - datetime.timedelta(
         hours=24 * 7,
     )
-    recent_products = catalog.models.Item.objects.filter(
+    recent_products = catalog.models.Item.objects.published().filter(
         created_at__gte=one_week_ago,
     ).order_by('?')[:5]
     title = django.utils.translation.gettext('Новинки')
