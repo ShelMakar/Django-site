@@ -44,8 +44,7 @@ def friday(request):
         updated_at__week_day=6,
     ).order_by('-updated_at')[:5]
     title = django.utils.translation.gettext('Пятница')
-    context = {'items': friday_products,
-               'title': title}
+    context = {'items': friday_products, 'title': title}
     return django.shortcuts.render(request, template, context)
 
 
@@ -62,8 +61,7 @@ def unverified(request):
         ),
     ).filter(time_difference__lte=one_millisecond)
     title = django.utils.translation.gettext('Неизменяемые')
-    context = {'items': unverified_products,
-               'title': title}
+    context = {'items': unverified_products, 'title': title}
     return django.shortcuts.render(request, template, context)
 
 
@@ -76,8 +74,7 @@ def new(request):
         created_at__gte=one_week_ago,
     ).order_by('?')[:5]
     title = django.utils.translation.gettext('Новинки')
-    context = {'items': recent_products,
-               'title': title}
+    context = {'items': recent_products, 'title': title}
     return django.shortcuts.render(request, template, context)
 
 
