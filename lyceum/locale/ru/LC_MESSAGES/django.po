@@ -24,8 +24,8 @@ msgid "Пятница"
 msgstr "Пятница"
 
 #: .\catalog\views.py:64
-msgid "Неизменяемые"
-msgstr "Неизменяемые"
+msgid "Непроверенное"
+msgstr "Непроверенное"
 
 #: .\catalog\views.py:78
 msgid "Новинки"

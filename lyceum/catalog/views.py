@@ -55,7 +55,7 @@ def unverified(request):
         created_at__lt=django.db.models.F('updated_at'),
     )
 
-    title = django.utils.translation.gettext('Неизменяемые')
+    title = django.utils.translation.gettext('Непроверенное')
     context = {'items': unverified_products, 'title': title}
     return django.shortcuts.render(request, template, context)
 

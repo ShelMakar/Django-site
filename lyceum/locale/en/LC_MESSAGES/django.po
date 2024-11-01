@@ -22,7 +22,7 @@ msgid "Пятница"
 msgstr "Friday"
 
 #: .\catalog\views.py:64
-msgid "Неизменяемые"
+msgid "Непроверенное"
 msgstr "Unverified"
 
 #: .\catalog\views.py:78
