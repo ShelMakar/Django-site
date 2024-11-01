@@ -1,5 +1,4 @@
 import datetime
-import http
 
 import django.db.models
 import django.http
@@ -27,9 +26,6 @@ def item_list(request):
 
 def item_detail(request, pk):
     template = 'catalog/item.html'
-    if pk in {0, 1, 100}:
-        return django.http.HttpResponse(http.HTTPStatus.OK)
-    # это не я придумал, это чат, не бейте
     item = django.shortcuts.get_object_or_404(
         catalog.models.Item.objects.published(),
         pk=pk,
@@ -57,17 +53,10 @@ def unverified(request):
 
     one_millisecond = datetime.timedelta(milliseconds=1)
 
-    unverified_products = (
-        catalog.models.Item.objects.published()
-        .annotate(
-            time_difference=django.db.models.ExpressionWrapper(
-                django.db.models.F('updated_at')
-                - django.db.models.F('created_at'),
-                output_field=django.db.models.DurationField(),
-            ),
-        )
-        .filter(time_difference__lte=one_millisecond),
+    unverified_products = catalog.models.Item.objects.published().filter(
+        created_at__lt=django.db.models.F('updated_at') - one_millisecond,
     )
+
     title = django.utils.translation.gettext('Неизменяемые')
     context = {'items': unverified_products, 'title': title}
     return django.shortcuts.render(request, template, context)
