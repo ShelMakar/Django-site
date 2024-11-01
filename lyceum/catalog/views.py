@@ -40,9 +40,13 @@ def item_detail(request, pk):
 
 def friday(request):
     template = 'catalog/friday.html'
-    friday_products = catalog.models.Item.objects.published().filter(
-        updated_at__week_day=6,
-    ).order_by('-updated_at')[:5]
+    friday_products = (
+        catalog.models.Item.objects.published()
+        .filter(
+            updated_at__week_day=6,
+        )
+        .order_by('-updated_at')[:5]
+    )
     title = django.utils.translation.gettext('Пятница')
     context = {'items': friday_products, 'title': title}
     return django.shortcuts.render(request, template, context)
@@ -53,13 +57,17 @@ def unverified(request):
 
     one_millisecond = datetime.timedelta(milliseconds=1)
 
-    unverified_products = catalog.models.Item.objects.published().annotate(
-        time_difference=django.db.models.ExpressionWrapper(
-            django.db.models.F('updated_at')
-            - django.db.models.F('created_at'),
-            output_field=django.db.models.DurationField(),
-        ),
-    ).filter(time_difference__lte=one_millisecond)
+    unverified_products = (
+        catalog.models.Item.objects.published()
+        .annotate(
+            time_difference=django.db.models.ExpressionWrapper(
+                django.db.models.F('updated_at')
+                - django.db.models.F('created_at'),
+                output_field=django.db.models.DurationField(),
+            ),
+        )
+        .filter(time_difference__lte=one_millisecond),
+    )
     title = django.utils.translation.gettext('Неизменяемые')
     context = {'items': unverified_products, 'title': title}
     return django.shortcuts.render(request, template, context)
@@ -70,9 +78,13 @@ def new(request):
     one_week_ago = django.utils.timezone.now() - datetime.timedelta(
         hours=24 * 7,
     )
-    recent_products = catalog.models.Item.objects.published().filter(
-        created_at__gte=one_week_ago,
-    ).order_by('?')[:5]
+    recent_products = (
+        catalog.models.Item.objects.published()
+        .filter(
+            created_at__gte=one_week_ago,
+        )
+        .order_by('?')[:5]
+    )
     title = django.utils.translation.gettext('Новинки')
     context = {'items': recent_products, 'title': title}
     return django.shortcuts.render(request, template, context)
