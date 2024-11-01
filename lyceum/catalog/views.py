@@ -39,7 +39,7 @@ def item_detail(request, pk):
 
 
 def friday(request):
-    template = 'catalog/item_list.html'
+    template = 'catalog/friday.html'
     friday_products = catalog.models.Item.objects.filter(
         updated_at__week_day=6,
     ).order_by('-updated_at')[:5]
@@ -49,7 +49,7 @@ def friday(request):
 
 
 def unverified(request):
-    template = 'catalog/item_list.html'
+    template = 'catalog/unverified.html'
 
     one_millisecond = datetime.timedelta(milliseconds=1)
 
@@ -66,7 +66,7 @@ def unverified(request):
 
 
 def new(request):
-    template = 'catalog/item_list.html'
+    template = 'catalog/new.html'
     one_week_ago = django.utils.timezone.now() - datetime.timedelta(
         hours=24 * 7,
     )
