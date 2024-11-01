@@ -51,11 +51,8 @@ def friday(request):
 def unverified(request):
     template = 'catalog/unverified.html'
 
-    one_millisecond = datetime.timedelta(milliseconds=1)
-
     unverified_products = catalog.models.Item.objects.published().filter(
-        created_at__lt=django.db.models.F('updated_at') - one_millisecond,
-    )
+        created_at__lt=django.db.models.F('updated_at'))
 
     title = django.utils.translation.gettext('Неизменяемые')
     context = {'items': unverified_products, 'title': title}
