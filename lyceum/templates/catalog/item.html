@@ -8,8 +8,10 @@
 </h1>
 <div class="col">
 	<div class="card h-100" style="width: 18rem;">
-		<img src="{{ item.main_image.item.url }}">
-		<a href="{% url 'download:download' item.main_image.item %}" class="btn btn-primary">Скачать</a>
+		{% if item.main_image.item %}
+		  <img src="{{ item.main_image.item.url }}">
+		  <a href="{% url 'download:download' item.main_image.item %}" class="btn btn-primary">Скачать</a>
+		{% endif %}
 		<div class="card-body">
 			<h5 class="card-title">{{ item.name }}</h5>
 			<h6 class="card-title">{{ item.category.name }}</h6>
@@ -19,10 +21,12 @@
 			{% endfor %}
 			<div class="list-items">
 			{% for image in item.images.all %}
-			  <div class="gallery-image">
-	        <img src="{{ image.image.url }}" class="item" width="300">
-				  <a href="{% url 'download:download' image.image %}" class="btn btn-primary">Скачать</a>
-	      </div>
+			  {% if image.image %}
+			    <div class="gallery-image">
+	          <img src="{{ image.image.url }}" class="item" width="300">
+				    <a href="{% url 'download:download' image.image %}" class="btn btn-primary">Скачать</a>
+	        </div>
+			  {% endif %}
 			{% endfor %}
 		  </div>
 		</div>
