@@ -5,6 +5,7 @@ import django.db.models
 import django.http
 import django.shortcuts
 import django.utils.timezone
+import django.utils.translation
 
 import catalog.models
 
@@ -42,7 +43,9 @@ def friday(request):
     friday_products = catalog.models.Item.objects.filter(
         updated_at__week_day=6,
     ).order_by('-updated_at')[:5]
-    context = {'items': friday_products}
+    title = django.utils.translation.gettext('Пятница')
+    context = {'items': friday_products,
+               'title': title}
     return django.shortcuts.render(request, template, context)
 
 
@@ -58,8 +61,9 @@ def unverified(request):
             output_field=django.db.models.DurationField(),
         ),
     ).filter(time_difference__lte=one_millisecond)
-
-    context = {'items': unverified_products}
+    title = django.utils.translation.gettext('Неизменяемые')
+    context = {'items': unverified_products,
+               'title': title}
     return django.shortcuts.render(request, template, context)
 
 
@@ -71,7 +75,9 @@ def new(request):
     recent_products = catalog.models.Item.objects.filter(
         created_at__gte=one_week_ago,
     ).order_by('?')[:5]
-    context = {'items': recent_products}
+    title = django.utils.translation.gettext('Новинки')
+    context = {'items': recent_products,
+               'title': title}
     return django.shortcuts.render(request, template, context)
 
 

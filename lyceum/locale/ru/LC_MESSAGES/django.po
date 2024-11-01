@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-25 04:05+0300\n"
+"POT-Creation-Date: 2024-11-01 03:11+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,15 +19,27 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
-#: .\lyceum\settings.py:123
+#: .\catalog\views.py:46
+msgid "Пятница"
+msgstr "Пятница"
+
+#: .\catalog\views.py:64
+msgid "Неизменяемые"
+msgstr "Неизменяемые"
+
+#: .\catalog\views.py:78
+msgid "Новинки"
+msgstr "Новинки"
+
+#: .\lyceum\settings.py:124
 msgid "Русский"
 msgstr "Русский"
 
-#: .\lyceum\settings.py:124
+#: .\lyceum\settings.py:125
 msgid "Английский"
 msgstr "Английский"
 
-#: .\templates\about\about.html:6 .\templates\includes\header.html:20
+#: .\templates\about\about.html:6 .\templates\includes\header.html:24
 msgid "О проекте"
 msgstr "О проекте"
 
@@ -35,7 +47,7 @@ msgstr "О проекте"
 msgid "Товар"
 msgstr "Товар"
 
-#: .\templates\catalog\item_list.html:6 .\templates\includes\header.html:17
+#: .\templates\catalog\item_list.html:6 .\templates\includes\header.html:20
 msgid "Список товаров"
 msgstr "Список товаров"
 
@@ -43,6 +55,6 @@ msgstr "Список товаров"
 msgid "Главная"
 msgstr "Главная"
 
-#: .\templates\includes\header.html:14
+#: .\templates\includes\header.html:16
 msgid "На главную"
 msgstr "На главную"
