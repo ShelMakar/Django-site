@@ -25,7 +25,12 @@
 					</li>
 					<li class="nav-item">
 						{% if request.user.is_authenticated %}
-						  <a class="nav-link" href="{% url 'admin:index' %}">Админка</a>
+						  <a class="nav-link" href="{% url 'admin:index' %}">{% trans 'Админка' %}</a>
+						{% endif %}
+					</li>
+					<li class="nav-item">
+						{% if view_name == 'homepage:home' %}
+						<a class="nav-link" aria-current="page" href="{% url 'feedback:feedback' %}">{% trans 'Форма' %}</a>
 						{% endif %}
 					</li>
 					{% endwith %}

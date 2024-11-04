@@ -39,10 +39,11 @@ INSTALLED_APPS = [
     'catalog.apps.CatalogConfig',
     'core.apps.CoreConfig',
     'download.apps.DownloadConfig',
+    'feedback.apps.FeedbackConfig',
     'homepage.apps.HomepageConfig',
-    'sorl.thumbnail',
     'django_cleanup.apps.CleanupConfig',
     'django_ckeditor_5',
+    'sorl.thumbnail',
 ]
 
 MIDDLEWARE = [
@@ -316,3 +317,9 @@ CKEDITOR_5_CONFIGS = {
         },
     },
 }
+
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+
+EMAIL_FILE_PATH = BASE_DIR / 'send_mail'
+
+DEFAULT_FROM_EMAIL = os.getenv('DJANG0_MAIL', 'makarmolodec@mail.ru')

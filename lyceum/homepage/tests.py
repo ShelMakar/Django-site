@@ -2,8 +2,38 @@ import http
 
 import django.test
 import django.urls
+import parameterized
 
 import lyceum.middleware
+
+
+class EchoFormTests(django.test.TestCase):
+
+    def setUp(self):
+        self.form_url = django.urls.reverse('homepage:echo')
+        self.submit_url = django.urls.reverse('homepage:echo_submit')
+
+    def test_form_page_available(self):
+        response = self.client.get(self.form_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('text', response.context['form'].fields)
+
+    def test_submit_page_only_post_allowed(self):
+        response = self.client.get(self.submit_url)
+        self.assertEqual(response.status_code, 405)
+
+    @parameterized.parameterized.expand(
+        [
+            ('Hello, World!',),
+            ('This is a test message.',),
+            ('Тестовое сообщение.',),
+        ],
+    )
+    def test_echo_submit(self, text_value):
+        response = self.client.post(self.submit_url, {'text': text_value})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'text/plain')
+        self.assertEqual(response.content.decode(), text_value)
 
 
 class NumbersTest(django.test.TestCase):

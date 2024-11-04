@@ -15,6 +15,7 @@ urlpatterns = [
         django.urls.include('django_ckeditor_5.urls'),
     ),
     django.urls.path('download/', django.urls.include('download.urls')),
+    django.urls.path('feedback/', django.urls.include('feedback.urls')),
 ] + django.conf.urls.static.static(
     django.conf.settings.MEDIA_URL,
     document_root=django.conf.settings.MEDIA_ROOT,
