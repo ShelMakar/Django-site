@@ -15,7 +15,8 @@ class FeedbackFormTests(django.test.TestCase):
         response = self.client.get(self.url)
         self.assertIn('form', response.context)
         self.assertIsInstance(
-            response.context['form'], feedback.forms.FeedbackForm,
+            response.context['form'],
+            feedback.forms.FeedbackForm,
         )
 
     @parameterized.parameterized.expand(
