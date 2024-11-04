@@ -41,7 +41,6 @@ class FeedbackFormTests(django.test.TestCase):
         self.assertEqual(form.fields[field_name].help_text, expected_help_text)
 
     def test_create_feedback(self):
-        item_count = feedback.models.Feedback.objects.count()
         form_data = {
             'name': 'Тест',
             'text': 'Тест',

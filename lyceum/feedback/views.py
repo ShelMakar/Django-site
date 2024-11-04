@@ -19,7 +19,6 @@ def feedback_view(request):
             message=text,
             from_email=server_mail,
             recipient_list=[mail],
-
         )
         django.contrib.messages.success(request, 'Форма успешно отправлена')
         return django.shortcuts.redirect('feedback:feedback')
