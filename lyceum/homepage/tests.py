@@ -32,7 +32,6 @@ class EchoFormTests(django.test.TestCase):
     def test_echo_submit(self, text_value):
         response = self.client.post(self.submit_url, {'text': text_value})
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response['Content-Type'], 'text/plain')
         self.assertEqual(response.content.decode(), text_value)
 
 

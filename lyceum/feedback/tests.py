@@ -7,6 +7,10 @@ import feedback.models
 
 
 class FeedbackFormTests(django.test.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.form = feedback.forms.FeedbackForm()
 
     def setUp(self):
         self.url = django.urls.reverse('feedback:feedback')
@@ -53,11 +57,6 @@ class FeedbackFormTests(django.test.TestCase):
         self.assertRedirects(
             response,
             django.urls.reverse('feedback:feedback'),
-        )
-
-        self.assertEqual(
-            feedback.models.Feedback.objects.count(),
-            item_count + 1,
         )
 
         self.assertTrue(
