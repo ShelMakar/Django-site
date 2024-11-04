@@ -22,7 +22,8 @@ static_urls = django.conf.urls.static.static(
 admin_and_editor_urls = [
     django.urls.path('admin/', django.contrib.admin.site.urls, name='admin'),
     django.urls.path(
-        'ckeditor5/', django.urls.include('django_ckeditor_5.urls'),
+        'ckeditor5/',
+        django.urls.include('django_ckeditor_5.urls'),
     ),
 ]
 
@@ -33,6 +34,7 @@ if lyceum.settings.DEBUG:
 
     urlpatterns += [
         django.urls.path(
-            '__debug__/', django.urls.include(debug_toolbar.urls),
+            '__debug__/',
+            django.urls.include(debug_toolbar.urls),
         ),
     ]

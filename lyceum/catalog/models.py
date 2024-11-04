@@ -84,7 +84,11 @@ class ItemManager(django.db.models.Manager):
             ),
         )
         return queryset.only(
-            'id', 'name', 'text', 'category__name', 'main_image__item',
+            'id',
+            'name',
+            'text',
+            'category__name',
+            'main_image__item',
         ).order_by('category__name', 'name')
 
     def on_main(self):
@@ -101,7 +105,11 @@ class ItemManager(django.db.models.Manager):
             ),
         )
         return queryset.only(
-            'name', 'text', 'id', 'category__name', 'main_image__item',
+            'name',
+            'text',
+            'id',
+            'category__name',
+            'main_image__item',
         ).order_by('name')
 
 
