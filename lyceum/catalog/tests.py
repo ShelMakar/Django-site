@@ -37,6 +37,7 @@ class ModelsTest(django.test.TestCase):
             )
             self.item.full_clean()
             self.item.save()
+
         self.assertEqual(catalog.models.Item.objects.count(), item_count)
 
     def test_correct_word(self):
@@ -162,18 +163,22 @@ class MediaTests(django.test.TestCase):
         )
 
     def test_category(self):
-        item = catalog.models.Item.objects.published().first().__dict__
+        item = catalog.models.Item.objects.published()
+        item = item.first().__dict__
         self.assertIn('category_id', item)
-        self.assertNotIn('is_published', item)
         self.assertIn('text', item)
         self.assertIn('name', item)
 
-    def test_homepage(self):
-        item = catalog.models.Item.objects.on_main().first().__dict__
-        self.assertIn('category_id', item)
         self.assertNotIn('is_published', item)
+
+    def test_homepage(self):
+        item = catalog.models.Item.objects.on_main()
+        item = item.first().__dict__
+        self.assertIn('category_id', item)
         self.assertIn('text', item)
         self.assertIn('name', item)
+
+        self.assertNotIn('is_published', item)
         self.assertNotIn('is_on_main', item)
 
 

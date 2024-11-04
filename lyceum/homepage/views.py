@@ -29,14 +29,18 @@ def tea1(request):
 def echo(request):
     template = 'homepage/echo.html'
     form = homepage.forms.EchoForm(request.POST or None)
-    context = {'form': form}
-    return django.shortcuts.render(request, template, context)
+    if request.method == 'POST' and form.is_valid():
+        context = {'form': form}
+        return django.shortcuts.render(request, template, context)
+
+    return django.http.HttpResponseNotAllowed(['POST'])
 
 
 def echo_submit(request):
     if request.method == 'POST':
         text = request.POST.get('text')
-        return django.http.HttpResponse(text, content_type='text/plain')
+        return django.http.HttpResponse(text)
+
     return django.http.HttpResponseNotAllowed(['POST'])
 
 

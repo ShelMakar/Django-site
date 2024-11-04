@@ -23,6 +23,7 @@ def corr_name(value):
         if value[i] in target:
             j = target.find(value[i])
             value = value.replace(target[j], replacer[j])
+
     return value
 
 
@@ -71,45 +72,37 @@ class Category(core.models.NormName):
 
 class ItemManager(django.db.models.Manager):
     def published(self):
-        return (
-            self.get_queryset()
-            .filter(
-                is_published=True,
-                category__is_published=True,
-            )
-            .select_related('category', 'main_image')
-            .prefetch_related(
-                django.db.models.Prefetch(
-                    'tags',
-                    queryset=Tag.objects.filter(
-                        is_published=True,
-                    ).only('name'),
-                ),
-            )
-            .only('id', 'name', 'text', 'category__name', 'main_image__item')
-            .order_by('category__name', 'name')
+        queryset = self.get_queryset().filter(
+            is_published=True,
+            category__is_published=True,
         )
+        queryset = queryset.select_related('category', 'main_image')
+        queryset = queryset.prefetch_related(
+            django.db.models.Prefetch(
+                'tags',
+                queryset=Tag.objects.filter(is_published=True).only('name'),
+            ),
+        )
+        return queryset.only(
+            'id', 'name', 'text', 'category__name', 'main_image__item',
+        ).order_by('category__name', 'name')
 
     def on_main(self):
-        return (
-            self.get_queryset()
-            .filter(
-                is_on_main=True,
-                is_published=True,
-                category__is_published=True,
-            )
-            .select_related('category', 'main_image')
-            .prefetch_related(
-                django.db.models.Prefetch(
-                    'tags',
-                    queryset=Tag.objects.filter(
-                        is_published=True,
-                    ).only('name'),
-                ),
-            )
-            .only('name', 'text', 'id', 'category__name', 'main_image__item')
-            .order_by('name')
+        queryset = self.get_queryset().filter(
+            is_on_main=True,
+            is_published=True,
+            category__is_published=True,
         )
+        queryset = queryset.select_related('category', 'main_image')
+        queryset = queryset.prefetch_related(
+            django.db.models.Prefetch(
+                'tags',
+                queryset=Tag.objects.filter(is_published=True).only('name'),
+            ),
+        )
+        return queryset.only(
+            'name', 'text', 'id', 'category__name', 'main_image__item',
+        ).order_by('name')
 
 
 class Item(core.models.AbstractModel):
@@ -167,6 +160,7 @@ class MainImage(django.db.models.Model):
             return django.utils.safestring.mark_safe(
                 f'<img src="{self.image}" width="50">',
             )
+
         return 'image not found'
 
     def get_image_300x300(self):
@@ -210,6 +204,7 @@ class SecondImages(django.db.models.Model):
             return django.utils.safestring.mark_safe(
                 f'<img src="{self.images.url}" width="50">',
             )
+
         return 'image not found'
 
     def get_image_300x300(self):

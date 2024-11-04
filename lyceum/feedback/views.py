@@ -4,13 +4,12 @@ import django.core.mail
 import django.shortcuts
 
 import feedback.forms
-import lyceum.settings
 
 
 def feedback_view(request):
     template = 'feedback/feedback.html'
     form = feedback.forms.FeedbackForm(request.POST or None)
-    server_mail = lyceum.settings.DEFAULT_FROM_EMAIL
+    server_mail = django.conf.settings.DEFAULT_FROM_EMAIL
     if form.is_valid() and request.method == 'POST':
         name = form.cleaned_data['name']
         text = form.cleaned_data['text']
@@ -23,6 +22,7 @@ def feedback_view(request):
         )
         django.contrib.messages.success(request, 'Форма успешно отправлена')
         return django.shortcuts.redirect('feedback:feedback')
+
     context = {
         'form': form,
     }

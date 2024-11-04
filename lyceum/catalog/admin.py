@@ -37,6 +37,7 @@ class ItemAdmin(django.contrib.admin.ModelAdmin):
         main_image_instance = obj.main_image
         if main_image_instance:
             return main_image_instance.image_tmb()
+
         return 'Нет изображения'
 
 

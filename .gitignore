@@ -106,3 +106,4 @@ dmypy.json
 .pytype/
 
 /lyceum/media/
+/lyceum/send_mail/

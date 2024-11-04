@@ -12,6 +12,7 @@ def corr_name(value):
         if value[i] in target:
             j = target.find(value[i])
             value = value.replace(target[j], replacer[j])
+
     return value
 
 
