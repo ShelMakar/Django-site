@@ -23,7 +23,10 @@ class FeedbackFormTests(django.test.TestCase):
         ],
     )
     def test_form_labels_and_help_texts(
-        self, field_name, expected_label, expected_help_text,
+        self,
+        field_name,
+        expected_label,
+        expected_help_text,
     ):
         form = FeedbackForm()
         self.assertEqual(form.fields[field_name].label, expected_label)
