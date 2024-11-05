@@ -1,9 +1,5 @@
 import re
-
 import django.conf
-
-WORDS_REGEX = re.compile(r'\w+|\W+')
-NOT_RUSSIAN_REGEX = re.compile(r'^[^а-яА-Я\s]+$')
 
 
 class Middleware:
@@ -14,7 +10,7 @@ class Middleware:
 
     @classmethod
     def check_need_reverse(cls):
-        if not django.conf.settings.ALLOW_REVERSE:
+        if not django.confsettings.ALLOW_REVERSE:
             return False
 
         cls.count += 1
@@ -30,14 +26,14 @@ class Middleware:
 
         response = self.get_response(request)
         content = response.content.decode()
-        words = WORDS_REGEX.findall(content)
 
-        transformed = [
-            word if NOT_RUSSIAN_REGEX.search(word) else word[::-1]
-            for word in words
-        ]
+        reversed_content = re.sub(
+            r'\b[а-яА-ЯёЁ]+\b',
+            lambda match: match.group(0)[::-1],
+            content,
+        )
 
-        response.content = ''.join(transformed)
+        response.content = reversed_content.encode()
         return response
 
 

@@ -27,10 +27,13 @@ def tea1(request):
 
 
 def echo(request):
-    template = 'homepage/echo.html'
-    form = homepage.forms.EchoForm(request.POST or None)
-    context = {'form': form}
-    return django.shortcuts.render(request, template, context)
+    if request.method == 'GET':
+        template = 'homepage/echo.html'
+        form = homepage.forms.EchoForm(request.POST or None)
+        context = {'form': form}
+        return django.shortcuts.render(request, template, context)
+
+    return django.http.HttpResponse(status=http.HTTPStatus.METHOD_NOT_ALLOWED)
 
 
 def echo_submit(request):
