@@ -11,7 +11,7 @@ class Middleware:
 
     @classmethod
     def check_need_reverse(cls):
-        if not django.confsettings.ALLOW_REVERSE:
+        if not django.conf.settings.ALLOW_REVERSE:
             return False
 
         cls.count += 1
