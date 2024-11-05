@@ -20,6 +20,7 @@ def feedback_view(request):
             from_email=server_mail,
             recipient_list=[mail],
         )
+        form.save()
         django.contrib.messages.success(request, 'Форма успешно отправлена')
         return django.shortcuts.redirect('feedback:feedback')
 

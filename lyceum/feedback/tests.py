@@ -41,6 +41,7 @@ class FeedbackFormTests(django.test.TestCase):
         self.assertEqual(form.fields[field_name].help_text, expected_help_text)
 
     def test_create_feedback(self):
+        item_count = feedback.models.Feedback.objects.count()
         form_data = {
             'name': 'Тест',
             'text': 'Тест',
@@ -56,6 +57,11 @@ class FeedbackFormTests(django.test.TestCase):
         self.assertRedirects(
             response,
             django.urls.reverse('feedback:feedback'),
+        )
+
+        self.assertEqual(
+            feedback.models.Feedback.objects.count(),
+            item_count + 1,
         )
 
         self.assertTrue(
