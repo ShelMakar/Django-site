@@ -35,7 +35,7 @@ class StatusLog(django.db.models.Model):
         blank=True,
     )
     timestamp = django.db.models.DateTimeField(auto_now_add=True, null=True)
-    from_status = django.db.models.CharField(max_length=20)
+    from_status = django.db.models.CharField(max_length=20, db_column='from')
     to = django.db.models.CharField(max_length=100)
 
 
