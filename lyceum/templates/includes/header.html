@@ -20,6 +20,18 @@
 						   href="{% url 'catalog:item_list' %}">{% trans 'Список товаров' %}</a>
 					</li>
 					<li class="nav-item">
+						<a class="nav-link {% if view_name == 'catalog:unverified' %}active disabled{% endif %}"
+						   href="{% url 'catalog:unverified' %}">{% trans 'Непроверенное' %}</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link {% if view_name == 'catalog:friday' %}active disabled{% endif %}"
+						   href="{% url 'catalog:friday' %}">{% trans 'Пятница' %}</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link {% if view_name == 'catalog:new' %}active disabled{% endif %}"
+						   href="{% url 'catalog:new' %}">{% trans 'Новинки' %}</a>
+					</li>
+					<li class="nav-item">
 						<a class="nav-link {% if view_name == 'about:description' %}active disabled{% endif %}"
 						   href="{% url 'about:description' %}">{% trans 'О проекте' %}</a>
 					</li>

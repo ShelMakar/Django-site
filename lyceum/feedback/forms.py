@@ -12,7 +12,7 @@ class FeedbackForm(django.forms.ModelForm):
     class Meta:
         model = feedback.models.Feedback
         fields = '__all__'
-        exclude = ['created_on']
+        exclude = ['created_on', 'status']
 
         labels = {
             feedback.models.Feedback.name.field.name: 'Имя',
