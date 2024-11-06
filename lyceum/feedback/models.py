@@ -15,7 +15,9 @@ class Feedback(django.db.models.Model):
     created_on = django.db.models.DateTimeField(auto_now_add=True, null=True)
     mail = django.db.models.EmailField()
     status = django.db.models.CharField(
-        max_length=20, choices=STATUS_CHOICES, default='received',
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default='received',
     )
 
 

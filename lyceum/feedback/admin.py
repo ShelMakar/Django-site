@@ -10,7 +10,7 @@ class FeedbackAdmin(django.contrib.admin.ModelAdmin):
         feedback.models.Feedback.name.field.name,
         feedback.models.Feedback.status.field.name,
         feedback.models.Feedback.created_on.field.name,
-        ]
+    ]
 
     def save_model(self, request, obj, form, change):
         if change:
