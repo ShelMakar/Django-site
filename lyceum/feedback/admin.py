@@ -6,16 +6,12 @@ import feedback.models
 
 class FeedbackContactInline(django.contrib.admin.TabularInline):
     model = feedback.models.FeedbackContact
-    extra = 1  # Количество пустых форм, отображаемых по умолчанию
 
 
-# Inline для отображения и редактирования файлов, связанных с обращением
 class FeedbackFileInline(django.contrib.admin.TabularInline):
     model = feedback.models.FeedbackFile
-    extra = 1  # Количество пустых форм, отображаемых по умолчанию
 
 
-# Admin для Feedback с инлайнами для контакта и файлов
 @django.contrib.admin.register(feedback.models.Feedback)
 class FeedbackAdmin(django.contrib.admin.ModelAdmin):
     list_display = [
@@ -23,14 +19,12 @@ class FeedbackAdmin(django.contrib.admin.ModelAdmin):
         'status',
         'created_on',
     ]
-    inlines = [FeedbackContactInline, FeedbackFileInline]  # Добавляем инлайны
+    inlines = [FeedbackContactInline, FeedbackFileInline]
 
-    # Метод для отображения имени контакта в списке
     def get_contact_name(self, obj):
         return obj.feedbacks.name if obj.feedbacks else '-'
     get_contact_name.short_description = 'Контакт'
 
-    # Перехватываем сохранение модели для записи изменений статуса
     def save_model(self, request, obj, form, change):
         if change:
             previous = feedback.models.Feedback.objects.get(pk=obj.pk)
