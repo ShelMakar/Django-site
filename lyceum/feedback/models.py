@@ -3,6 +3,10 @@ import django.db
 import django.forms
 
 
+def upload_to(instance, filename):
+    return f'uploads/{instance.feedback.id}/{filename}'
+
+
 class Feedback(django.db.models.Model):
     STATUS_CHOICES = [
         ('received', 'получено'),
@@ -10,15 +14,28 @@ class Feedback(django.db.models.Model):
         ('answered', 'ответ дан'),
     ]
 
-    name = django.db.models.CharField(max_length=100, null=True, blank=True)
     text = django.db.models.TextField()
     created_on = django.db.models.DateTimeField(auto_now_add=True, null=True)
-    mail = django.db.models.EmailField()
     status = django.db.models.CharField(
         max_length=20,
         choices=STATUS_CHOICES,
         default='received',
     )
+
+
+class FeedbackContact(django.db.models.Model):
+    name = django.db.models.CharField(max_length=100, null=True, blank=True)
+    mail = django.db.models.EmailField()
+    contact = django.db.models.ForeignKey(
+        Feedback, related_name='feedbacks', on_delete=django.db.models.CASCADE,
+    )
+
+
+class FeedbackFile(django.db.models.Model):
+    feedback = django.db.models.ForeignKey(
+        Feedback, related_name='files', on_delete=django.db.models.CASCADE,
+    )
+    file = django.db.models.FileField(upload_to=upload_to)
 
 
 class StatusLog(django.db.models.Model):

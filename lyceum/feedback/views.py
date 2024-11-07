@@ -4,28 +4,55 @@ import django.core.mail
 import django.shortcuts
 
 import feedback.forms
+import feedback.models
 
 
 def feedback_view(request):
     template = 'feedback/feedback.html'
     form = feedback.forms.FeedbackForm(request.POST or None)
-    server_mail = django.conf.settings.DEFAULT_FROM_EMAIL
-    if request.method == 'POST' and form.is_valid():
-        name = form.cleaned_data['name']
-        text = form.cleaned_data['text']
-        mail = form.cleaned_data['mail']
-        django.core.mail.send_mail(
-            subject=name,
-            message=text,
-            from_email=server_mail,
-            recipient_list=[mail],
+    user_form = feedback.forms.FeedbackContactForm(request.POST or None)
+    file_form = feedback.forms.FileFieldForm(
+        request.POST or None, request.FILES or None,
+    )
+    if (
+        request.method == 'POST'
+        and form.is_valid()
+        and user_form.is_valid()
+        and file_form.is_valid()
+    ):
+        feedback_ = form.save(commit=False)
+        feedback_.status = 'received'
+        feedback_.save()
+        text = form.cleaned_data.get('text')
+        mail = user_form.cleaned_data.get('mail')
+        feedback.models.FeedbackContact.objects.create(
+            name=form.cleaned_data.get('name'),
+            mail=mail,
+            user_info=feedback,
         )
-        form.save()
+
+        for file in file_form.cleaned_data.get('files'):
+            feedback_.files.create(file=file)
+
+        django.core.mail.send_mail(
+            'Что-то',
+            text,
+            django.conf.settings.MAIL,
+            [mail],
+            fail_silently=False,
+        )
+        feedback.models.StatusLog.objects.create(
+            feedback=feedback,
+            from_status='',
+            to=feedback_.status,
+        )
         django.contrib.messages.success(request, 'Форма успешно отправлена')
         return django.shortcuts.redirect('feedback:feedback')
 
     context = {
         'form': form,
+        'file_form': file_form,
+        'user_form': user_form,
     }
     return django.shortcuts.render(request, template, context)
 

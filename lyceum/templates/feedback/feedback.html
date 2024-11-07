@@ -2,35 +2,20 @@
 {% block content %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+
 {% if messages %}
-  <div>
-    {% for message in messages %}
-      <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %}" role="alert">
-        {{ message }}
-      </div>
-    {% endfor %}
-  </div>
+<div>
+	{% for message in messages %}
+	<div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %}" role="alert">
+		{{ message }}
+	</div>
+	{% endfor %}
+</div>
 {% endif %}
-<form method="post">
+
+<form method="post" enctype="multipart/form-data">
 	{% csrf_token %}
-	<div class="mb-3">
-		<label for="{{ form.name.id_for_label }}" class="form-label">{{ form.name.label }}</label>
-		{{ form.name }}
-		<div class="form-text">{{ form.name.help_text }}</div>
-		{% if form.name.errors %}
-		<div class="text-danger">{{ form.name.errors }}</div>
-		{% endif %}
-	</div>
-
-	<div class="mb-3">
-		<label for="{{ form.mail.id_for_label }}" class="form-label">{{ form.mail.label }}</label>
-		{{ form.mail }}
-		<div class="form-text">{{ form.mail.help_text }}</div>
-		{% if form.mail.errors %}
-		<div class="text-danger">{{ form.mail.errors }}</div>
-		{% endif %}
-	</div>
-
+	{% if form %}
 	<div class="mb-3">
 		<label for="{{ form.text.id_for_label }}" class="form-label">{{ form.text.label }}</label>
 		{{ form.text }}
@@ -39,7 +24,30 @@
 		<div class="text-danger">{{ form.text.errors }}</div>
 		{% endif %}
 	</div>
-
+	{% endif %}
+	{% if user_form %}
+	<div class="mb-3">
+		<label for="{{ user_form.name.id_for_label }}" class="form-label">{{ user_form.name.label }}</label>
+		{{ user_form.name }}
+		<div class="form-text">{{ user_form.name.help_text }}</div>
+		{% if user_form.name.errors %}
+		<div class="text-danger">{{ user_form.name.errors }}</div>
+		{% endif %}
+	</div>
+	<div class="mb-3">
+		<label for="{{ user_form.mail.id_for_label }}" class="form-label">{{ user_form.mail.label }}</label>
+		{{ user_form.mail }}
+		<div class="form-text">{{ user_form.mail.help_text }}</div>
+		{% if user_form.mail.errors %}
+		<div class="text-danger">{{ user_form.mail.errors }}</div>
+		{% endif %}
+	</div>
+	{% endif %}
+	{% if file_form %}
+	<div class="mb-3">
+		{{ file_form }}
+	</div>
+	{% endif %}
 	<button type="submit" class="btn btn-primary">Отправить</button>
 </form>
 {% endblock %}
