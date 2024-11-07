@@ -10,9 +10,7 @@ class FileFieldForm(django.forms.ModelForm):
         fields = [feedback.models.FeedbackFile.file.field.name]
         widgets = {
             feedback.models.FeedbackFile.file.field.name:
-                feedback.widgets.MultipleFileField(
-                    label='Файлы', required=False,
-                ),
+                feedback.widgets.MultipleFileInput(),
         }
 
 

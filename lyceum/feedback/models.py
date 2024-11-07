@@ -35,7 +35,11 @@ class FeedbackFile(django.db.models.Model):
     feedback = django.db.models.ForeignKey(
         Feedback, related_name='files', on_delete=django.db.models.CASCADE,
     )
-    file = django.db.models.FileField(upload_to=upload_to)
+    file = django.db.models.FileField(
+        upload_to=upload_to,
+        null=True,
+        blank=True,
+    )
 
 
 class StatusLog(django.db.models.Model):

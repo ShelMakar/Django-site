@@ -20,31 +20,31 @@ def feedback_view(request):
         and user_form.is_valid()
         and file_form.is_valid()
     ):
-        feedback_ = form.save(commit=False)
-        feedback_.status = 'received'
-        feedback_.save()
+        fb = form.save(commit=False)
+        fb.status = 'received'
+        fb.save()
         text = form.cleaned_data.get('text')
         mail = user_form.cleaned_data.get('mail')
         feedback.models.FeedbackContact.objects.create(
-            name=form.cleaned_data.get('name'),
+            name=user_form.cleaned_data.get('name'),
             mail=mail,
-            user_info=feedback,
+            user_info=fb,
         )
 
-        for file in file_form.cleaned_data.get('files'):
-            feedback_.files.create(file=file)
+        for file in file_form.cleaned_data.get('file'):
+            file.create(file=file)
 
         django.core.mail.send_mail(
             'Что-то',
             text,
-            django.conf.settings.MAIL,
+            django.conf.settings.DEFAULT_FROM_EMAIL,
             [mail],
             fail_silently=False,
         )
         feedback.models.StatusLog.objects.create(
-            feedback=feedback,
+            feedback=fb,
             from_status='',
-            to=feedback_.status,
+            to=fb.status,
         )
         django.contrib.messages.success(request, 'Форма успешно отправлена')
         return django.shortcuts.redirect('feedback:feedback')
