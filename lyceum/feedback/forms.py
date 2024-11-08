@@ -4,14 +4,25 @@ import feedback.models
 import feedback.widgets
 
 
-class FileFieldForm(django.forms.ModelForm):
-    class Meta:
-        model = feedback.models.FeedbackFile
-        fields = [feedback.models.FeedbackFile.file.field.name]
-        widgets = {
-            feedback.models.FeedbackFile.file.field.name:
-                feedback.widgets.MultipleFileInput(),
-        }
+class MultipleFileInput(django.forms.ClearableFileInput):
+    allow_multiple_selected = True
+
+
+class MultipleFileField(django.forms.FileField):
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault('widget', MultipleFileInput())
+        super().__init__(*args, **kwargs)
+
+    def clean(self, data, initial=None):
+        single_file_clean = super().clean
+        if isinstance(data, (list, tuple)):
+            return [single_file_clean(d, initial) for d in data]
+
+        return single_file_clean(data, initial)
+
+
+class FileFieldForm(django.forms.Form):
+    file_field = MultipleFileField()
 
 
 class FeedbackContactForm(django.forms.ModelForm):

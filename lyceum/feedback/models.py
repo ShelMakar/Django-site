@@ -3,10 +3,6 @@ import django.db
 import django.forms
 
 
-def upload_to(instance, filename):
-    return f'uploads/{instance.feedback.id}/{filename}'
-
-
 class Feedback(django.db.models.Model):
     STATUS_CHOICES = [
         ('received', 'получено'),
@@ -32,6 +28,8 @@ class FeedbackContact(django.db.models.Model):
 
 
 class FeedbackFile(django.db.models.Model):
+    def upload_to(self, filename):
+        return f'uploads/{self.feedback.id}/{filename}'
     feedback = django.db.models.ForeignKey(
         Feedback, related_name='files', on_delete=django.db.models.CASCADE,
     )

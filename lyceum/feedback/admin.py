@@ -19,6 +19,8 @@ class FeedbackAdmin(django.contrib.admin.ModelAdmin):
         'status',
         'created_on',
     ]
+    can_delete = False
+
     inlines = [FeedbackContactInline, FeedbackFileInline]
 
     def get_contact_name(self, obj):

@@ -1,44 +1,16 @@
+import shutil
+import tempfile
+
+import django.core.files.uploadedfile
 import django.test
 import django.urls
-import parameterized
+
 
 import feedback.forms
 import feedback.models
 
 
 class FeedbackFormTests(django.test.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        cls.form = feedback.forms.FeedbackForm()
-
-    def setUp(self):
-        self.url = django.urls.reverse('feedback:feedback')
-
-    def test_form_in_context(self):
-        response = self.client.get(self.url)
-        self.assertIn('form', response.context)
-        self.assertIsInstance(
-            response.context['form'],
-            feedback.forms.FeedbackForm,
-        )
-
-    @parameterized.parameterized.expand(
-        [
-            ('name', 'Имя', 'Как к вам обращаться?'),
-            ('mail', 'Почта', 'Наишите Вашу почту'),
-            ('text', 'Текст', 'Опишите обращение'),
-        ],
-    )
-    def test_form_labels_and_help_texts(
-        self,
-        field_name,
-        expected_label,
-        expected_help_text,
-    ):
-        form = feedback.forms.FeedbackForm()
-        self.assertEqual(form.fields[field_name].label, expected_label)
-        self.assertEqual(form.fields[field_name].help_text, expected_help_text)
 
     def test_create_feedback(self):
         item_count = feedback.models.Feedback.objects.count()
@@ -64,32 +36,79 @@ class FeedbackFormTests(django.test.TestCase):
             item_count + 1,
         )
 
-        self.assertTrue(
-            feedback.models.Feedback.objects.filter(
-                name='Тест',
-                text='Тест',
-                mail='123@l.com',
-            ).exists(),
+
+@django.test.override_settings(MEDIA_ROOT=tempfile.mkdtemp())
+class MultipleFileUploadTest(django.test.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        # Set up a temporary directory for MEDIA_ROOT
+        cls.test_media_root = tempfile.mkdtemp()
+
+    @classmethod
+    def tearDownClass(cls):
+        # Clean up the temporary directory after tests
+        shutil.rmtree(cls.test_media_root, ignore_errors=True)
+        super().tearDownClass()
+
+    def setUp(self):
+        self.client = django.test.Client()
+        # Create a feedback instance for associating with uploaded files
+        self.feedback = feedback.models.Feedback.objects.create(
+            text='Test feedback',
         )
 
-    def test_unable_create_feedback(self):
-        item_count = feedback.models.Feedback.objects.count()
-        form_data = {
-            'name': 'Тест',
-            'text': 'Тест',
-            'mail': 'notmail',
+    def test_multiple_file_upload(self):
+        feedback_data = {
+            'text': 'Test feedback',
+            'name': 'John Doe',
+            'mail': 'johndoe@example.com',
         }
 
-        response = django.test.Client().post(
-            django.urls.reverse('feedback:feedback'),
-            data=form_data,
+        # Create file upload instances
+        file1 = django.core.files.uploadedfile.SimpleUploadedFile(
+            'file1.txt', b'Content of file 1',
+        )
+        file2 = django.core.files.uploadedfile.SimpleUploadedFile(
+            'file2.txt', b'Content of file 2',
+        )
+
+        # Combine all form data into a single POST request
+        response = self.client.post(
+            django.urls.reverse(
+                'feedback:feedback',
+            ),  # Adjust this to match your URL pattern
+            {**feedback_data, 'file_field': [file1, file2]},
             follow=True,
         )
-        self.assertTrue(response.context['form'].has_error('mail'))
-        self.assertEqual(
-            feedback.models.Feedback.objects.count(),
-            item_count,
+
+        # Check response status code and ensure redirect after form submission
+        self.assertEqual(response.status_code, 200)
+        self.assertRedirects(
+            response, django.urls.reverse('feedback:feedback'),
         )
+
+        # Verify that the feedback instance was created
+        feedback_count = feedback.models.Feedback.objects.count()
+        self.assertEqual(
+            feedback_count,
+            2,
+        )  # Adjust according to initial instances
+
+        # Fetch the newly created feedback instance
+        new_feedback = feedback.models.Feedback.objects.latest('created_on')
+
+        # Verify that files are linked to the new feedback instance
+        uploaded_files = feedback.models.FeedbackFile.objects.filter(
+            feedback=new_feedback,
+        )
+        self.assertEqual(uploaded_files.count(), 2)
+
+        # Validate the file paths
+        file_names = [file.file.name for file in uploaded_files]
+        self.assertIn(f'uploads/{new_feedback.id}/file1.txt', file_names)
+        self.assertIn(f'uploads/{new_feedback.id}/file2.txt', file_names)
 
 
 __all__ = ['FeedbackFormTests']

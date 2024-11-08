@@ -28,11 +28,12 @@ def feedback_view(request):
         feedback.models.FeedbackContact.objects.create(
             name=user_form.cleaned_data.get('name'),
             mail=mail,
-            user_info=fb,
+            contact=fb,
         )
 
-        for file in file_form.cleaned_data.get('file'):
-            file.create(file=file)
+        files = file_form.cleaned_data.get('file_field')
+        for file in files:
+            feedback.models.FeedbackFile.objects.create(file=file, feedback=fb)
 
         django.core.mail.send_mail(
             'Что-то',
