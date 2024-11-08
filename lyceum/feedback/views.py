@@ -12,7 +12,8 @@ def feedback_view(request):
     form = feedback.forms.FeedbackForm(request.POST or None)
     user_form = feedback.forms.FeedbackContactForm(request.POST or None)
     file_form = feedback.forms.FileFieldForm(
-        request.POST or None, request.FILES or None,
+        request.POST or None,
+        request.FILES or None,
     )
     if (
         request.method == 'POST'

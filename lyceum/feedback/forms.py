@@ -44,13 +44,9 @@ class FeedbackContactForm(django.forms.ModelForm):
         }
         widgets = {
             feedback.models.FeedbackContact.name.field.name:
-                django.forms.TextInput(
-                    attrs={'class': 'form-control'},
-                ),
+                django.forms.TextInput(attrs={'class': 'form-control'}),
             feedback.models.FeedbackContact.mail.field.name:
-                django.forms.EmailInput(
-                    attrs={'class': 'form-control'},
-                ),
+                django.forms.EmailInput(attrs={'class': 'form-control'}),
         }
 
 

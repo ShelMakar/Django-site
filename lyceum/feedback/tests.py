@@ -68,10 +68,12 @@ class MultipleFileUploadTest(django.test.TestCase):
 
         # Create file upload instances
         file1 = django.core.files.uploadedfile.SimpleUploadedFile(
-            'file1.txt', b'Content of file 1',
+            'file1.txt',
+            b'Content of file 1',
         )
         file2 = django.core.files.uploadedfile.SimpleUploadedFile(
-            'file2.txt', b'Content of file 2',
+            'file2.txt',
+            b'Content of file 2',
         )
 
         # Combine all form data into a single POST request
@@ -86,7 +88,8 @@ class MultipleFileUploadTest(django.test.TestCase):
         # Check response status code and ensure redirect after form submission
         self.assertEqual(response.status_code, 200)
         self.assertRedirects(
-            response, django.urls.reverse('feedback:feedback'),
+            response,
+            django.urls.reverse('feedback:feedback'),
         )
 
         # Verify that the feedback instance was created

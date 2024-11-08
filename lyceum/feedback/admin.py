@@ -25,6 +25,7 @@ class FeedbackAdmin(django.contrib.admin.ModelAdmin):
 
     def get_contact_name(self, obj):
         return obj.feedbacks.name if obj.feedbacks else '-'
+
     get_contact_name.short_description = 'Контакт'
 
     def save_model(self, request, obj, form, change):

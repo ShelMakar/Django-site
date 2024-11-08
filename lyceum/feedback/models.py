@@ -23,15 +23,20 @@ class FeedbackContact(django.db.models.Model):
     name = django.db.models.CharField(max_length=100, null=True, blank=True)
     mail = django.db.models.EmailField()
     contact = django.db.models.ForeignKey(
-        Feedback, related_name='feedbacks', on_delete=django.db.models.CASCADE,
+        Feedback,
+        related_name='feedbacks',
+        on_delete=django.db.models.CASCADE,
     )
 
 
 class FeedbackFile(django.db.models.Model):
     def upload_to(self, filename):
         return f'uploads/{self.feedback.id}/{filename}'
+
     feedback = django.db.models.ForeignKey(
-        Feedback, related_name='files', on_delete=django.db.models.CASCADE,
+        Feedback,
+        related_name='files',
+        on_delete=django.db.models.CASCADE,
     )
     file = django.db.models.FileField(
         upload_to=upload_to,
