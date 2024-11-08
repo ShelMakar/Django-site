@@ -19,7 +19,9 @@ class FeedbackFormTests(django.test.TestCase):
         self.assertEqual(form.fields['mail'].label, 'Почта')
 
         # Check help texts
-        self.assertEqual(form.fields['name'].help_text, 'Как к вам обращаться?')
+        self.assertEqual(
+            form.fields['name'].help_text, 'Как к вам обращаться?',
+        )
         self.assertEqual(form.fields['mail'].help_text, 'Напишите Вашу почту')
 
     def test_feedback_form_labels_and_help_texts(self):
@@ -29,20 +31,19 @@ class FeedbackFormTests(django.test.TestCase):
         self.assertEqual(form.fields['text'].label, 'Текст обращения')
 
         # Check help texts
-        self.assertEqual(form.fields['text'].help_text, 'Опишите ваше обращение')
+        self.assertEqual(
+            form.fields['text'].help_text, 'Опишите ваше обращение',
+        )
 
     def test_feedback_contact_form_invalid_mail_error(self):
-        form_data = {
-            'name': 'Test User',
-            'mail': 'invalid-email-format'
-        }
+        form_data = {'name': 'Test User', 'mail': 'invalid-email-format'}
         form = feedback.forms.FeedbackContactForm(data=form_data)
 
         self.assertFalse(form.is_valid())
         self.assertIn('mail', form.errors)
         self.assertEqual(
             form.errors['mail'][0],
-            'Введите правильный адрес электронной почты.'
+            'Введите правильный адрес электронной почты.',
         )
 
     def test_feedback_form_missing_text_error(self):
@@ -51,10 +52,7 @@ class FeedbackFormTests(django.test.TestCase):
 
         self.assertFalse(form.is_valid())
         self.assertIn('text', form.errors)
-        self.assertEqual(
-            form.errors['text'][0],
-            'Обязательное поле.'
-        )
+        self.assertEqual(form.errors['text'][0], 'Обязательное поле.')
 
     def test_create_feedback(self):
         item_count = feedback.models.Feedback.objects.count()
