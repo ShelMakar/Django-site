@@ -20,7 +20,8 @@ class FeedbackFormTests(django.test.TestCase):
 
         # Check help texts
         self.assertEqual(
-            form.fields['name'].help_text, 'Как к вам обращаться?',
+            form.fields['name'].help_text,
+            'Как к вам обращаться?',
         )
         self.assertEqual(form.fields['mail'].help_text, 'Напишите Вашу почту')
 
@@ -32,7 +33,8 @@ class FeedbackFormTests(django.test.TestCase):
 
         # Check help texts
         self.assertEqual(
-            form.fields['text'].help_text, 'Опишите ваше обращение',
+            form.fields['text'].help_text,
+            'Опишите ваше обращение',
         )
 
     def test_feedback_contact_form_invalid_mail_error(self):
