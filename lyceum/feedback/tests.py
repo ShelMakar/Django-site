@@ -56,7 +56,6 @@ class FeedbackFormTests(django.test.TestCase):
             item_count,
         )
 
-
     def test_create_feedback(self):
         item_count = feedback.models.Feedback.objects.count()
         form_data = {
