@@ -1,5 +1,5 @@
 [tool.black]
-exclude=['lyceum\feedback\forms.py']
+exclude='lyceum\feedback\forms.py'
 line-length = 79
 skip-string-normalization = true
 
