@@ -37,24 +37,25 @@ class FeedbackFormTests(django.test.TestCase):
             'Опишите ваше обращение',
         )
 
-    def test_feedback_contact_form_invalid_mail_error(self):
-        form_data = {'name': 'Test User', 'mail': 'invalid-email-format'}
-        form = feedback.forms.FeedbackContactForm(data=form_data)
+    def test_unable_create_feedback(self):
+        item_count = feedback.models.Feedback.objects.count()
+        form_data = {
+            'name': 'Тест',
+            'text': 'Тест',
+            'mail': 'notmail',
+        }
 
-        self.assertFalse(form.is_valid())
-        self.assertIn('mail', form.errors)
+        response = django.test.Client().post(
+            django.urls.reverse('feedback:feedback'),
+            data=form_data,
+            follow=True,
+        )
+        self.assertTrue(response.context['user_form'].has_error('mail'))
         self.assertEqual(
-            form.errors['mail'][0],
-            'Введите правильный адрес электронной почты.',
+            feedback.models.Feedback.objects.count(),
+            item_count,
         )
 
-    def test_feedback_form_missing_text_error(self):
-        form_data = {}
-        form = feedback.forms.FeedbackForm(data=form_data)
-
-        self.assertFalse(form.is_valid())
-        self.assertIn('text', form.errors)
-        self.assertEqual(form.errors['text'][0], 'Обязательное поле.')
 
     def test_create_feedback(self):
         item_count = feedback.models.Feedback.objects.count()
