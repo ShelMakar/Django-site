@@ -11,6 +11,50 @@ import feedback.models
 
 
 class FeedbackFormTests(django.test.TestCase):
+    def test_feedback_contact_form_labels_and_help_texts(self):
+        form = feedback.forms.FeedbackContactForm()
+
+        # Check labels
+        self.assertEqual(form.fields['name'].label, 'Имя')
+        self.assertEqual(form.fields['mail'].label, 'Почта')
+
+        # Check help texts
+        self.assertEqual(form.fields['name'].help_text, 'Как к вам обращаться?')
+        self.assertEqual(form.fields['mail'].help_text, 'Напишите Вашу почту')
+
+    def test_feedback_form_labels_and_help_texts(self):
+        form = feedback.forms.FeedbackForm()
+
+        # Check labels
+        self.assertEqual(form.fields['text'].label, 'Текст обращения')
+
+        # Check help texts
+        self.assertEqual(form.fields['text'].help_text, 'Опишите ваше обращение')
+
+    def test_feedback_contact_form_invalid_mail_error(self):
+        form_data = {
+            'name': 'Test User',
+            'mail': 'invalid-email-format'
+        }
+        form = feedback.forms.FeedbackContactForm(data=form_data)
+
+        self.assertFalse(form.is_valid())
+        self.assertIn('mail', form.errors)
+        self.assertEqual(
+            form.errors['mail'][0],
+            'Введите правильный адрес электронной почты.'
+        )
+
+    def test_feedback_form_missing_text_error(self):
+        form_data = {}
+        form = feedback.forms.FeedbackForm(data=form_data)
+
+        self.assertFalse(form.is_valid())
+        self.assertIn('text', form.errors)
+        self.assertEqual(
+            form.errors['text'][0],
+            'Обязательное поле.'
+        )
 
     def test_create_feedback(self):
         item_count = feedback.models.Feedback.objects.count()
@@ -43,7 +87,6 @@ class MultipleFileUploadTest(django.test.TestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        # Set up a temporary directory for MEDIA_ROOT
         cls.test_media_root = tempfile.mkdtemp()
 
     @classmethod
@@ -54,7 +97,6 @@ class MultipleFileUploadTest(django.test.TestCase):
 
     def setUp(self):
         self.client = django.test.Client()
-        # Create a feedback instance for associating with uploaded files
         self.feedback = feedback.models.Feedback.objects.create(
             text='Test feedback',
         )
@@ -65,8 +107,6 @@ class MultipleFileUploadTest(django.test.TestCase):
             'name': 'John Doe',
             'mail': 'johndoe@example.com',
         }
-
-        # Create file upload instances
         file1 = django.core.files.uploadedfile.SimpleUploadedFile(
             'file1.txt',
             b'Content of file 1',
@@ -75,40 +115,28 @@ class MultipleFileUploadTest(django.test.TestCase):
             'file2.txt',
             b'Content of file 2',
         )
-
-        # Combine all form data into a single POST request
         response = self.client.post(
             django.urls.reverse(
                 'feedback:feedback',
-            ),  # Adjust this to match your URL pattern
+            ),
             {**feedback_data, 'file_field': [file1, file2]},
             follow=True,
         )
-
-        # Check response status code and ensure redirect after form submission
         self.assertEqual(response.status_code, 200)
         self.assertRedirects(
             response,
             django.urls.reverse('feedback:feedback'),
         )
-
-        # Verify that the feedback instance was created
         feedback_count = feedback.models.Feedback.objects.count()
         self.assertEqual(
             feedback_count,
             2,
-        )  # Adjust according to initial instances
-
-        # Fetch the newly created feedback instance
+        )
         new_feedback = feedback.models.Feedback.objects.latest('created_on')
-
-        # Verify that files are linked to the new feedback instance
         uploaded_files = feedback.models.FeedbackFile.objects.filter(
             feedback=new_feedback,
         )
         self.assertEqual(uploaded_files.count(), 2)
-
-        # Validate the file paths
         file_names = [file.file.name for file in uploaded_files]
         self.assertIn(f'uploads/{new_feedback.id}/file1.txt', file_names)
         self.assertIn(f'uploads/{new_feedback.id}/file2.txt', file_names)

@@ -1,7 +1,6 @@
 import django.forms
 
 import feedback.models
-import feedback.widgets
 
 
 class MultipleFileInput(django.forms.ClearableFileInput):
@@ -58,7 +57,7 @@ class FeedbackForm(django.forms.ModelForm):
 
     class Meta:
         model = feedback.models.Feedback
-        fields = [feedback.models.Feedback.text.field.name]
+        exclude = ['created_on', 'status']
         labels = {
             feedback.models.Feedback.text.field.name: 'Текст обращения',
         }
