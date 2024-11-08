@@ -27,7 +27,10 @@ admin_and_editor_urls = [
     ),
 ]
 
-urlpatterns = app_urls + admin_and_editor_urls + static_urls
+urlpatterns = app_urls + admin_and_editor_urls
+
+if lyceum.settings.DEBUG:
+    urlpatterns += static_urls
 
 if lyceum.settings.DEBUG:
     import debug_toolbar
