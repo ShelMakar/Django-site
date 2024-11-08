@@ -30,9 +30,6 @@ admin_and_editor_urls = [
 urlpatterns = app_urls + admin_and_editor_urls
 
 if lyceum.settings.DEBUG:
-    urlpatterns += static_urls
-
-if lyceum.settings.DEBUG:
     import debug_toolbar
 
     urlpatterns += [
@@ -40,4 +37,4 @@ if lyceum.settings.DEBUG:
             '__debug__/',
             django.urls.include(debug_toolbar.urls),
         ),
-    ]
+    ] + static_urls

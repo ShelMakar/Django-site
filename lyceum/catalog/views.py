@@ -35,11 +35,13 @@ def item_detail(request, pk):
 
 
 def friday(request):
+    updated_at_field_name = catalog.models.Item.updated_at.field.name
+    order = f'-{updated_at_field_name}'
     template = 'catalog/friday.html'
     title = django.utils.translation.gettext('Пятница')
     items_queryset = catalog.models.Item.objects.published()
     friday_products = items_queryset.filter(updated_at__week_day=6).order_by(
-        f'-{catalog.models.Item.updated_at.field.name}',
+        order,
     )[:5]
     context = {'items': friday_products, 'title': title}
     return django.shortcuts.render(request, template, context)
