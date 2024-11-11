@@ -77,9 +77,7 @@ def activate(request, uidb64, token):
         user,
         token,
     ):
-        time_difference = (
-            django.utils.timezone.now() - user.date_joined
-        )
+        time_difference = django.utils.timezone.now() - user.date_joined
         if time_difference.total_seconds() <= 12 * 60 * 60:
             user.is_active = True
             user.save()
