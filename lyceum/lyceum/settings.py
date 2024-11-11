@@ -28,6 +28,13 @@ ALLOW_REVERSE = ALLOW_REVERSE_ENV in (
     'y',
 )
 
+DEFAULT_USER_IS_ACTIVE = os.getenv('DJANGO_DEFAULT_USER_IS_ACTIVE')
+
+if DEFAULT_USER_IS_ACTIVE is None:
+    DEFAULT_USER_IS_ACTIVE = DEBUG
+else:
+    DEFAULT_USER_IS_ACTIVE = DEFAULT_USER_IS_ACTIVE.lower() in ('true', '1')
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -41,6 +48,7 @@ INSTALLED_APPS = [
     'download.apps.DownloadConfig',
     'feedback.apps.FeedbackConfig',
     'homepage.apps.HomepageConfig',
+    'users.apps.UsersConfig',
     'django_cleanup.apps.CleanupConfig',
     'django_ckeditor_5',
     'sorl.thumbnail',
@@ -117,7 +125,11 @@ AUTH_PASSWORD_VALIDATORS = [
         ),
     },
 ]
+LOGIN_URL = '/auth/login'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/auth/login/'
 
+DEFAULT_USER_IS_ACTIVE = os.getenv('DJANGO_DEFAULT_USER_IS_ACTIVE', 'true')
 LOCALE_PATHS = [BASE_DIR / 'locale']
 
 LANGUAGE_CODE = 'ru'

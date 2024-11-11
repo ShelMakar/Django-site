@@ -1,7 +1,9 @@
 import django.conf
 import django.conf.urls.static
 import django.contrib.admin
+import django.contrib.auth.urls
 import django.urls
+import users.views
 
 import lyceum.settings
 
@@ -19,15 +21,19 @@ static_urls = django.conf.urls.static.static(
     document_root=django.conf.settings.MEDIA_ROOT,
 )
 
-admin_and_editor_urls = [
+admin_urls = [
     django.urls.path('admin/', django.contrib.admin.site.urls, name='admin'),
+    django.urls.path('auth/', django.urls.include('users.urls')),
+    django.urls.path('auth/', django.urls.include(django.contrib.auth.urls)),
+]
+editor_urls = [
     django.urls.path(
         'ckeditor5/',
         django.urls.include('django_ckeditor_5.urls'),
     ),
 ]
 
-urlpatterns = app_urls + admin_and_editor_urls
+urlpatterns = app_urls + admin_urls + editor_urls
 
 if lyceum.settings.DEBUG:
     import debug_toolbar

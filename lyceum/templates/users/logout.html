@@ -1,0 +1,14 @@
+<head>
+    <meta charset="UTF-8">
+    <title>Выход</title>
+</head>
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+{% load i18n %}
+<body>
+    <h1>Выход выполнен</h1>
+    <p>Вы успешно вышли из аккаунта.</p>
+    <a href="{% url 'users:login' %}">Войти снова</a>
+</body>
+{% endblock %}

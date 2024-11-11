@@ -234,4 +234,4 @@ class SecondImages(django.db.models.Model):
         return self.images.name
 
 
-__all__ = ['SecondImages', 'Item', 'MainImage', 'Category', 'Tag', 'corr_name']
+__all__ = []

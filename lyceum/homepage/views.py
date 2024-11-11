@@ -6,18 +6,30 @@ import django.shortcuts
 
 import catalog.models
 import homepage.forms
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
+from users.models import Profile
 
 
 def coffee(request):
+    if request.user.is_authenticated:
+        profile = Profile.objects.get(user=request.user)
+        profile.coffee_count += 1
+        profile.save()
+
     return django.http.HttpResponse(
         'Я чайник',
         status=http.HTTPStatus.IM_A_TEAPOT,
     )
 
 
+@login_required
 def tea1(request):
     template = 'homepage/main.html'
     context = {}
+    profile = Profile.objects.get(user=request.user)
+    profile.coffee_count += 1
+    profile.save()
     return django.shortcuts.render(
         request,
         template,

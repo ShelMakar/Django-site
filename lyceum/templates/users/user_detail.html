@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+{% load i18n %}
+
+<h1>{% trans 'Информация о пользователе' %}</h1>
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+
+<div class="container mt-4">
+    <div class="card mx-auto" style="max-width: 400px;">
+        {% if user.image %}
+            <img src="{{ user.image.url }}" class="card-img-top" alt="Аватарка">
+        {% else %}
+            <img src="{% static 'images/default-avatar.png' %}" class="card-img-top" alt="Аватарка по умолчанию">
+        {% endif %}
+        <div class="card-body">
+            <h5 class="card-title text-center">{{ user.user.username }}</h5>
+            <p class="card-text"><strong>{% trans 'Почта:' %}</strong> {{ user.user.email }}</p>
+            <p class="card-text">
+                <strong>{% trans 'Имя:' %}</strong> 
+                {% if user.user.first_name %}
+                    {{ user.user.first_name }}
+                {% else %}
+                    <span class="text-muted">{% trans 'неуказано' %}</span>
+                {% endif %}
+            </p>
+            <p class="card-text">
+                <strong>{% trans 'Фамилия:' %}</strong> 
+                {% if user.user.last_name %}
+                    {{ user.user.last_name }}
+                {% else %}
+                    <span class="text-muted">{% trans 'неуказано' %}</span>
+                {% endif %}
+            </p>
+            {% if user.birthday %}
+                <p class="card-text"><strong>{% trans 'День рождения:' %}</strong> {{ user.birthday|date:"d-m-Y" }}</p>
+            {% endif %}
+            <p class="card-text"><strong>{% trans 'Количество кофе:' %}</strong> {{ user.coffee_count }}</p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
