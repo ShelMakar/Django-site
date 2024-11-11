@@ -1,7 +1,6 @@
-import django.forms
 import django.contrib.auth.forms
-import django.contrib.auth.models
-from django import forms
+from django.contrib.auth.models import User as User_model
+import django.forms
 
 import users.models
 
@@ -10,23 +9,23 @@ class SignupForm(django.contrib.auth.forms.UserCreationForm):
     email = django.forms.EmailField(max_length=200, help_text='Required')
 
     class Meta:
-        model = django.contrib.auth.models.User
+        model = User_model
         fields = [
-            'username',
-            'email',
+            User_model.username.field.name,
+            User_model.email.field.name,
             'password1',
             'password2',
         ]
 
 
-class ProfileForm(forms.ModelForm):
-    email = forms.EmailField(label="Почта", required=True)
+class ProfileForm(django.forms.ModelForm):
+    email = django.forms.EmailField(label='Почта', required=True)
 
     class Meta:
         model = users.models.Profile
         fields = [
-            'image',
-            'birthday',
+            users.models.Profile.image.field.name,
+            users.models.Profile.birthday.field.name,
         ]
         labels = {
             'image': 'Аватарка',
@@ -34,24 +33,27 @@ class ProfileForm(forms.ModelForm):
         }
 
 
-class UserEditForm(forms.ModelForm):
+class UserEditForm(django.forms.ModelForm):
     class Meta:
-        model = django.contrib.auth.models.User
+        model = User_model
         fields = [
-            'first_name',
-            'email',
-            'last_name',
-         ]
+            User_model.first_name.field.name,
+            User_model.email.field.name,
+            User_model.last_name.field.name,
+        ]
 
 
-class ProfileEditForm(forms.ModelForm):
+class ProfileEditForm(django.forms.ModelForm):
     class Meta:
         model = users.models.Profile
         fields = [
-            'image',
-            'birthday',
+            users.models.Profile.image.field.name,
+            users.models.Profile.birthday.field.name,
         ]
 
 
 class AuthenticationForm(django.contrib.auth.forms.AuthenticationForm):
     pass
+
+
+__all__ = []

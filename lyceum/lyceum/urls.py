@@ -3,7 +3,6 @@ import django.conf.urls.static
 import django.contrib.admin
 import django.contrib.auth.urls
 import django.urls
-import users.views
 
 import lyceum.settings
 

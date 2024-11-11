@@ -65,18 +65,23 @@ class StatusLog(django.db.models.Model):
         on_delete=django.db.models.CASCADE,
         null=True,
         related_name='status_logs',
-
     )
     user = django.db.models.ForeignKey(
         django.conf.settings.AUTH_USER_MODEL,
         on_delete=django.db.models.SET_NULL,
         null=True,
         blank=True,
-        verbose_name='пользователь'
+        verbose_name='пользователь',
     )
-    timestamp = django.db.models.DateTimeField(auto_now_add=True, null=True, verbose_name='время изменения')
-    from_status = django.db.models.CharField(max_length=20, db_column='from', verbose_name='старый статус')
-    to = django.db.models.CharField(max_length=100, verbose_name='новый статус')
+    timestamp = django.db.models.DateTimeField(
+        auto_now_add=True, null=True, verbose_name='время изменения',
+    )
+    from_status = django.db.models.CharField(
+        max_length=20, db_column='from', verbose_name='старый статус',
+    )
+    to = django.db.models.CharField(
+        max_length=100, verbose_name='новый статус',
+    )
 
     class Meta:
         verbose_name = 'лог статуса'

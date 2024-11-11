@@ -1,78 +1,86 @@
-import django.contrib.auth.views
-import django.urls
-import users.forms
-import users.views
+from django.contrib.auth import views as auth_views
+from django.urls import path
 
+from users import views as user_views
+from users.forms import AuthenticationForm
+
+
+reg_uidb64 = '(?P<uidb64>[0-9A-Za-z_]+)'
+reg_token = '(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})'
 
 app_name = 'users'
 
-urlpatterns = [
-    django.urls.path(
+
+auth_patterns = [
+    path(
         'login/',
-        django.contrib.auth.views.LoginView.as_view(
-            form_class=users.forms.AuthenticationForm,
+        auth_views.LoginView.as_view(
+            form_class=AuthenticationForm,
             template_name='users/login.html',
         ),
         name='login',
     ),
-    django.urls.path(
-        "logout/",
-        django.contrib.auth.views.LogoutView.as_view(
-            template_name='users/logout.html'
+    path(
+        'logout/',
+        auth_views.LogoutView.as_view(
+            template_name='users/logout.html',
         ),
         name='logout',
     ),
-    django.urls.path(
-        "password_change/",
-        django.contrib.auth.views.PasswordChangeView.as_view(
-            template_name='users/password_change.html'
+    path(
+        'password_change/',
+        auth_views.PasswordChangeView.as_view(
+            template_name='users/password_change.html',
         ),
-        name="password_change",
+        name='password_change',
     ),
-    django.urls.path(
-        "password_change/done/",
-        django.contrib.auth.views.PasswordChangeDoneView.as_view(
-            template_name='users/password_change_done.html'
+    path(
+        'password_change/done/',
+        auth_views.PasswordChangeDoneView.as_view(
+            template_name='users/password_change_done.html',
         ),
-        name="password_change_done",
+        name='password_change_done',
     ),
-    django.urls.path(
-        "password_reset/",
-        django.contrib.auth.views.PasswordResetView.as_view(
-            template_name='users/password_reset.html'
+    path(
+        'password_reset/',
+        auth_views.PasswordResetView.as_view(
+            template_name='users/password_reset.html',
         ),
-        name="password_reset",
+        name='password_reset',
     ),
-    django.urls.path(
-        "password_reset/done/",
-        django.contrib.auth.views.PasswordResetDoneView.as_view(
+    path(
+        'password_reset/done/',
+        auth_views.PasswordResetDoneView.as_view(
             template_name='users/password_reset_done.html',
         ),
-        name="password_reset_done",
+        name='password_reset_done',
     ),
-    django.urls.path(
-        "reset/<uidb64>/<token>/",
-        django.contrib.auth.views.PasswordResetConfirmView.as_view(
+    path(
+        'reset/<uidb64>/<token>/',
+        auth_views.PasswordResetConfirmView.as_view(
             template_name='users/password_reset_confirm.html',
         ),
-        name="password_reset_confirm",
+        name='password_reset_confirm',
     ),
-    django.urls.path(
-        "reset/done/",
-        django.contrib.auth.views.PasswordResetCompleteView.as_view(
+    path(
+        'reset/done/',
+        auth_views.PasswordResetCompleteView.as_view(
             template_name='users/password_reset_complete.html',
         ),
-        name="password_reset_complete",
+        name='password_reset_complete',
     ),
-    django.urls.path('signup/', users.views.signup, name="signup"),
-    django.urls.path('profile/', users.views.profile_view, name="profile"),
-    django.urls.path('user_list/', users.views.user_list, name="user_list"),
-    django.urls.path(
-        'user_detail/<int:pk>', users.views.user_detail, name="user_detail"
-    ),
-    django.urls.path(
-        'activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/',
-        users.views.activate,
+]
+
+user_patterns = [
+    path('signup/', user_views.signup, name='signup'),
+    path('profile/', user_views.profile_view, name='profile'),
+    path('user_list/', user_views.user_list, name='user_list'),
+    path('user_detail/<int:pk>/', user_views.user_detail, name='user_detail'),
+    path(
+        f'activate/{reg_uidb64}/{reg_token}/',
+        user_views.activate,
         name='activate',
     ),
 ]
+
+urlpatterns = auth_patterns + user_patterns

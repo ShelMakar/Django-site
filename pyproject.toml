@@ -5,5 +5,5 @@ skip-string-normalization = true
 
 [tool.flake8]
 exclude=['*/migrations/']
-application-import-names='about,catalog,core,download,feedback,homepage,lyceum'
+application-import-names='about,catalog,core,download,feedback,homepage,lyceum,users'
 import-order-style='google'
