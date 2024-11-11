@@ -1,5 +1,3 @@
-import datetime
-
 import django.conf
 import django.contrib.auth
 import django.contrib.auth.decorators
@@ -10,6 +8,7 @@ import django.shortcuts
 import django.template.loader
 import django.utils.encoding
 import django.utils.http
+import django.utils.timezone
 
 import users.forms
 import users.models
@@ -79,7 +78,7 @@ def activate(request, uidb64, token):
         token,
     ):
         time_difference = (
-            datetime.datetime.now(datetime.timezone.utc) - user.date_joined
+            django.utils.timezone.now() - user.date_joined
         )
         if time_difference.total_seconds() <= 12 * 60 * 60:
             user.is_active = True
