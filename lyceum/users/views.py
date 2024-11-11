@@ -75,7 +75,8 @@ def activate(request, uidb64, token):
         user = None
 
     if user is not None and users.tokens.activation_token.check_token(
-        user, token,
+        user,
+        token,
     ):
         time_difference = (
             datetime.datetime.now(datetime.timezone.utc) - user.date_joined

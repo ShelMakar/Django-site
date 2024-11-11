@@ -20,7 +20,8 @@ class Profile(django.db.models.Model):
         blank=True,
     )
     coffee_count = django.db.models.IntegerField(
-        default=0, verbose_name='счетчик кофе',
+        default=0,
+        verbose_name='счетчик кофе',
     )
 
     class Meta:

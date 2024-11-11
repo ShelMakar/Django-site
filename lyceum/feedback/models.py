@@ -74,13 +74,18 @@ class StatusLog(django.db.models.Model):
         verbose_name='пользователь',
     )
     timestamp = django.db.models.DateTimeField(
-        auto_now_add=True, null=True, verbose_name='время изменения',
+        auto_now_add=True,
+        null=True,
+        verbose_name='время изменения',
     )
     from_status = django.db.models.CharField(
-        max_length=20, db_column='from', verbose_name='старый статус',
+        max_length=20,
+        db_column='from',
+        verbose_name='старый статус',
     )
     to = django.db.models.CharField(
-        max_length=100, verbose_name='новый статус',
+        max_length=100,
+        verbose_name='новый статус',
     )
 
     class Meta:
