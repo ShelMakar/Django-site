@@ -10,6 +10,7 @@ import django.utils.encoding
 import django.utils.http
 import django.utils.timezone
 
+import lyceum.settings
 import users.forms
 import users.models
 import users.tokens
@@ -22,7 +23,7 @@ def signup(request):
         form = users.forms.SignupForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            user.is_active = False
+            user.is_active = lyceum.settings.DEFAULT_USER_IS_ACTIVE
             user.save()
             if not user.is_active:
                 current_site = django.contrib.sites.shortcuts.get_current_site(

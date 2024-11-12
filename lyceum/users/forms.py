@@ -6,7 +6,7 @@ import users.models
 
 
 class UserChangeForm(django.forms.ModelForm):
-    class Meta:
+    class Meta(django.contrib.auth.forms.UserChangeForm.Meta):
         model = User_model
         fields = [
             'first_name',
