@@ -77,7 +77,7 @@ user_patterns = [
     path('user_list/', user_views.user_list, name='user_list'),
     path('user_detail/<int:pk>/', user_views.user_detail, name='user_detail'),
     path(
-        f'activate/{reg_uidb64}/{reg_token}/',
+        'activate/<uidb64>/<token>/',
         user_views.activate,
         name='activate',
     ),

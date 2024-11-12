@@ -5,10 +5,20 @@ import django.forms
 import users.models
 
 
+class UserChangeForm(django.forms.ModelForm):
+    class Meta:
+        model = User_model
+        fields = [
+            'first_name',
+            'email',
+            'last_name',
+        ]
+
+
 class SignupForm(django.contrib.auth.forms.UserCreationForm):
     email = django.forms.EmailField(max_length=200, help_text='Required')
 
-    class Meta:
+    class Meta(django.contrib.auth.forms.UserCreationForm.Meta):
         model = User_model
         fields = [
             'username',
@@ -33,22 +43,13 @@ class ProfileForm(django.forms.ModelForm):
         }
 
 
-class UserEditForm(django.forms.ModelForm):
-    class Meta:
-        model = User_model
-        fields = [
-            'first_name',
-            'email',
-            'last_name',
-        ]
-
-
 class ProfileEditForm(django.forms.ModelForm):
     class Meta:
         model = users.models.Profile
         fields = [
             users.models.Profile.image.field.name,
             users.models.Profile.birthday.field.name,
+            users.models.Profile.coffee_count.field.name,
         ]
 
 

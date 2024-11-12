@@ -31,10 +31,10 @@ ALLOW_REVERSE = ALLOW_REVERSE_ENV in (
 
 DEFAULT_USER_IS_ACTIVE = False
 
-# if DEBUG:
-#     DEFAULT_USER_IS_ACTIVE = True
-# else:
-#     DEFAULT_USER_IS_ACTIVE = False
+if DEBUG:
+    DEFAULT_USER_IS_ACTIVE = True
+else:
+    DEFAULT_USER_IS_ACTIVE = False
 
 INSTALLED_APPS = [
     'django.contrib.admin',
