@@ -12,9 +12,8 @@ import users.models
 
 def coffee(request):
     if request.user.is_authenticated:
-        profile = users.models.Profile.objects.get(user=request.user)
-        profile.coffee_count += 1
-        profile.save()
+        request.user.profile.coffee_count += 1
+        request.user.profile.save()
 
     return django.http.HttpResponse(
         'Я чайник',
