@@ -10,6 +10,7 @@ class Profile(django.db.models.Model):
         verbose_name='пользователь',
     )
     image = django.db.models.ImageField(
+        upload_to='uploads/',
         verbose_name='аватарка',
         null=True,
         blank=True,
@@ -19,7 +20,7 @@ class Profile(django.db.models.Model):
         null=True,
         blank=True,
     )
-    coffee_count = django.db.models.IntegerField(
+    coffee_count = django.db.models.PositiveIntegerField(
         default=0,
         verbose_name='счетчик кофе',
     )

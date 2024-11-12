@@ -7,6 +7,7 @@ import users.models
 class ProfileAdmin(django.contrib.admin.TabularInline):
     model = users.models.Profile
     can_delete = False
+    readonly_fields = [users.models.Profile.coffee_count.field.name]
 
 
 class UserAdmin(django.contrib.admin.ModelAdmin):
