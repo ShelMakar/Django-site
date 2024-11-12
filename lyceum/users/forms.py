@@ -52,6 +52,10 @@ class ProfileEditForm(django.forms.ModelForm):
             users.models.Profile.coffee_count.field.name,
         ]
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields[users.models.Profile.coffee_count.field.name].disabled = True
+
 
 class AuthenticationForm(django.contrib.auth.forms.AuthenticationForm):
     pass

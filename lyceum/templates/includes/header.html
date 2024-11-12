@@ -46,8 +46,10 @@
 						{% endif %}
 					</li>
 					<li class="nav-item">
-						{% if request.user.is_authenticated %}
-						  <a class="nav-link" href="{% url 'users:profile' %}">{% trans 'Профиль' %}</a>
+						{% if view_name == 'homepage:home' %}
+						  {% if request.user.is_authenticated %}
+						    <a class="nav-link" href="{% url 'users:profile' %}">{% trans 'Профиль' %}</a>
+						  {% endif %}
 						{% endif %}
 					</li>
 					{% endwith %}
