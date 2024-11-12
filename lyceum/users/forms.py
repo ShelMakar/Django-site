@@ -11,8 +11,8 @@ class SignupForm(django.contrib.auth.forms.UserCreationForm):
     class Meta:
         model = User_model
         fields = [
-            User_model.username.field.name,
-            User_model.email.field.name,
+            'username',
+            'email',
             'password1',
             'password2',
         ]
@@ -37,9 +37,9 @@ class UserEditForm(django.forms.ModelForm):
     class Meta:
         model = User_model
         fields = [
-            User_model.first_name.field.name,
-            User_model.email.field.name,
-            User_model.last_name.field.name,
+            'first_name',
+            'email',
+            'last_name',
         ]
 
 

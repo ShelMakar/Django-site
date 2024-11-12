@@ -28,12 +28,13 @@ ALLOW_REVERSE = ALLOW_REVERSE_ENV in (
     'y',
 )
 
-DEFAULT_USER_IS_ACTIVE = os.getenv('DJANGO_DEFAULT_USER_IS_ACTIVE')
 
-if DEFAULT_USER_IS_ACTIVE is None:
-    DEFAULT_USER_IS_ACTIVE = DEBUG
-else:
-    DEFAULT_USER_IS_ACTIVE = DEFAULT_USER_IS_ACTIVE.lower() in ('true', '1')
+DEFAULT_USER_IS_ACTIVE = False
+
+# if DEBUG:
+#     DEFAULT_USER_IS_ACTIVE = True
+# else:
+#     DEFAULT_USER_IS_ACTIVE = False
 
 INSTALLED_APPS = [
     'django.contrib.admin',

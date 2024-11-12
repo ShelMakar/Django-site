@@ -21,41 +21,24 @@ def signup(request):
         form = users.forms.SignupForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            user.is_active = django.conf.settings.DEFAULT_USER_IS_ACTIVE
+            user.is_active = False
             user.save()
-            if not user.is_active:
-                current_site = django.contrib.sites.shortcuts.get_current_site(
-                    request,
-                )
-                mail_subject = 'Activation link has been sent to your email id'
-                message = django.template.loader.render_to_string(
-                    'users/acc_active_email.html',
-                    {
-                        'user': user,
-                        'domain': current_site.domain,
-                        'uid': django.utils.http.urlsafe_base64_encode(
-                            django.utils.encoding.force_bytes(user.pk),
-                        ),
-                        'token': users.tokens.activation_token.make_token(
-                            user,
-                        ),
-                    },
-                )
-                to_email = form.cleaned_data.get('email')
-                email = django.core.mail.EmailMessage(
-                    mail_subject,
-                    message,
-                    to=[to_email],
-                )
-                email.send()
-                return django.http.HttpResponse(
-                    'Please confirm your email address '
-                    'to complete the registration',
-                )
-
-            return django.http.HttpResponse(
-                'Your account is active. You can now log in.',
+            # to get the domain of the current site
+            current_site = django.contrib.sites.shortcuts.get_current_site(request)
+            mail_subject = 'Activation link has been sent to your email id'
+            message = django.template.loader.render_to_string('users/acc_active_email.html', {
+                'user': user,
+                'domain': current_site.domain,
+                'uid': django.utils.http.urlsafe_base64_encode(django.utils.encoding.force_bytes(user.pk)),
+                'token': users.tokens.activation_token.make_token(user),
+            })
+            to_email = form.cleaned_data.get('email')
+            email = django.core.mail.EmailMessage(
+                mail_subject, message, to=[to_email]
             )
+            email.send()
+            return django.http.HttpResponse('Please confirm your email address to complete the registration')
+
     else:
         form = users.forms.SignupForm()
 
@@ -91,7 +74,6 @@ def activate(request, uidb64, token):
         )
 
     return django.http.HttpResponse('Activation link is invalid!')
-
 
 def user_list(request):
     template = 'users/user_list.html'
