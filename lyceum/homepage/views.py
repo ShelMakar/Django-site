@@ -7,7 +7,6 @@ import django.shortcuts
 
 import catalog.models
 import homepage.forms
-import users.models
 
 
 def coffee(request):
