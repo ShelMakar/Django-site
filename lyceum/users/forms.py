@@ -53,8 +53,11 @@ class ProfileEditForm(django.forms.ModelForm):
         ]
 
     def __init__(self, *args, **kwargs):
+        coffee = users.models.Profile.coffee_count.field.name
         super().__init__(*args, **kwargs)
-        self.fields[users.models.Profile.coffee_count.field.name].disabled = True
+        self.fields[coffee].disabled = (
+            True,
+        )
 
 
 class AuthenticationForm(django.contrib.auth.forms.AuthenticationForm):
