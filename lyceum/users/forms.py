@@ -75,7 +75,8 @@ class AuthenticationForm(django.contrib.auth.forms.AuthenticationForm):
 
         if ogg and password:
             self.user_cache = django.contrib.auth.authenticate(
-                username=ogg.username, password=password,
+                username=ogg.username,
+                password=password,
             )
             if self.user_cache is None:
                 raise django.forms.ValidationError(

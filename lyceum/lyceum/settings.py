@@ -65,7 +65,6 @@ MIDDLEWARE = [
     'django.middleware.locale.LocaleMiddleware',
     'lyceum.middleware.Middleware',
     'users.middleware.ProxyUserMiddleware',
-
 ]
 
 if DEBUG:

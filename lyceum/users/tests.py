@@ -16,7 +16,8 @@ class UserAuthorizationTests(TestCase):
 
     def test_login_with_valid_credentials(self):
         login_successful = self.client.login(
-            username='testuser', password='password123',
+            username='testuser',
+            password='password123',
         )
         self.assertTrue(
             login_successful,
@@ -26,7 +27,8 @@ class UserAuthorizationTests(TestCase):
 
     def test_login_with_invalid_credentials(self):
         login_successful = self.client.login(
-            username='testuser', password='wrongpassword',
+            username='testuser',
+            password='wrongpassword',
         )
         self.assertFalse(
             login_successful,
@@ -42,14 +44,14 @@ class UserAuthorizationTests(TestCase):
             response,
             reverse('users:login'),
             msg_prefix='Пользователь должен быть перенаправлен'
-                       ' на страницу входа в систему после выхода из системы',
+            ' на страницу входа в систему после выхода из системы',
         )
         response = self.client.get(reverse('homepage:home'))
         self.assertNotContains(
             response,
             'Logout',
             msg_prefix='Ссылка для выхода из системы не должна'
-                       ' отображаться для вышедших из системы пользователей',
+            ' отображаться для вышедших из системы пользователей',
         )
 
 
