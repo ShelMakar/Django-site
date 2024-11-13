@@ -5,13 +5,10 @@
 {% block content %}
     <h1>Edit your account</h1>
     <p>You can edit your account using the following form:</p>
-    <form action="." method="post" enctype="multipart/form-data">
-        {{ user_form.as_p }}
-        {{ profile_form.as_p }}
-        {% csrf_token %}
-        <p><input type="submit" value="Save changes"></p>
-    </form>
+    {% include "includes/forms.html" with form=user_form %}
+    {% include "includes/forms.html" with form=profile_form submit_label="Save changes" %}
+    
     <a href="{% url 'homepage:coffee' %}">
-    <button>Выпить кофе</button>
+        <button>Выпить кофе</button>
     </a>
 {% endblock %}
