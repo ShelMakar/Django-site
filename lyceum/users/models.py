@@ -44,7 +44,7 @@ class Profile(django.db.models.Model):
         verbose_name_plural = 'профили'
 
 
-class UserManager(django.db.models.Manager):
+class UserManager(django.contrib.auth.models.UserManager):
 
     @staticmethod
     def normalize_email(email):
