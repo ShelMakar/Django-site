@@ -6,7 +6,7 @@ import django.urls
 import django.utils.encoding
 import django.utils.http
 import django.utils.timezone
-import parametrize
+import parametrize.parametrize
 
 import users.models
 import users.tokens
@@ -133,7 +133,7 @@ class EmailBackendTestCase(django.test.TestCase):
         self.assertEqual(len(django.core.mail.outbox), 1)
         self.assertIn('Активация аккаунта', django.core.mail.outbox[0].subject)
         self.assertIn(
-            'Замечена подозрительная активность аккаунта',
+            'Аккаунт заблокирован.',
             django.core.mail.outbox[0].body,
         )
 
