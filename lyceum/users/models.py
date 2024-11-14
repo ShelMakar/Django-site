@@ -48,6 +48,7 @@ class UserManager(django.db.models.Manager):
 
     @staticmethod
     def normalize_email(email):
+        email = super(UserManager, UserManager).normalize_email(email)
         email = email.lower()
         local, domain = email.split('@')
         if domain == 'gmail.com':
