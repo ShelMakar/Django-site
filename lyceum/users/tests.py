@@ -111,7 +111,8 @@ class EmailBackendTestCase(django.test.TestCase):
             is_active=True,
         )
         self.profile = users.models.Profile.objects.create(
-            user=self.user, attempts_count=0,
+            user=self.user,
+            attempts_count=0,
         )
 
         django.conf.settings.MAX_AUTH_ATTEMPTS = 3
@@ -148,7 +149,8 @@ class EmailBackendTestCase(django.test.TestCase):
         )
         token = users.tokens.activation_token.make_token(self.user)
         activation_url = django.urls.reverse(
-            'users:activate', args=[uid, token],
+            'users:activate',
+            args=[uid, token],
         )
 
         response = self.client.get(activation_url)
@@ -158,7 +160,8 @@ class EmailBackendTestCase(django.test.TestCase):
         self.assertTrue(self.user.is_active)
         self.assertEqual(response.status_code, 200)
         self.assertIn(
-            'Thank you for your email confirmation', response.content.decode(),
+            'Thank you for your email confirmation',
+            response.content.decode(),
         )
 
 
