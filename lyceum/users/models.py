@@ -1,6 +1,8 @@
+import re
 import sys
 
 import django.contrib.auth.models
+import django.core.exceptions
 import django.db
 
 
@@ -32,6 +34,10 @@ class Profile(django.db.models.Model):
         default=0,
         verbose_name='счетчик кофе',
     )
+    attempts_count = django.db.models.PositiveIntegerField(
+        default=0,
+        verbose_name='счетчик попыток',
+    )
 
     class Meta:
         verbose_name = 'профиль'
@@ -39,14 +45,30 @@ class Profile(django.db.models.Model):
 
 
 class UserManager(django.db.models.Manager):
-    def get_queryset(self):
-        return super().get_queryset().select_related('profile')
+
+    @staticmethod
+    def normalize_email(email):
+        email = email.lower()
+        local, domain = email.split('@')
+        if domain == 'gmail.com':
+            local = re.sub(r'\+\w*', '', local)
+            local = re.sub(r'\.', '', local)
+
+        if domain in ['ya.ru', 'yandex.ru']:
+            domain = 'yandex.ru'
+            local = re.sub(r'\.', '-', local)
+
+        return f'{local}@{domain}'
 
     def active(self):
         return self.get_queryset().get(is_active=True)
 
-    def by_mail(self, email):
-        return self.get_queryset().get(email=email)
+    def by_mail(self, login):
+        if '@' in login:
+            normalized_email = UserManager.normalize_email(login)
+            return self.active().get(email=normalized_email)
+
+        return self.active().get(username=login)
 
 
 class User(django.contrib.auth.models.User):
@@ -56,6 +78,21 @@ class User(django.contrib.auth.models.User):
         proxy = True
         verbose_name = 'пользователь'
         verbose_name_plural = 'пользователи'
+
+    def clean(self):
+        self.normalized_email = UserManager.normalize_email(self.email)
+        if (
+            type(self)
+            .objects.filter(normalized_email=self.normalized_email)
+            .exists()
+        ):
+            raise django.core.exceptions.ValidationError(
+                'Пользователь с таким email уже существует.',
+            )
+
+    def save(self, *args, **kwargs):
+        self.normalized_email = UserManager.normalize_email(self.email)
+        return super().save(*args, **kwargs)
 
 
 __all__ = []

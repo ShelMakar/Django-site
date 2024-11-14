@@ -34,6 +34,12 @@ DEFAULT_USER_IS_ACTIVE = (
     == 'True'
 )
 
+AUTHENTICATION_BACKENDS = [
+    'users.email_normalized.EmailBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+MAX_AUTH_ATTEMPTS = os.getenv('DJANGO_MAX_AUTH_ATTEMPTS', 0)
 
 INSTALLED_APPS = [
     'django.contrib.admin',

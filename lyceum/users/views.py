@@ -10,7 +10,6 @@ import django.utils.encoding
 import django.utils.http
 import django.utils.timezone
 
-import lyceum.settings
 import users.forms
 import users.models
 import users.tokens
@@ -23,7 +22,8 @@ def signup(request):
         form = users.forms.SignupForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            user.is_active = lyceum.settings.DEFAULT_USER_IS_ACTIVE
+            user.email = users.models.UserManager.normalize_email(user.email)
+            user.is_active = False
             user.save()
             if not user.is_active:
                 current_site = django.contrib.sites.shortcuts.get_current_site(
@@ -79,14 +79,24 @@ def activate(request, uidb64, token):
         user,
         token,
     ):
-        time_difference = django.utils.timezone.now() - user.date_joined
-        if time_difference.total_seconds() <= 12 * 60 * 60:
-            user.is_active = True
-            user.save()
-            return django.http.HttpResponse(
-                'Thank you for your email confirmation.'
-                ' Now you can login your account.',
-            )
+        if user.last_login is not None:
+            time_difference = django.utils.timezone.now() - user.last_login
+            if time_difference.total_seconds() <= 24 * 60 * 60 * 7:
+                user.is_active = True
+                user.save()
+                return django.http.HttpResponse(
+                    'Thank you for your email confirmation.'
+                    ' Now you can login your account.',
+                )
+        elif user.date_joined is not None:
+            time_difference = django.utils.timezone.now() - user.date_joined
+            if time_difference.total_seconds() <= 12 * 60 * 60:
+                user.is_active = True
+                user.save()
+                return django.http.HttpResponse(
+                    'Thank you for your email confirmation.'
+                    ' Now you can login your account.',
+                )
 
         return django.http.HttpResponse(
             'Activation link has expired. Please sign up again.',
