@@ -52,7 +52,7 @@ class UserManager(django.db.models.Manager):
         email = email.lower()
         local, domain = email.split('@')
         if domain == 'gmail.com':
-            local = re.sub(r'\+\w*', '', local)
+            local = re.sub(r'\+[^@]*', '', local)
             local = re.sub(r'\.', '', local)
 
         if domain in ['ya.ru', 'yandex.ru']:
