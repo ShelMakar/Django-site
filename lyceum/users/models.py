@@ -61,7 +61,11 @@ class UserManager(django.db.models.Manager):
         return f'{local}@{domain}'
 
     def active(self):
-        return self.get_queryset().filter(is_active=True).select_related('profile')
+        return (
+            self.get_queryset()
+            .filter(is_active=True)
+            .select_related('profile')
+        )
 
     def by_mail(self, login):
         if '@' in login:
