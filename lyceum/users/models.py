@@ -45,9 +45,8 @@ class Profile(django.db.models.Model):
 
 class UserManager(django.contrib.auth.models.UserManager):
 
-    @staticmethod
-    def normalize_email(email, **kwargs):
-        email = super(UserManager, UserManager).normalize_email(email)
+    def normalize_email(self, email, **kwargs):
+        email = super().normalize_email(email)
         email = email.lower()
         local, domain = email.split('@', 1)
         if '+' in local:

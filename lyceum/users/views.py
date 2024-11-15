@@ -23,7 +23,7 @@ def signup(request):
         form = users.forms.SignupForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            user.email = users.models.UserManager.normalize_email(user.email)
+            user.email = users.models.User.objects.normalize_email(user.email)
             user.is_active = lyceum.settings.DEFAULT_USER_IS_ACTIVE
             user.save()
             if not user.is_active:
