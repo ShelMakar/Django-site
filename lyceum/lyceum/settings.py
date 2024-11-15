@@ -35,7 +35,7 @@ DEFAULT_USER_IS_ACTIVE = (
 )
 
 AUTHENTICATION_BACKENDS = [
-    'users.backend.EmailBackend',
+    'users.backends.EmailBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
 

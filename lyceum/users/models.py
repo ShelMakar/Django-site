@@ -1,4 +1,3 @@
-import re
 import sys
 
 import django.contrib.auth.models
@@ -47,17 +46,19 @@ class Profile(django.db.models.Model):
 class UserManager(django.contrib.auth.models.UserManager):
 
     @staticmethod
-    def normalize_email(email):
+    def normalize_email(email, **kwargs):
         email = super(UserManager, UserManager).normalize_email(email)
         email = email.lower()
-        local, domain = email.split('@')
+        local, domain = email.split('@', 1)
+        if '+' in local:
+            local = local[:local.index('+')]
+
         if domain == 'gmail.com':
-            local = re.sub(r'\+[^@]*', '', local)
-            local = re.sub(r'\.', '', local)
+            local = local.replace('.', '')
 
         if domain in ['ya.ru', 'yandex.ru']:
             domain = 'yandex.ru'
-            local = re.sub(r'\.', '-', local)
+            local = '-'.join(local.split('.'))
 
         return f'{local}@{domain}'
 
@@ -69,11 +70,8 @@ class UserManager(django.contrib.auth.models.UserManager):
         )
 
     def by_mail(self, login):
-        if '@' in login:
-            normalized_email = UserManager.normalize_email(login)
-            return self.active().get(email=normalized_email)
-
-        return self.active().get(username=login)
+        normalized_email = UserManager.normalize_email(login)
+        return self.active().get(email=normalized_email)
 
 
 class User(django.contrib.auth.models.User):
