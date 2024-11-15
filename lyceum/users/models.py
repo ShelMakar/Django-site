@@ -51,7 +51,7 @@ class UserManager(django.contrib.auth.models.UserManager):
         email = email.lower()
         local, domain = email.split('@', 1)
         if '+' in local:
-            local = local[:local.index('+')]
+            local = local[: local.index('+')]
 
         if domain == 'gmail.com':
             local = local.replace('.', '')
