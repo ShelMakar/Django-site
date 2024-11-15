@@ -82,7 +82,7 @@ class User(django.contrib.auth.models.User):
         verbose_name_plural = 'пользователи'
 
     def clean(self):
-        self.normalized_email = UserManager.normalize_email(self.email)
+        self.normalized_email = User.objects.normalize_email(self.email)
         if (
             type(self)
             .objects.filter(normalized_email=self.normalized_email)
@@ -93,7 +93,7 @@ class User(django.contrib.auth.models.User):
             )
 
     def save(self, *args, **kwargs):
-        self.normalized_email = UserManager.normalize_email(self.email)
+        self.normalized_email = User.objects.normalize_email(self.email)
         return super().save(*args, **kwargs)
 
 
