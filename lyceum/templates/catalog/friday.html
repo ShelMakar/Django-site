@@ -1,2 +1,8 @@
-<h1>Пятница</h1>
-{% include 'catalog/item_list.html' %}
+{% extends 'base.html' %}
+{% block content %}
+{% load i18n %}
+<h1>
+	{% trans 'Пятница' %}
+</h1>
+{% include 'includes/items.html' %}
+{% endblock %}

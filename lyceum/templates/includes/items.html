@@ -1,0 +1,10 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+<div class="row">
+	{% for item in items %}
+	  {% ifchanged item.category.name %}
+	    <h3>{{ item.category.name }}</h3>
+	  {% endifchanged %}
+	  {% include 'includes/item_card.html' %}
+	{% endfor %}
+</div>

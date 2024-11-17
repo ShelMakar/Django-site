@@ -1,2 +1,8 @@
-<h1>Новинки</h1>
-{% include 'catalog/item_list.html' %}
+{% extends 'base.html' %}
+{% block content %}
+{% load i18n %}
+<h1>
+	{% trans 'Новинки' %}
+</h1>
+{% include 'includes/items.html' %}
+{% endblock %}

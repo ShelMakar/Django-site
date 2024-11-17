@@ -21,7 +21,7 @@
                 {% if user.user.first_name %}
                     {{ user.user.first_name }}
                 {% else %}
-                    <span class="text-muted">{% trans 'неуказано' %}</span>
+                    <span class="text-muted">{% trans 'не указано' %}</span>
                 {% endif %}
             </p>
             <p class="card-text">
@@ -29,7 +29,7 @@
                 {% if user.user.last_name %}
                     {{ user.user.last_name }}
                 {% else %}
-                    <span class="text-muted">{% trans 'неуказано' %}</span>
+                    <span class="text-muted">{% trans 'не указано' %}</span>
                 {% endif %}
             </p>
             {% if user.birthday %}

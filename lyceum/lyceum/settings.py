@@ -139,16 +139,15 @@ LOGOUT_REDIRECT_URL = '/auth/login/'
 DEFAULT_USER_IS_ACTIVE = os.getenv('DJANGO_DEFAULT_USER_IS_ACTIVE', 'true')
 LOCALE_PATHS = [BASE_DIR / 'locale']
 
-LANGUAGE_CODE = 'ru'
+LANGUAGE_CODE = 'en'
 LANGUAGES = [
     ('ru', django.utils.translation.gettext_lazy('Русский')),
     ('en', django.utils.translation.gettext_lazy('Английский')),
 ]
 
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
+USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = 'static/'

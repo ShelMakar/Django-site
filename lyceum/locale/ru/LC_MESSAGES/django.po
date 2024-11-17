@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-01 03:11+0300\n"
+"POT-Creation-Date: 2024-11-16 12:27+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,42 +19,86 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
-#: .\catalog\views.py:46
+#: .\catalog\views.py:41 .\templates\includes\header.html:28
 msgid "Пятница"
-msgstr "Пятница"
+msgstr ""
 
-#: .\catalog\views.py:64
+#: .\catalog\views.py:59 .\templates\includes\header.html:24
 msgid "Непроверенное"
-msgstr "Непроверенное"
+msgstr ""
 
-#: .\catalog\views.py:78
+#: .\catalog\views.py:66 .\templates\includes\header.html:32
 msgid "Новинки"
-msgstr "Новинки"
+msgstr ""
 
-#: .\lyceum\settings.py:124
+#: .\lyceum\settings.py:144
 msgid "Русский"
-msgstr "Русский"
+msgstr ""
 
-#: .\lyceum\settings.py:125
+#: .\lyceum\settings.py:145
 msgid "Английский"
-msgstr "Английский"
+msgstr ""
 
-#: .\templates\about\about.html:6 .\templates\includes\header.html:24
+#: .\templates\about\about.html:6 .\templates\includes\header.html:36
 msgid "О проекте"
-msgstr "О проекте"
+msgstr ""
 
 #: .\templates\catalog\item.html:7
 msgid "Товар"
-msgstr "Товар"
+msgstr ""
 
 #: .\templates\catalog\item_list.html:6 .\templates\includes\header.html:20
 msgid "Список товаров"
-msgstr "Список товаров"
+msgstr ""
 
 #: .\templates\homepage\main.html:6
 msgid "Главная"
-msgstr "Главная"
+msgstr ""
 
 #: .\templates\includes\header.html:16
 msgid "На главную"
-msgstr "На главную"
+msgstr ""
+
+#: .\templates\includes\header.html:40
+msgid "Админка"
+msgstr ""
+
+#: .\templates\includes\header.html:45
+msgid "Форма"
+msgstr ""
+
+#: .\templates\includes\header.html:51
+msgid "Профиль"
+msgstr ""
+
+#: .\templates\users\user_detail.html:6
+msgid "Информация о пользователе"
+msgstr ""
+
+#: .\templates\users\user_detail.html:18
+msgid "Почта:"
+msgstr ""
+
+#: .\templates\users\user_detail.html:20
+msgid "Имя:"
+msgstr ""
+
+#: .\templates\users\user_detail.html:24 .\templates\users\user_detail.html:32
+msgid "не указано"
+msgstr ""
+
+#: .\templates\users\user_detail.html:28
+msgid "Фамилия:"
+msgstr ""
+
+#: .\templates\users\user_detail.html:36 .\templates\users\user_list.html:22
+msgid "День рождения:"
+msgstr ""
+
+#: .\templates\users\user_detail.html:38
+msgid "Количество кофе:"
+msgstr ""
+
+#: .\templates\users\user_list.html:6
+msgid "Список пользователей"
+msgstr ""

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-01 03:11+0300\n"
+"POT-Creation-Date: 2024-11-16 12:26+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,27 +17,27 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-#: .\catalog\views.py:46
+#: .\catalog\views.py:41 .\templates\includes\header.html:28
 msgid "Пятница"
 msgstr "Friday"
 
-#: .\catalog\views.py:64
+#: .\catalog\views.py:59 .\templates\includes\header.html:24
 msgid "Непроверенное"
 msgstr "Unverified"
 
-#: .\catalog\views.py:78
+#: .\catalog\views.py:66 .\templates\includes\header.html:32
 msgid "Новинки"
 msgstr "New"
 
-#: .\lyceum\settings.py:124
+#: .\lyceum\settings.py:144
 msgid "Русский"
 msgstr "Russian"
 
-#: .\lyceum\settings.py:125
+#: .\lyceum\settings.py:145
 msgid "Английский"
 msgstr "English"
 
-#: .\templates\about\about.html:6 .\templates\includes\header.html:24
+#: .\templates\about\about.html:6 .\templates\includes\header.html:36
 msgid "О проекте"
 msgstr "About"
 
@@ -55,4 +55,48 @@ msgstr "Main"
 
 #: .\templates\includes\header.html:16
 msgid "На главную"
-msgstr "On Main"
+msgstr "On main"
+
+#: .\templates\includes\header.html:40
+msgid "Админка"
+msgstr "Admin"
+
+#: .\templates\includes\header.html:45
+msgid "Форма"
+msgstr "Form"
+
+#: .\templates\includes\header.html:51
+msgid "Профиль"
+msgstr "Profile"
+
+#: .\templates\users\user_detail.html:6
+msgid "Информация о пользователе"
+msgstr "About user"
+
+#: .\templates\users\user_detail.html:18
+msgid "Почта:"
+msgstr "Mail:"
+
+#: .\templates\users\user_detail.html:20
+msgid "Имя:"
+msgstr "Name:"
+
+#: .\templates\users\user_detail.html:24 .\templates\users\user_detail.html:32
+msgid "не указано"
+msgstr "not specified"
+
+#: .\templates\users\user_detail.html:28
+msgid "Фамилия:"
+msgstr "Surname:"
+
+#: .\templates\users\user_detail.html:36 .\templates\users\user_list.html:22
+msgid "День рождения:"
+msgstr "Birthday:"
+
+#: .\templates\users\user_detail.html:38
+msgid "Количество кофе:"
+msgstr "Coffee count:"
+
+#: .\templates\users\user_list.html:6
+msgid "Список пользователей"
+msgstr "Users list"
