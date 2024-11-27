@@ -41,6 +41,34 @@ pip install -r requirements/dev.txt
 pip install -r requirements/test.txt
 ```
 
+# Миграции базы данных
+> ##### Этот проект использует систему миграций для управления изменениями в структуре базы данных.
+
+* ## Перейдем в каталог "lyceum"
+    ```bash
+    cd lyceum
+    ```
+
+* ## Для того чтобы создать миграцию
+    ```bash
+    python manage.py makemigrations
+    ```
+
+* ## Для того чтобы применить миграцию
+    ```bash
+    python manage.py migrate
+    ```
+* ## Для того чтобы загрузить фикстуры:
+    ```python
+    python manage.py loaddata fixtures/data.json
+    ```
+
+* ## Для того чтобы выгрузить фикстуры:
+    ```python
+    python -X utf8 manage.py dumpdata --indent 2 catalog > fixtures/data.json
+    ```
+
+
 ## Для корректного запуска скопируйте файл config.env
 ```bash
 cp config.env .env
@@ -53,7 +81,6 @@ ER.jpg
 ```
 ## Для тестирования проекта используйте зависимости, установленные ранее и команду
 ```bash
-cd about
 python3 manage.py test
 ```
 ## В случае необходимости корректируйте и добавляйте свои тесты
