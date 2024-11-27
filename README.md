@@ -10,17 +10,35 @@ git clone <copied URL>
 ``` 
 
 ## Для корректной работы скачайте Python версии 3.12
-## Активация виртуального окружения
-```bash
-python3 -m venv venv
-source venv/bin/activate
-```
+* ## **Создайте виртуальную среду**
+    ##### Windows
+
+    ```cmd
+    python -m venv venv
+    ```
+    ##### Linux
+
+    ```cmd
+    sudo apt install python3-venv
+    ```
+
+* ## Активируем окружение коммандой
+    ##### Windows
+
+    ```cmd
+    venv\scripts\activate
+    ```
+    ###### Linux
+
+    ```cmd
+    source ./venv/bin/activate
+    ```
 
 ## Установка зависимостей из папки 'requirements'
 ```bash
-pip install -r prod.txt
-pip install -r dev.txt
-pip install -r test.txt
+pip install -r requirements/prod.txt
+pip install -r requirements/dev.txt
+pip install -r requirements/test.txt
 ```
 
 ## Для корректного запуска скопируйте файл config.env
