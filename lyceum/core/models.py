@@ -1,64 +1,20 @@
-import re
+__all__ = []
 
-import django.core.exceptions
 import django.db
 
 
-def corr_name(value):
-    value = re.sub(r'[^\w]', '', value).lower()
-    target = 'abekmhopctyx'
-    replacer = 'абекмнорстух'
-    for i in range(len(value)):
-        if value[i] in target:
-            j = target.find(value[i])
-            value = value.replace(target[j], replacer[j])
-
-    return value
-
-
-class AbstractModel(django.db.models.Model):
-    is_published = django.db.models.BooleanField(
-        default=True,
-        verbose_name='опубликовано',
-        help_text='статус `опубликовано`',
-    )
+class AbstactModel(django.db.models.Model):
     name = django.db.models.CharField(
         max_length=150,
+        verbose_name="название",
+        help_text="Ввеедите название",
         unique=True,
-        verbose_name='название',
-        help_text='напишите сюда название',
+    )
+    is_published = django.db.models.BooleanField(
+        default=True,
+        verbose_name="опубликовано",
+        help_text="Выберите, опубликовать ли товар?",
     )
 
     class Meta:
         abstract = True
-
-
-class NormName(AbstractModel):
-    normalized_name = django.db.models.CharField(
-        max_length=150,
-        unique=False,
-        editable=False,
-        verbose_name='нормализованное имя',
-    )
-
-    class Meta:
-        abstract = True
-
-    def clean(self):
-        self.normalized_name = corr_name(self.name)
-        if (
-            type(self)
-            .objects.filter(normalized_name=self.normalized_name)
-            .exclude(id=self.id)
-            .exists()
-        ):
-            raise django.core.exceptions.ValidationError(
-                'Такой элемент существует',
-            )
-
-    def save(self, *args, **kwargs):
-        self.normalized_name = corr_name(self.name)
-        return super().save(*args, **kwargs)
-
-
-__all__ = ['NormName', 'AbstractModel', 'corr_name']

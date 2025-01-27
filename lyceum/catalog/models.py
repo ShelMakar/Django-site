@@ -1,237 +1,288 @@
+__all__ = [
+    "Item",
+    "Gallery",
+    "Tag",
+    "Category",
+]
+
 import re
 
 import django.core.exceptions
 import django.core.validators
-import django.db
-import django.templatetags.static
+import django.db.models
 import django.utils.safestring
-import django_ckeditor_5.fields
-import django_cleanup.cleanup
 import sorl.thumbnail
+import tinymce.models
+import transliterate
 
 import catalog.validators
 import core.models
 
-alphanumeric = django.core.validators.RegexValidator(r'^[a-zA-Z0-9_-]*$')
 
-
-def corr_name(value):
-    value = re.sub(r'[^\w]', '', value).lower()
-    target = 'abekmhopctyx'
-    replacer = 'авекмнорстух'
-    for i in range(len(value)):
-        if value[i] in target:
-            j = target.find(value[i])
-            value = value.replace(target[j], replacer[j])
-
-    return value
-
-
-class Tag(core.models.NormName):
-    slug = django.db.models.CharField(
-        unique=True,
-        max_length=200,
-        validators=[alphanumeric],
-        verbose_name='слаг',
-        help_text='напишите слаг',
+def normalize_string(normalize_string):
+    normalize_string = re.sub(
+        r"[0-9!#$%&'()*+,\-./:;<=>?@_~^№]",
+        "",
+        "".join(normalize_string.lower().strip().split()),
     )
 
-    class Meta:
-        verbose_name = 'тег'
-        verbose_name_plural = 'теги'
-
-    def __str__(self):
-        return self.name[:15]
-
-
-class Category(core.models.NormName):
-    slug = django.db.models.CharField(
-        unique=True,
-        max_length=200,
-        validators=[alphanumeric],
-        verbose_name='слаг',
-        help_text='напишите слаг',
-    )
-    weight = django.db.models.IntegerField(
-        default=100,
-        validators=[
-            django.core.validators.MaxValueValidator(32767),
-            django.core.validators.MinValueValidator(1),
-        ],
-        verbose_name='вес',
-        help_text='выбирите вес',
-    )
-
-    class Meta:
-        verbose_name = 'категория'
-        verbose_name_plural = 'категории'
-
-    def __str__(self):
-        return self.name[:15]
+    return transliterate.translit(normalize_string, "ru")
 
 
 class ItemManager(django.db.models.Manager):
-    def published(self):
-        queryset = self.get_queryset().filter(
-            is_published=True,
-            category__is_published=True,
-        )
-        queryset = queryset.select_related('category', 'main_image')
-        queryset = queryset.prefetch_related(
-            django.db.models.Prefetch(
-                'tags',
-                queryset=Tag.objects.filter(is_published=True).only('name'),
-            ),
-        )
-        return queryset.only(
-            'id',
-            'name',
-            'text',
-            'category__name',
-            'main_image__item',
-        ).order_by('category__name', 'name')
-
     def on_main(self):
-        queryset = self.get_queryset().filter(
+        queryset = self.get_queryset()
+
+        filtered_queryset = queryset.filter(
             is_on_main=True,
             is_published=True,
             category__is_published=True,
         )
-        queryset = queryset.select_related('category', 'main_image')
-        queryset = queryset.prefetch_related(
+
+        ordered_queryset = filtered_queryset.order_by("category__name")
+
+        related_queryset = ordered_queryset.select_related("category")
+
+        prefetch_queryset = related_queryset.prefetch_related(
             django.db.models.Prefetch(
-                'tags',
-                queryset=Tag.objects.filter(is_published=True).only('name'),
+                "tags",
+                queryset=catalog.models.Tag.objects.filter(
+                    is_published=True,
+                ).only("name"),
             ),
         )
-        return queryset.only(
-            'name',
-            'text',
-            'id',
-            'category__name',
-            'main_image__item',
-        ).order_by('name')
+
+        return prefetch_queryset.only(
+            "id",
+            "name",
+            "text",
+            "category__name",
+        )
+
+    def published(self):
+        queryset = self.get_queryset()
+
+        filtered_queryset = queryset.filter(
+            is_published=True,
+            category__is_published=True,
+        )
+
+        ordered_queryset = filtered_queryset.order_by("category__name")
+
+        related_queryset = ordered_queryset.select_related("category")
+
+        prefetch_queryset = related_queryset.prefetch_related(
+            django.db.models.Prefetch(
+                "tags",
+                queryset=catalog.models.Tag.objects.filter(
+                    is_published=True,
+                ).only("name"),
+            ),
+        )
+
+        return prefetch_queryset.only(
+            "id",
+            "name",
+            "text",
+            "category__name",
+        )
 
 
-class Item(core.models.AbstractModel):
+class Item(core.models.AbstactModel):
     objects = ItemManager()
 
-    is_on_main = django.db.models.BooleanField(
-        default=False,
-        verbose_name='на главной',
-    )
-    category = django.db.models.ForeignKey(
-        'category',
-        on_delete=django.db.models.CASCADE,
-        related_name='category',
-        related_query_name='category',
-    )
-    text = django_ckeditor_5.fields.CKEditor5Field(
+    text = tinymce.models.HTMLField(
+        verbose_name="текст",
         validators=[
-            catalog.validators.CustomValidator('превосходно', 'роскошно'),
+            catalog.validators.CustomValidator("превосходно", "роскошно"),
         ],
-        verbose_name='текст',
-        help_text='напишите необходимый текст',
+        help_text="Введите текст",
     )
-    tags = django.db.models.ManyToManyField(Tag, verbose_name='теги')
 
-    created_at = django.db.models.DateTimeField(auto_now_add=True, null=True)
-    updated_at = django.db.models.DateTimeField(auto_now=True, null=True)
+    category = django.db.models.ForeignKey(
+        "Category",
+        on_delete=django.db.models.CASCADE,
+        help_text="Выберите категорию",
+        verbose_name="категория",
+    )
+
+    tags = django.db.models.ManyToManyField(
+        "Tag",
+        help_text="Выберите тег/теги",
+        verbose_name="теги",
+    )
+
+    MainImage = django.db.models.ImageField(
+        upload_to="uploads/",
+        verbose_name="главное изображение",
+        blank=True,
+        null=True,
+    )
+
+    is_on_main = django.db.models.BooleanField(default=False)
+
+    created_at = django.db.models.DateTimeField(
+        auto_now_add=True,
+        editable=False,
+        null=True,
+    )
+
+    updated_at = django.db.models.DateTimeField(
+        auto_now=True,
+        editable=False,
+        null=True,
+    )
+
+    def get_image_x300(self):
+
+        return sorl.thumbnail.get_thumbnail(
+            self.main_image,
+            "300x300",
+            crop="center",
+            quality=100,
+        )
+
+    def image_tmb(self):
+        if self.main_image:
+            return django.utils.safestring.mark_safe(
+                f"<img src='{self.main_image}' width='50'>",
+            )
+
+        return "Нет изображения"
+
+    image_tmb.short_description = "превью"
+    image_tmb.allow_tags = True
+
+    list_display = "image_tmb"
 
     class Meta:
-        verbose_name = 'товар'
-        verbose_name_plural = 'товары'
+        verbose_name = "товар"
+        verbose_name_plural = "товары"
 
     def __str__(self):
         return self.name[:15]
 
 
-@django_cleanup.cleanup.select
-class MainImage(django.db.models.Model):
-    item = django.db.models.ImageField(
-        ('Будет приведено к размеру 300х300'),
-        upload_to='uploads/',
-        help_text='Выберите изображение',
+class Gallery(django.db.models.Model):
+    image = django.db.models.ImageField(
+        upload_to="uploads/",
+        verbose_name="галлерея изоображений",
     )
-    image = django.db.models.OneToOneField(
-        Item,
+    product = django.db.models.ForeignKey(
+        "Item",
         on_delete=django.db.models.CASCADE,
-        verbose_name='главное изображение',
-        null=True,
+        verbose_name="товар",
+        related_name="galleries",
+        related_query_name="gallery",
         blank=True,
-        related_name='main_image',
-        related_query_name='main_image',
     )
+
+    def get_image_x300(self):
+        return sorl.thumbnail.get_thumbnail(
+            self.image,
+            "300x300",
+            crop="center",
+            quality=100,
+            format="PNG",
+        )
 
     def image_tmb(self):
         if self.image:
             return django.utils.safestring.mark_safe(
-                f'<img src="{self.image}" width="50">',
+                f"<img src='{self.image}' width='50'>",
             )
 
-        return 'image not found'
+        return "Нет изображения"
 
-    def get_image_300x300(self):
-        return sorl.thumbnail.get_thumbnail(
-            self.image,
-            '300',
-            crop='center',
-            quality=51,
-        )
-
-    class Meta:
-        verbose_name = 'превью'
-        verbose_name_plural = 'изображения'
-
-    image_tmb.short_description = 'первью'
+    image_tmb.short_description = "превью"
     image_tmb.allow_tags = True
 
+    list_display = "image_tmb"
+
     def __str__(self):
-        return self.image.name
+        return self.product.name[:15]
 
 
-@django_cleanup.cleanup.select
-class SecondImages(django.db.models.Model):
-    image = django.db.models.ImageField(
-        ('Будет приведено к размеру 300х300'),
-        upload_to='uploads/',
-        help_text='Выберите изображение',
+class Tag(core.models.AbstactModel):
+    slug = django.db.models.SlugField(
+        max_length=200,
+        verbose_name="слаг",
+        unique=True,
+        help_text="Напишите slug",
+        validators=[
+            django.core.validators.RegexValidator(regex=r"^[a-zA-Z0-9_-]+$"),
+        ],
     )
-    images = django.db.models.ForeignKey(
-        Item,
-        on_delete=django.db.models.CASCADE,
-        verbose_name='изображения',
-        null=True,
+
+    normalform = django.db.models.CharField(
+        editable=False,
+        max_length=200,
         blank=True,
-        related_name='images',
-        related_query_name='images',
     )
 
-    def image_tmb(self):
-        if self.images:
-            return django.utils.safestring.mark_safe(
-                f'<img src="{self.images.url}" width="50">',
+    def clean(self):
+        self.normalform = normalize_string(self.name)
+        if Tag.objects.filter(normalform=self.normalform).exists():
+            raise django.core.exceptions.ValidationError(
+                "Похожий тег уже присутствует в базе данных",
             )
 
-        return 'image not found'
+    def save(self, *args, **kwargs):
+        if not self.normalform:
+            self.normalform = normalize_string(self.name)
 
-    def get_image_300x300(self):
-        return sorl.thumbnail.get_thumbnail(
-            self.images,
-            '300',
-            crop='center',
-            quality=51,
-        )
+        super().save(*args, **kwargs)
 
     class Meta:
-        verbose_name = 'изображение'
-        verbose_name_plural = 'изображения'
-
-    image_tmb.short_description = 'первью'
-    image_tmb.allow_tags = True
+        verbose_name = "тег"
+        verbose_name_plural = "теги"
 
     def __str__(self):
-        return self.images.name
+        return self.name[:15]
 
 
-__all__ = []
+class Category(core.models.AbstactModel):
+    slug = django.db.models.SlugField(
+        max_length=200,
+        verbose_name="слаг",
+        unique=True,
+        help_text="Напишите slug",
+        validators=[
+            django.core.validators.RegexValidator(regex=r"^[a-zA-Z0-9_-]+$"),
+        ],
+    )
+    weight = django.db.models.IntegerField(
+        verbose_name="вес",
+        validators=[
+            django.core.validators.MinValueValidator(1),
+            django.core.validators.MaxValueValidator(32767),
+        ],
+        help_text="Введите вес",
+        default=100,
+    )
+
+    normalform = django.db.models.CharField(
+        editable=False,
+        max_length=200,
+        blank=True,
+    )
+
+    def clean(self):
+        self.normalform = normalize_string(self.name)
+        if Category.objects.filter(normalform=self.normalform).exists():
+            raise django.core.exceptions.ValidationError(
+                "Похожая категория уже присутствует в базе данных",
+            )
+
+    def save(self, *args, **kwargs):
+        if not self.normalform:
+            self.normalform = normalize_string(self.name)
+
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name[:15]
+
+    class Meta:
+        verbose_name = "категория"
+        verbose_name_plural = "категории"

@@ -1,11 +1,15 @@
-import django.http
-import django.shortcuts
+__all__ = []
+
+import django.views.generic
 
 
-def description(request):
-    template = 'about/about.html'
-    context = {}
-    return django.shortcuts.render(request, template, context)
+class DescriptionView(
+    django.views.generic.TemplateView,
+):
+    template_name = "about/about.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "О нас"
 
-__all__ = ['description']
+        return context
